@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>assets</name>
+			<type>2</type>
+			<location>/home/beanu/resource/git/workspace/EvilDragon/EvilDragon-android/assets</location>
+		</link>
+	</linkedResources>
 </projectDescription>
