@@ -18,7 +18,7 @@
 		<link>
 			<name>assets</name>
 			<type>2</type>
-			<location>/home/beanu/resource/git/workspace/EvilDragon/EvilDragon-android/assets</location>
+			<locationURI>PARENT-1-PROJECT_LOC/EvilDragon-android/assets</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -34,25 +34,29 @@ public class UIStage extends C2dStage {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				listener.talkListener();
+				
+				EvilDragon.talk.recognition(new RecongBack() {
+
+					@Override
+					public void end(String text) {
+						Gdx.app.debug("debug", text);
+						if (Gdx.app.getType() == Application.ApplicationType.Android) {
+							mLabelText.setText(text);
+						}
+
+					}
+				});
 			}
 
 		});
 
-		LabelStyle labelStyle = new LabelStyle(Engine.getDefaultFont(), new Color(1, 1, 1, 1));
-		mLabelText = new Label("", labelStyle);
-
-		EvilDragon.talk.recognition(new RecongBack() {
-
-			@Override
-			public void end(String text) {
-				if (Gdx.app.getType() == Application.ApplicationType.Android) {
-					mLabelText.setText(text);
-				}
-
-			}
-		});
+		LabelStyle labelStyle = new LabelStyle(Engine.getDefaultFont(), new Color(0, 1, 1, 1));
+		mLabelText = new Label("this is text", labelStyle);
+		mLabelText.setFontScale(2f);
+		mLabelText.setPosition(100, 300);
 
 		this.addActor(mButtonTalk);
+		this.addActor(mLabelText);
 	}
 
 	public static interface UIListener {

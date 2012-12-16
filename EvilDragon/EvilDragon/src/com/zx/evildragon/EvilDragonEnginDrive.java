@@ -12,7 +12,7 @@ public class EvilDragonEnginDrive implements EngineDrive {
 	public EngineOptions onSetupEngine() {
 		final EngineOptions opt = new EngineOptions(new String[] {"data/"}, 480, 800);
 		opt.autoResume = true;
-		opt.configFile="com.zx.evildragon.xml";
+		opt.configFile="com.zx.evildragon";
 		return opt;
 	}
 

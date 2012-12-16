@@ -6,8 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
+import com.badlogic.gdx.Gdx;
 import com.iflytek.speech.RecognizerResult;
 import com.iflytek.speech.SpeechError;
 import com.iflytek.speech.SynthesizerPlayer;
@@ -32,7 +35,10 @@ public class Talk implements ITalk {
 	AsyncHttpResponseHandler responseHandler;
 
 	RecongBack callback;
+	
+	Context context;
 	public Talk(Context context) {
+		this.context=context;
 		client = new SimSimiRestClientUsage();
 
 		// 转写回调监听器.
@@ -44,11 +50,14 @@ public class Talk implements ITalk {
 					text += results.get(i).text;
 				}
 				// 会话结束回调接口.
+				
 			}
 
 			public void onEnd(SpeechError error) {
+				
 				// error为null表示会话成功,可在此处理text结果,error不为null,表示发生错误,对话框停留在错误页面
 				if (null == error) {
+					Gdx.app.debug("debug", "问："+text);
 					client.userRequest(text, responseHandler);
 				} else {
 					// TODO error
@@ -113,6 +122,7 @@ public class Talk implements ITalk {
 					String res = response.getString("response");
 					player.playText(res, "tts_buffer_time=2000", synbgListener);
 					callback.end(res);
+					Log.d("debug", "答："+res);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -123,10 +133,19 @@ public class Talk implements ITalk {
 	}
 
 	@Override
-	public void recognition(RecongBack callback) {
-		this.callback=callback;
-		isrDialog.show();
-		isrDialog.hide();
+	public void recognition(final RecongBack callback) {
+		((Activity)context).runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Talk.this.callback=callback;
+				text="";
+				isrDialog.show();
+//				isrDialog.hide();
+				
+			}
+		});
+
 	}
 
 }
