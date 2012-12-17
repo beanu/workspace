@@ -4,6 +4,8 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
 import info.u250.c2d.engine.resources.AliasResourceManager;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.zx.evildragon.scenes.SceneMain;
 
 public class EvilDragonEnginDrive implements EngineDrive {
@@ -12,7 +14,7 @@ public class EvilDragonEnginDrive implements EngineDrive {
 	public EngineOptions onSetupEngine() {
 		final EngineOptions opt = new EngineOptions(new String[] {"data/"}, 480, 800);
 		opt.autoResume = true;
-		opt.configFile="com.zx.evildragon";
+		opt.configFile="com.zx.evildragon";//TODO
 		return opt;
 	}
 
@@ -20,6 +22,11 @@ public class EvilDragonEnginDrive implements EngineDrive {
 	public void onLoadedResourcesCompleted() {
 		Engine.getPreferences().putBoolean("com.zx.evildragon.showhelp", false);
 		Engine.getPreferences().flush();
+
+//		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal("data\fangli.ttf"));
+//		EvilDragon.font = gen.generateFont(16);
+//		gen.dispose();
+//		EvilDragon.font.setColor(1f, 0f, 0f, 1f);
 		
 		SceneMain main = new SceneMain();
 		Engine.setMainScene(main);

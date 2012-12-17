@@ -40,7 +40,7 @@ public class UIStage extends C2dStage {
 
 		});
 
-		LabelStyle labelStyle = new LabelStyle(Engine.getDefaultFont(), new Color(0, 1, 1, 1));
+		LabelStyle labelStyle = new LabelStyle(EvilDragon.font, new Color(0, 1, 1, 1));
 		mLabelText = new Label("this is text", labelStyle);
 		mLabelText.setPosition(300, 100);
 

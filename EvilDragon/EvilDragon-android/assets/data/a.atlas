@@ -5,35 +5,56 @@ filter: Nearest,Nearest
 repeat: none
 bg
   rotate: false
-  xy: 0, 58
+  xy: 0, 176
   size: 480, 800
   orig: 480, 800
   offset: 0, 0
   index: -1
 dragon1
   rotate: false
-  xy: 482, 488
-  size: 400, 370
-  orig: 400, 370
+  xy: 482, 513
+  size: 261, 463
+  orig: 261, 463
   offset: 0, 0
   index: -1
 dragon2
   rotate: false
-  xy: 482, 116
-  size: 400, 370
-  orig: 400, 370
+  xy: 745, 513
+  size: 261, 463
+  orig: 261, 463
+  offset: 0, 0
+  index: -1
+eye1
+  rotate: false
+  xy: 0, 88
+  size: 178, 86
+  orig: 178, 86
+  offset: 0, 0
+  index: -1
+eye2
+  rotate: false
+  xy: 482, 425
+  size: 178, 86
+  orig: 178, 86
+  offset: 0, 0
+  index: -1
+eye3
+  rotate: false
+  xy: 0, 0
+  size: 178, 86
+  orig: 178, 86
   offset: 0, 0
   index: -1
 button_darkblue
   rotate: false
-  xy: 0, 0
+  xy: 180, 118
   size: 159, 56
   orig: 159, 56
   offset: 0, 0
   index: -1
 button_green
   rotate: false
-  xy: 482, 58
+  xy: 482, 367
   size: 159, 56
   orig: 159, 56
   offset: 0, 0
