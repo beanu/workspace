@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.zx.evildragon.EvilDragon;
-import com.zx.evildragon.net.ITalk.RecongBack;
+import com.zx.evildragon.net.ITalk.RecognitionCallBack;
 
 public class UIStage extends C2dStage {
 
@@ -23,6 +23,7 @@ public class UIStage extends C2dStage {
 	private final Label mLabelText;
 
 	private final UIListener listener;
+	private final RecognitionCallBack callback;
 
 	public UIStage(UIListener uilistener) {
 		this.listener = uilistener;
@@ -34,18 +35,7 @@ public class UIStage extends C2dStage {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				listener.talkListener();
-				
-				EvilDragon.talk.recognition(new RecongBack() {
-
-					@Override
-					public void end(String text) {
-						Gdx.app.debug("debug", text);
-						if (Gdx.app.getType() == Application.ApplicationType.Android) {
-							mLabelText.setText(text);
-						}
-
-					}
-				});
+				EvilDragon.talk.recognition(callback);
 			}
 
 		});
@@ -54,6 +44,29 @@ public class UIStage extends C2dStage {
 		mLabelText = new Label("this is text", labelStyle);
 		mLabelText.setFontScale(2f);
 		mLabelText.setPosition(100, 300);
+
+		callback = new RecognitionCallBack() {
+			@Override
+			public void before() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void begin() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void end(String text) {
+				Gdx.app.debug("debug", "return:" + text);
+				if (Gdx.app.getType() == Application.ApplicationType.Android) {
+					mLabelText.setText(text);
+				}
+			}
+
+		};
 
 		this.addActor(mButtonTalk);
 		this.addActor(mLabelText);

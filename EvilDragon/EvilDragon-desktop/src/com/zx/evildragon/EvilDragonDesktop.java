@@ -1,7 +1,9 @@
 package com.zx.evildragon;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.zx.evildragon.net.ITalk;
 
 public class EvilDragonDesktop {
 
@@ -15,8 +17,15 @@ public class EvilDragonDesktop {
 		cfg.width = 480;
 		cfg.height = 800;
 
-		new LwjglApplication(new EvilDragon(), cfg)
-				.setLogLevel(LwjglApplication.LOG_DEBUG);
+		ITalk talk = new ITalk() {
+
+			@Override
+			public void recognition(RecognitionCallBack callback) {
+				Gdx.app.debug("debug", "ITalk");
+			}
+		};
+
+		new LwjglApplication(new EvilDragon(talk), cfg).setLogLevel(LwjglApplication.LOG_DEBUG);
 
 	}
 

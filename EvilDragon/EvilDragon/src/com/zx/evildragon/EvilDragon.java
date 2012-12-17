@@ -9,8 +9,8 @@ public class EvilDragon extends Engine {
 
 	public static ITalk talk;
 	
-	public EvilDragon(ITalk talkListener){
-		EvilDragon.talk=talkListener;
+	public EvilDragon(ITalk talk){
+		EvilDragon.talk=talk;
 	}
 	
 	@Override
