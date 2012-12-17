@@ -22,11 +22,11 @@ public class UIStage extends C2dStage {
 	private final Button mButtonTalk;
 	private final Label mLabelText;
 
-	private final UIListener listener;
+	private final UIEventListener listener;
 	private final RecognitionCallBack callback;
 
-	public UIStage(UIListener uilistener) {
-		this.listener = uilistener;
+	public UIStage(UIEventListener uiEventListener) {
+		this.listener = uiEventListener;
 
 		atlas = Engine.resource("atlas");
 		mButtonTalk = new Button(new TextureRegionDrawable(atlas.findRegion("button_darkblue")), new TextureRegionDrawable(atlas.findRegion("button_green")));
@@ -34,7 +34,7 @@ public class UIStage extends C2dStage {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				listener.talkListener();
+				listener.performTalkEvent();
 				EvilDragon.talk.recognition(callback);
 			}
 
@@ -42,8 +42,7 @@ public class UIStage extends C2dStage {
 
 		LabelStyle labelStyle = new LabelStyle(Engine.getDefaultFont(), new Color(0, 1, 1, 1));
 		mLabelText = new Label("this is text", labelStyle);
-		mLabelText.setFontScale(2f);
-		mLabelText.setPosition(100, 300);
+		mLabelText.setPosition(300, 100);
 
 		callback = new RecognitionCallBack() {
 			@Override
@@ -72,7 +71,7 @@ public class UIStage extends C2dStage {
 		this.addActor(mLabelText);
 	}
 
-	public static interface UIListener {
-		public void talkListener();
+	public static interface UIEventListener {
+		public void performTalkEvent();
 	}
 }

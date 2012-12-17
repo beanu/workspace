@@ -9,9 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.zx.evildragon.sprite.Dragon;
 import com.zx.evildragon.stage.UIStage;
-import com.zx.evildragon.stage.UIStage.UIListener;
+import com.zx.evildragon.stage.UIStage.UIEventListener;
 
-public class SceneMain implements Scene, UIListener {
+public class SceneMain implements Scene, UIEventListener {
 
 	private final Image bg;
 	private final Dragon dragon;
@@ -25,7 +25,7 @@ public class SceneMain implements Scene, UIListener {
 
 		bg = new Image(atlas.findRegion("bg"));
 		dragon = new Dragon();
-		dragon.sprite.setScale(0.7f);
+		dragon.sprite.setPosition((Engine.getWidth()-dragon.sprite.getWidth())/2, 150);
 
 		ui = new UIStage(this);
 	}
@@ -62,8 +62,9 @@ public class SceneMain implements Scene, UIListener {
 	}
 
 	@Override
-	public void talkListener() {
+	public void performTalkEvent() {
 		Gdx.app.debug("debug", "talk");
+
 	}
 
 }
