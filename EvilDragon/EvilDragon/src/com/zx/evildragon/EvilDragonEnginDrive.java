@@ -4,8 +4,6 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
 import info.u250.c2d.engine.resources.AliasResourceManager;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.zx.evildragon.scenes.SceneMain;
 
 public class EvilDragonEnginDrive implements EngineDrive {
@@ -23,7 +21,7 @@ public class EvilDragonEnginDrive implements EngineDrive {
 		Engine.getPreferences().putBoolean("com.zx.evildragon.showhelp", false);
 		Engine.getPreferences().flush();
 
-//		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal("data\fangli.ttf"));
+//		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal("data/fangli.ttf"));
 //		EvilDragon.font = gen.generateFont(16);
 //		gen.dispose();
 //		EvilDragon.font.setColor(1f, 0f, 0f, 1f);
@@ -42,6 +40,7 @@ public class EvilDragonEnginDrive implements EngineDrive {
 	@Override
 	public void onResourcesRegister(AliasResourceManager<String> reg) {
 		reg.textureAtlas("atlas", "data/a.atlas");
+		reg.font("font", "data/yh.fnt");
 //		reg.texture("CircleTexture", "data/circle.png");
 //		reg.texture("BoxTexture", "data/box.png");
 
