@@ -161,7 +161,7 @@ public class Talk implements ITalk {
 					});
 				}
 				
-				isrDialog.hide();
+//				isrDialog.hide();
 				
 			}
 		});

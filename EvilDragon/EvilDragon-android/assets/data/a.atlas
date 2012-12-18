@@ -5,57 +5,134 @@ filter: Nearest,Nearest
 repeat: none
 bg
   rotate: false
-  xy: 0, 176
+  xy: 0, 222
   size: 480, 800
   orig: 480, 800
   offset: 0, 0
   index: -1
-dragon1
+dragonhead1
   rotate: false
-  xy: 482, 513
-  size: 261, 463
-  orig: 261, 463
+  xy: 482, 762
+  size: 228, 260
+  orig: 228, 260
   offset: 0, 0
   index: -1
-dragon2
+dragonhead2
   rotate: false
-  xy: 745, 513
-  size: 261, 463
-  orig: 261, 463
+  xy: 482, 518
+  size: 228, 242
+  orig: 228, 242
   offset: 0, 0
   index: -1
-eye1
+dragonbody1
   rotate: false
-  xy: 0, 88
+  xy: 0, 22
+  size: 182, 198
+  orig: 182, 198
+  offset: 0, 0
+  index: -1
+wait1
+  rotate: false
+  xy: 712, 949
+  size: 238, 73
+  orig: 238, 73
+  offset: 0, 0
+  index: -1
+wait2
+  rotate: false
+  xy: 184, 147
+  size: 238, 73
+  orig: 238, 73
+  offset: 0, 0
+  index: -1
+wait3
+  rotate: false
+  xy: 712, 874
+  size: 238, 73
+  orig: 238, 73
+  offset: 0, 0
+  index: -1
+wave1
+  rotate: false
+  xy: 184, 72
+  size: 238, 73
+  orig: 238, 73
+  offset: 0, 0
+  index: -1
+wave2
+  rotate: false
+  xy: 712, 799
+  size: 238, 73
+  orig: 238, 73
+  offset: 0, 0
+  index: -1
+wave3
+  rotate: false
+  xy: 712, 724
+  size: 238, 73
+  orig: 238, 73
+  offset: 0, 0
+  index: -1
+wave4
+  rotate: false
+  xy: 712, 649
+  size: 238, 73
+  orig: 238, 73
+  offset: 0, 0
+  index: -1
+wave5
+  rotate: false
+  xy: 712, 574
+  size: 238, 73
+  orig: 238, 73
+  offset: 0, 0
+  index: -1
+dragoneye1
+  rotate: false
+  xy: 482, 430
   size: 178, 86
   orig: 178, 86
   offset: 0, 0
   index: -1
-eye2
+dragoneye2
   rotate: false
-  xy: 482, 425
+  xy: 482, 342
   size: 178, 86
   orig: 178, 86
   offset: 0, 0
   index: -1
-eye3
+dragoneye3
   rotate: false
-  xy: 0, 0
+  xy: 482, 254
   size: 178, 86
   orig: 178, 86
   offset: 0, 0
   index: -1
-button_darkblue
+voicetalking_button01
   rotate: false
-  xy: 180, 118
-  size: 159, 56
-  orig: 159, 56
+  xy: 424, 111
+  size: 108, 109
+  orig: 108, 109
   offset: 0, 0
   index: -1
-button_green
+voicetalking_button02
   rotate: false
-  xy: 482, 367
-  size: 159, 56
-  orig: 159, 56
+  xy: 424, 0
+  size: 108, 109
+  orig: 108, 109
+  offset: 0, 0
+  index: -1
+voicetalking_over01
+  rotate: false
+  xy: 534, 143
+  size: 108, 109
+  orig: 108, 109
+  offset: 0, 0
+  index: -1
+voicetalking_over02
+  rotate: false
+  xy: 534, 32
+  size: 108, 109
+  orig: 108, 109
   offset: 0, 0
   index: -1

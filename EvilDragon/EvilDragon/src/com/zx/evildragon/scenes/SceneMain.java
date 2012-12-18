@@ -25,7 +25,7 @@ public class SceneMain implements Scene, UIEventListener {
 
 		bg = new Image(atlas.findRegion("bg"));
 		dragon = new Dragon();
-		dragon.sprite.setPosition((Engine.getWidth()-dragon.sprite.getWidth())/2, 150);
+		dragon.setPosition((Engine.getWidth()-dragon.body.getWidth())/2, 150);
 
 		ui = new UIStage(this);
 	}
@@ -39,7 +39,7 @@ public class SceneMain implements Scene, UIEventListener {
 	public void render(float delta) {
 		Engine.getSpriteBatch().begin();
 		bg.draw(Engine.getSpriteBatch(), 1);
-		dragon.sprite.render(delta);
+		dragon.render(delta);
 		Engine.getSpriteBatch().end();
 		ui.draw();
 	}
@@ -64,7 +64,7 @@ public class SceneMain implements Scene, UIEventListener {
 	@Override
 	public void performTalkEvent() {
 		Gdx.app.debug("debug", "talk");
-
+		dragon.listen();
 	}
 
 }
