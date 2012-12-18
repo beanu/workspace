@@ -2,15 +2,16 @@ package com.zx.evildragon;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.TextView;
 
-import com.badlogic.gdx.Gdx;
 import com.iflytek.speech.RecognizerResult;
 import com.iflytek.speech.SpeechError;
 import com.iflytek.speech.SynthesizerPlayer;
@@ -34,8 +35,7 @@ public class Talk implements ITalk {
 	SimSimiRestClientUsage client;
 	AsyncHttpResponseHandler responseHandler;
 
-	RecognitionCallBack callback;
-
+	CallBack callback;
 	Context context;
 
 	public Talk(Context context) {
@@ -51,17 +51,15 @@ public class Talk implements ITalk {
 					text += results.get(i).text;
 				}
 				// 会话结束回调接口.
-
 			}
 
 			public void onEnd(SpeechError error) {
-
 				// error为null表示会话成功,可在此处理text结果,error不为null,表示发生错误,对话框停留在错误页面
 				if (null == error) {
-					Gdx.app.debug("debug", "问：" + text);
+					callback.recognitionEnd(text,true);
 					client.userRequest(text, responseHandler);
 				} else {
-					// TODO error
+					callback.recognitionEnd(error.getErrorDesc(),false);
 				}
 			}
 		};
@@ -84,12 +82,16 @@ public class Talk implements ITalk {
 
 			@Override
 			public void onEnd(SpeechError arg0) {
-				// TODO Auto-generated method stub
+				if(arg0==null){
+					callback.synthesizerEnd(true);
+				}else{
+					callback.synthesizerEnd(false);
+				}
 			}
 
 			@Override
 			public void onPlayBegin() {
-				// 播放开始回调,表示已获得第一块缓冲区音频开始播放
+				callback.synthesizerBegin();
 			}
 
 			@Override
@@ -113,18 +115,15 @@ public class Talk implements ITalk {
 		};
 
 		responseHandler = new JsonHttpResponseHandler() {
-			@Override
-			public void onSuccess(JSONArray timeline) {
-			}
 
 			@Override
 			public void onSuccess(JSONObject response) {
 				try {
 					String res = response.getString("response");
 					player.playText(res, "tts_buffer_time=2000", synbgListener);
-					callback.end(res);
-					Log.d("debug", "答：" + res);
+					callback.response(res,true);
 				} catch (JSONException e) {
+					callback.response("",false);
 					e.printStackTrace();
 				}
 				super.onSuccess(response);
@@ -134,7 +133,7 @@ public class Talk implements ITalk {
 	}
 
 	@Override
-	public void recognition(final RecognitionCallBack callback) {
+	public void recognition(final CallBack callback) {
 		((Activity) context).runOnUiThread(new Runnable() {
 
 			@Override
@@ -142,8 +141,28 @@ public class Talk implements ITalk {
 				Talk.this.callback = callback;
 				text = "";
 				isrDialog.show();
-				// isrDialog.hide();
-
+				
+				//fuck xunfei api
+				View view=isrDialog.getWindow().getDecorView().getRootView();
+				View title=view.findViewWithTag("title");
+				if(title instanceof TextView){
+					((TextView)title).addTextChangedListener(new TextWatcher() {
+						
+						@Override
+						public void onTextChanged(CharSequence s, int start, int before, int count) {
+							callback.recognitionBegin();
+						}
+						
+						@Override
+						public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+						
+						@Override
+						public void afterTextChanged(Editable s) {}
+					});
+				}
+				
+				isrDialog.hide();
+				
 			}
 		});
 

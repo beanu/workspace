@@ -1,6 +1,5 @@
 package com.zx.evildragon;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.zx.evildragon.net.ITalk;
@@ -20,8 +19,12 @@ public class EvilDragonDesktop {
 		ITalk talk = new ITalk() {
 
 			@Override
-			public void recognition(RecognitionCallBack callback) {
-				Gdx.app.debug("debug", "ITalk");
+			public void recognition(CallBack callback) {
+				callback.recognitionBegin();
+				callback.recognitionEnd("问", true);
+				callback.response("答", true);
+				callback.synthesizerBegin();
+				callback.synthesizerEnd(true);
 			}
 		};
 
