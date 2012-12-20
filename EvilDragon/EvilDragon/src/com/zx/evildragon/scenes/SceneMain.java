@@ -1,20 +1,20 @@
 package com.zx.evildragon.scenes;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.c2d.engine.Scene;
+import info.u250.c2d.engine.SceneStage;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.zx.evildragon.sprite.Dragon;
+import com.zx.evildragon.sprite.DragonCat;
 import com.zx.evildragon.stage.UIStage;
 import com.zx.evildragon.stage.UIStage.UIEventListener;
 
-public class SceneMain implements Scene, UIEventListener {
+public class SceneMain extends SceneStage implements UIEventListener {
 
 	private final Image bg;
-	private final Dragon dragon;
+	private final DragonCat dragonCat;
 	private final TextureAtlas atlas;
 
 	// UI
@@ -24,23 +24,23 @@ public class SceneMain implements Scene, UIEventListener {
 		atlas = Engine.resource("atlas");
 
 		bg = new Image(atlas.findRegion("bg"));
-		dragon = new Dragon();
-		dragon.setPosition((Engine.getWidth()-dragon.body.getWidth())/2, 150);
+		dragonCat = new DragonCat();
+		dragonCat.setPosition((Engine.getWidth() - dragonCat.getWidth()) / 2, 150);
 
+		this.addActor(bg);
+		this.addActor(dragonCat);
 		ui = new UIStage(this);
 	}
 
 	@Override
 	public void update(float delta) {
+		super.update(delta);
 		ui.act(delta);
 	}
 
 	@Override
 	public void render(float delta) {
-		Engine.getSpriteBatch().begin();
-		bg.draw(Engine.getSpriteBatch(), 1);
-		dragon.render(delta);
-		Engine.getSpriteBatch().end();
+		super.render(delta);
 		ui.draw();
 	}
 
@@ -64,7 +64,19 @@ public class SceneMain implements Scene, UIEventListener {
 	@Override
 	public void performTalkEvent() {
 		Gdx.app.debug("debug", "talk");
-		dragon.listen();
+		dragonCat.listen();
+	}
+
+	@Override
+	public void performThink() {
+		Gdx.app.debug("debug", "think");
+		dragonCat.think();
+	}
+
+	@Override
+	public void performSpeak() {
+		Gdx.app.debug("debug", "speak");
+		dragonCat.speak();
 	}
 
 }

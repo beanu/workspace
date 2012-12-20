@@ -90,22 +90,22 @@ wave5
 dragoneye1
   rotate: false
   xy: 482, 430
-  size: 178, 86
-  orig: 178, 86
+  size: 180, 86
+  orig: 180, 86
   offset: 0, 0
   index: -1
 dragoneye2
   rotate: false
   xy: 482, 342
-  size: 178, 86
-  orig: 178, 86
+  size: 180, 86
+  orig: 180, 86
   offset: 0, 0
   index: -1
 dragoneye3
   rotate: false
   xy: 482, 254
-  size: 178, 86
-  orig: 178, 86
+  size: 180, 86
+  orig: 180, 86
   offset: 0, 0
   index: -1
 voicetalking_button01
@@ -134,5 +134,93 @@ voicetalking_over02
   xy: 534, 32
   size: 108, 109
   orig: 108, 109
+  offset: 0, 0
+  index: -1
+pop_left
+  rotate: false
+  xy: 712, 519
+  size: 109, 53
+  split: 31, 25, 22, 24
+  pad: 10, 12, 14, 7
+  orig: 109, 53
+  offset: 0, 0
+  index: -1
+pop_right
+  rotate: false
+  xy: 823, 516
+  size: 106, 56
+  split: 33, 35, 23, 28
+  pad: 9, 10, 5, 16
+  orig: 106, 56
+  offset: 0, 0
+  index: -1
+dragonmouth8
+  rotate: false
+  xy: 952, 977
+  size: 61, 45
+  orig: 61, 45
+  offset: 0, 0
+  index: -1
+dragonmouth7
+  rotate: false
+  xy: 184, 27
+  size: 61, 43
+  orig: 61, 43
+  offset: 0, 0
+  index: -1
+dragonmouth1
+  rotate: false
+  xy: 184, 0
+  size: 59, 25
+  orig: 59, 25
+  offset: 0, 0
+  index: -1
+dragonmouth6
+  rotate: false
+  xy: 952, 934
+  size: 61, 41
+  orig: 61, 41
+  offset: 0, 0
+  index: -1
+dragonmouth5
+  rotate: false
+  xy: 247, 31
+  size: 61, 39
+  orig: 61, 39
+  offset: 0, 0
+  index: -1
+dragonmouth4
+  rotate: false
+  xy: 952, 895
+  size: 61, 37
+  orig: 61, 37
+  offset: 0, 0
+  index: -1
+dragonmouth3
+  rotate: false
+  xy: 310, 35
+  size: 61, 35
+  orig: 61, 35
+  offset: 0, 0
+  index: -1
+dragonmouth2
+  rotate: false
+  xy: 310, 0
+  size: 61, 33
+  orig: 61, 33
+  offset: 0, 0
+  index: -1
+handpath
+  rotate: false
+  xy: 664, 484
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+handstar
+  rotate: false
+  xy: 952, 861
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1

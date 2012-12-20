@@ -31,7 +31,7 @@ public class Talk implements ITalk {
 
 	RecognizerDialog isrDialog;
 	RecognizerDialogListener recognizeListener;
-
+//	g listen;
 	SimSimiRestClientUsage client;
 	AsyncHttpResponseHandler responseHandler;
 
@@ -42,6 +42,46 @@ public class Talk implements ITalk {
 		this.context = context;
 		client = new SimSimiRestClientUsage();
 
+//		listen=new com.iflytek.speech.g(){
+//
+//			@Override
+//			public void a() {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void a(int arg0) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void a(SpeechError arg0) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void a(ArrayList<RecognizerResult> arg0, boolean arg1) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void b() {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void c() {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//		};
+		
 		// 转写回调监听器.
 		recognizeListener = new RecognizerDialogListener() {
 			// 识别结果回调接口

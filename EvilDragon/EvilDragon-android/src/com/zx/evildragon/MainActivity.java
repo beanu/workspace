@@ -20,7 +20,7 @@ public class MainActivity extends AndroidApplication {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		ApplicationListener gameView = new EvilDragon(new Talk(this));
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		config.useGL20 = false;
+		config.useGL20 = true;
 		config.numSamples = 2;
 		config.useAccelerometer = false;
 		config.useCompass = false;
