@@ -110,8 +110,9 @@ public class Talk implements ITalk {
 		isrDialog.showErrorView(false, true);
 
 		player = SynthesizerPlayer.createSynthesizerPlayer(context, "appid=" + appid);
-		player.setVoiceName("vixx");
+		player.setVoiceName("xiaoyan");
 		player.setVolume(100);
+		player.setSpeed(50);
 		synbgListener = new SynthesizerPlayerListener() {
 
 			@Override

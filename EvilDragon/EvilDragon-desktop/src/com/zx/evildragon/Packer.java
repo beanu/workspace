@@ -3,7 +3,6 @@ package com.zx.evildragon;
 import com.badlogic.gdx.tools.imagepacker.TexturePacker2;
 import com.badlogic.gdx.tools.imagepacker.TexturePacker2.Settings;
 
-
 public class Packer {
 
 	public static void main(String args[]) throws Exception {
@@ -14,9 +13,11 @@ public class Packer {
 		settings.edgePadding = false;
 		settings.maxWidth = 1024;
 		settings.maxHeight = 1024;
+		//
+		// TexturePacker2.process(settings, "img/",
+		// "../EvilDragon-android/assets/data", "a");
 
-		TexturePacker2.process(settings, "img/",
-				"../EvilDragon-android/assets/data", "a");
+		TexturePacker2.process(settings, "dragoncat/", "../EvilDragon-android/assets/data", "cat");
 
 	}
 

@@ -26,9 +26,9 @@ dragonhead2
   index: -1
 dragonbody1
   rotate: false
-  xy: 0, 22
-  size: 182, 198
-  orig: 182, 198
+  xy: 0, 31
+  size: 152, 189
+  orig: 152, 189
   offset: 0, 0
   index: -1
 wait1
@@ -40,7 +40,7 @@ wait1
   index: -1
 wait2
   rotate: false
-  xy: 184, 147
+  xy: 154, 147
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
@@ -54,7 +54,7 @@ wait3
   index: -1
 wave1
   rotate: false
-  xy: 184, 72
+  xy: 154, 72
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
@@ -110,28 +110,28 @@ dragoneye3
   index: -1
 voicetalking_button01
   rotate: false
-  xy: 424, 111
+  xy: 394, 111
   size: 108, 109
   orig: 108, 109
   offset: 0, 0
   index: -1
 voicetalking_button02
   rotate: false
-  xy: 424, 0
+  xy: 394, 0
   size: 108, 109
   orig: 108, 109
   offset: 0, 0
   index: -1
 voicetalking_over01
   rotate: false
-  xy: 534, 143
+  xy: 504, 143
   size: 108, 109
   orig: 108, 109
   offset: 0, 0
   index: -1
 voicetalking_over02
   rotate: false
-  xy: 534, 32
+  xy: 504, 32
   size: 108, 109
   orig: 108, 109
   offset: 0, 0
@@ -154,72 +154,86 @@ pop_right
   orig: 106, 56
   offset: 0, 0
   index: -1
-dragonmouth8
+dragonhandL1
   rotate: false
-  xy: 952, 977
-  size: 61, 45
-  orig: 61, 45
+  xy: 952, 916
+  size: 42, 106
+  orig: 42, 106
   offset: 0, 0
   index: -1
-dragonmouth7
+dragonhandR2
   rotate: false
-  xy: 184, 27
-  size: 61, 43
-  orig: 61, 43
+  xy: 614, 146
+  size: 41, 106
+  orig: 41, 106
+  offset: 0, 0
+  index: -1
+dragonhandR1
+  rotate: false
+  xy: 664, 410
+  size: 38, 106
+  orig: 38, 106
+  offset: 0, 0
+  index: -1
+dragonhandL2
+  rotate: false
+  xy: 952, 833
+  size: 66, 81
+  orig: 66, 81
   offset: 0, 0
   index: -1
 dragonmouth1
   rotate: false
-  xy: 184, 0
-  size: 59, 25
-  orig: 59, 25
-  offset: 0, 0
-  index: -1
-dragonmouth6
-  rotate: false
-  xy: 952, 934
-  size: 61, 41
-  orig: 61, 41
-  offset: 0, 0
-  index: -1
-dragonmouth5
-  rotate: false
-  xy: 247, 31
-  size: 61, 39
-  orig: 61, 39
-  offset: 0, 0
-  index: -1
-dragonmouth4
-  rotate: false
-  xy: 952, 895
-  size: 61, 37
-  orig: 61, 37
-  offset: 0, 0
-  index: -1
-dragonmouth3
-  rotate: false
-  xy: 310, 35
-  size: 61, 35
-  orig: 61, 35
+  xy: 952, 786
+  size: 61, 45
+  orig: 61, 45
   offset: 0, 0
   index: -1
 dragonmouth2
   rotate: false
-  xy: 310, 0
-  size: 61, 33
-  orig: 61, 33
+  xy: 952, 739
+  size: 61, 45
+  orig: 61, 45
+  offset: 0, 0
+  index: -1
+dragonmouth3
+  rotate: false
+  xy: 952, 692
+  size: 61, 45
+  orig: 61, 45
+  offset: 0, 0
+  index: -1
+dragonmouth4
+  rotate: false
+  xy: 952, 645
+  size: 61, 45
+  orig: 61, 45
+  offset: 0, 0
+  index: -1
+dragonmouth5
+  rotate: false
+  xy: 952, 598
+  size: 61, 45
+  orig: 61, 45
+  offset: 0, 0
+  index: -1
+dragonmouth6
+  rotate: false
+  xy: 154, 25
+  size: 61, 45
+  orig: 61, 45
   offset: 0, 0
   index: -1
 handpath
   rotate: false
-  xy: 664, 484
+  xy: 614, 112
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 handstar
   rotate: false
-  xy: 952, 861
+  xy: 664, 376
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

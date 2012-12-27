@@ -50,7 +50,7 @@ public class UIStage extends C2dStage {
 			public void clicked(InputEvent event, float x, float y) {
 				if (Gdx.app.getType() == ApplicationType.Android) {
 					// sprite animation
-					listener.performTalkEvent();
+					listener.performListenEvent();
 
 					// perform recognition
 					EvilDragon.talk.recognition(callback);
@@ -62,7 +62,7 @@ public class UIStage extends C2dStage {
 					Gdx.app.debug("debug", "button click" + btn_counter);
 					switch (btn_counter % 5) {
 					case 0:
-						listener.performTalkEvent();
+						listener.performListenEvent();
 						showWaveAnimation();
 						callback.recognitionBegin();
 						break;
@@ -96,7 +96,7 @@ public class UIStage extends C2dStage {
 		style.background = new NinePatchDrawable(new NinePatch(atlas.createPatch("pop_right")));
 		mLabelRight = new Label("", style);
 		mLabelRight.setVisible(false);
-		
+
 		mDrawablesWave = new TextureRegionDrawable[] { new TextureRegionDrawable(atlas.findRegion("wave1")),
 				new TextureRegionDrawable(atlas.findRegion("wave2")), new TextureRegionDrawable(atlas.findRegion("wave3")),
 				new TextureRegionDrawable(atlas.findRegion("wave4")), new TextureRegionDrawable(atlas.findRegion("wave5")) };
@@ -141,7 +141,7 @@ public class UIStage extends C2dStage {
 					mLabelLeft.setVisible(false);
 					mLabelRight.setVisible(true);
 					mLabelRight.pack();
-					mLabelRight.setPosition(Engine.getWidth()-mLabelRight.getWidth()-50, 600);
+					mLabelRight.setPosition(Engine.getWidth() - mLabelRight.getWidth() - 50, 600);
 				} else {
 					// TODO
 				}
@@ -151,12 +151,13 @@ public class UIStage extends C2dStage {
 			@Override
 			public void synthesizerBegin() {
 				listener.performSpeak();
-
 			}
 
 			@Override
 			public void synthesizerEnd(boolean success) {
-
+				listener.performNormal();
+				mLabelLeft.setVisible(false);
+				mLabelRight.setVisible(false);
 			}
 
 		};
@@ -209,10 +210,12 @@ public class UIStage extends C2dStage {
 	}
 
 	public static interface UIEventListener {
-		public void performTalkEvent();
+		public void performListenEvent();
 
 		public void performThink();
 
 		public void performSpeak();
+
+		public void performNormal();
 	}
 }

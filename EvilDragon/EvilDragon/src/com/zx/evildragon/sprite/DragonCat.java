@@ -1,139 +1,97 @@
 package com.zx.evildragon.sprite;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.spriter.Spriter;
+import info.u250.spriter.SpriterKeyFrameProvider;
+import info.u250.spriter.SpriterPlayer;
+import info.u250.spriter.file.FileLoader;
+import info.u250.spriter.objects.SpriterKeyFrame;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DragonCat extends Group {
-	private final TextureAtlas atlas;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-	private final Eye eye;
-	private final Mouth mouth;
-	private final Head head;
-	private final Group headGroup;
-	private final Body body;
+public class DragonCat extends Actor implements IAnimation {
+
+	private final SpriterPlayer sp;
+	private final ArrayList<SpriterPlayer> players;
+	private int normalIndex, listenIndex, speakIndex, thinkIndex;
+	private int animationIndex;
 
 	public DragonCat() {
-		atlas = Engine.resource("atlas");
+		FileLoader<Sprite> loader = new SpriteLoader();
+		SpriteDrawer drawer = new SpriteDrawer(loader, Engine.getSpriteBatch());
 
-		body = new Body();
-		body.setPosition(0, 0);
+		Spriter spriter = Spriter.getSpriter("data/dragon.scml", loader);
+		List<SpriterKeyFrame[]> keyframes = SpriterKeyFrameProvider.generateKeyFramePool(spriter.getSpriterData());
+		this.players = new ArrayList<SpriterPlayer>();
+		for (int i = 0; i < 1; i++) {
+			SpriterPlayer sp = new SpriterPlayer(spriter.getSpriterData(), drawer, keyframes);
+			this.players.add(sp);
+			sp.setFrameSpeed(10);
+		}
 
-		headGroup = new Group();
-		eye = new Eye();
-		mouth = new Mouth();
-		head = new Head();
-		head.setPosition(0, 0);
-		eye.setPosition(23, 64);
-		mouth.setPosition(80, 30);
-		headGroup.setSize(head.getWidth(), head.getHeight());
-		headGroup.addActor(head);
-		headGroup.addActor(eye);
-		headGroup.addActor(mouth);
-		headGroup.setPosition(body.getX() - 20, body.getY() + body.getHeight() - 30);
-		headGroup.setOrigin(headGroup.getWidth()/2, 5);
+		this.sp = this.players.get(0);
+		this.sp.setFrameSpeed(10);
+		this.sp.setAnimatioIndex(0, 0, 0);
+		// this.sp.update(x, y);
 
-		this.addActor(body);
-		this.addActor(headGroup);
-
-		this.setSize(body.getWidth(), body.getWidth());
-		eye.blink();
-		this.swing();
+		this.normalIndex = this.sp.getAnimationIndexByName("normal");
+		this.listenIndex = this.sp.getAnimationIndexByName("listen");
+		this.speakIndex = this.sp.getAnimationIndexByName("speak");
+		this.thinkIndex = this.sp.getAnimationIndexByName("think");
+		this.animationIndex = this.normalIndex;
 	}
 
-	public void swing() {
-		headGroup.clearActions();
-		headGroup.addAction(Actions.forever(Actions.delay(3f,
-				Actions.sequence(Actions.rotateBy(2, 0.25f, Interpolation.pow3Out), 
-						Actions.rotateBy(-4, 0.5f, Interpolation.pow3Out),
-						Actions.rotateBy(2, 0.25f, Interpolation.pow3Out)))));
+	@Override
+	public void draw(SpriteBatch batch, float parentAlpha) {
+		for (SpriterPlayer sp : this.players)
+			sp.draw();
+		super.draw(batch, parentAlpha);
 	}
 
-	public void listen() {
-		eye.setVisible(false);
-		mouth.setVisible(false);
-		head.listen();
-	}
-
-	public void think() {
-		head.normal();
-		this.clearActions();
-		this.addAction(Actions.delay(0.5f, Actions.run(new Runnable() {
-
-			@Override
-			public void run() {
-				eye.setVisible(true);
-				eye.blink();
-				mouth.setVisible(true);
+	@Override
+	public void act(float delta) {
+		int k = 0;
+		for (int i = 0; k < this.players.size(); i++) {
+			for (int j = 0; j < 10 && k < this.players.size(); j++) {
+				this.players.get(k).update(this.getX() + 400 * j, this.getY() - i * 400);
+				k++;
 			}
-		})));
+		}
+		super.act(delta);
+	}
+
+	@Override
+	public void normal() {
+		animationIndex = normalIndex;
+		for (SpriterPlayer sp : this.players)
+			sp.setAnimatioIndex(this.animationIndex, 10, 120);
+	}
+
+	@Override
+	public void listen() {
+		animationIndex = listenIndex;
+		for (SpriterPlayer sp : this.players)
+			sp.setAnimatioIndex(this.animationIndex, 10, 120);
 
 	}
 
+	@Override
+	public void think() {
+		animationIndex = thinkIndex;
+		for (SpriterPlayer sp : this.players)
+			sp.setAnimatioIndex(this.animationIndex, 10, 120);
+	}
+
+	@Override
 	public void speak() {
-		mouth.speak();
+		animationIndex = speakIndex;
+		for (SpriterPlayer sp : this.players)
+			sp.setAnimatioIndex(this.animationIndex, 10, 120);
 	}
 
-	// Inner Class
-	// Every part of DragonCat Body
-	class Head extends AImage {
-		private final int[] _listen = new int[] { 1, 2 };
-		private final int[] _normal = new int[] { 2, 1 };
-
-		public Head() {
-			super(atlas, "dragonhead");
-		}
-
-		public void listen() {
-			this.clearActions();
-			this.animation(_listen, 0.5f);
-		}
-
-		public void normal() {
-			this.clearActions();
-			this.animation(_normal, 0.5f);
-		}
-
-	}
-
-	class Eye extends AImage {
-
-		private final int[] _blink = new int[] { 1, 2, 3, 2, 1 };
-
-		public Eye() {
-			super(atlas, "dragoneye");
-		}
-
-		public void blink() {
-			this.clearActions();
-			this.addAction(Actions.forever(Actions.delay(4, Actions.run(new Runnable() {
-
-				@Override
-				public void run() {
-					animation(_blink, 0.15f);
-				}
-			}))));
-		}
-	}
-
-	class Mouth extends AImage {
-		private final int[] _speak = new int[] { 1, 2, 3, 4, 5, 4, 3, 2 };
-
-		public Mouth() {
-			super(atlas, "dragonmouth");
-		}
-
-		public void speak() {
-			this.animationLoop(_speak, 0.1f);
-		}
-	}
-
-	class Body extends AImage {
-		public Body() {
-			super(atlas, "dragonbody");
-		}
-	}
 }
