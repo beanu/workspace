@@ -1,11 +1,11 @@
 package com.zx.evildragon.sprite;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.spriter.Spriter;
-import info.u250.spriter.SpriterKeyFrameProvider;
-import info.u250.spriter.SpriterPlayer;
-import info.u250.spriter.file.FileLoader;
-import info.u250.spriter.objects.SpriterKeyFrame;
+import info.u250.spriter.plugin.Spriter;
+import info.u250.spriter.plugin.SpriterKeyFrameProvider;
+import info.u250.spriter.plugin.SpriterPlayer;
+import info.u250.spriter.plugin.file.FileLoader;
+import info.u250.spriter.plugin.objects.SpriterKeyFrame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class DragonCat extends Actor implements IAnimation {
 		FileLoader<Sprite> loader = new SpriteLoader();
 		SpriteDrawer drawer = new SpriteDrawer(loader, Engine.getSpriteBatch());
 
-		Spriter spriter = Spriter.getSpriter("data/dragon.scml", loader);
+		Spriter spriter = Spriter.getSpriter("data/cat.scml", loader);
 		List<SpriterKeyFrame[]> keyframes = SpriterKeyFrameProvider.generateKeyFramePool(spriter.getSpriterData());
 		this.players = new ArrayList<SpriterPlayer>();
 		for (int i = 0; i < 1; i++) {

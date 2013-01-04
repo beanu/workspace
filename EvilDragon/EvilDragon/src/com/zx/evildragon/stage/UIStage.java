@@ -10,41 +10,34 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.zx.evildragon.EvilDragon;
 import com.zx.evildragon.net.ITalk.CallBack;
+import com.zx.evildragon.stage.widget.Menu;
+import com.zx.evildragon.stage.widget.RecordButton;
 
 public class UIStage extends C2dStage {
 
-	private final TextureAtlas atlas;
-	private final Button mButtonTalk;
 	private int btn_counter = -1;// TODO DELETE
-	private final Label mLabelLeft;
-	private final Label mLabelRight;
-
-	private final Image mImageWait;
-	private final Image mImageWave;
-	private final TextureRegionDrawable[] mDrawablesWait;
-	private final TextureRegionDrawable[] mDrawablesWave;
-	private int counter;
+	private final Label mTextLeft;
+	private final Label mTextRight;
+	private final RecordButton mRecordButton;
+	private final Menu mMenu;
 
 	private final UIEventListener listener;
 	private final CallBack callback;
 
 	public UIStage(UIEventListener uiEventListener) {
 		this.listener = uiEventListener;
-		atlas = Engine.resource("atlas");
+		TextureAtlas atlas = Engine.resource("atlas");
 
-		mButtonTalk = new Button(new TextureRegionDrawable(atlas.findRegion("voicetalking_button01")), new TextureRegionDrawable(
-				atlas.findRegion("voicetalking_button02")));
-		mButtonTalk.addListener(new ClickListener() {
+		// button
+		mRecordButton = new RecordButton();
+		mRecordButton.setPosition((Engine.getWidth() - mRecordButton.getWidth()) / 2, 5);
+		mRecordButton.addListener(new ClickListener() {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -56,14 +49,14 @@ public class UIStage extends C2dStage {
 					EvilDragon.talk.recognition(callback);
 
 					// UI
-					showWaveAnimation();
+					mRecordButton.showWaveAnimation();
 				} else {
 					btn_counter++;
 					Gdx.app.debug("debug", "button click" + btn_counter);
 					switch (btn_counter % 5) {
 					case 0:
 						listener.performListenEvent();
-						showWaveAnimation();
+						mRecordButton.showWaveAnimation();
 						callback.recognitionBegin();
 						break;
 					case 1:
@@ -86,47 +79,38 @@ public class UIStage extends C2dStage {
 
 		});
 
+		// text
 		LabelStyle labelStyle = new LabelStyle(Engine.resource("font", BitmapFont.class), new Color(0, 1, 1, 1));
 		labelStyle.background = new NinePatchDrawable(new NinePatch(atlas.createPatch("pop_left")));
-		mLabelLeft = new Label("", labelStyle);
-		mLabelLeft.setPosition(50, 700);
-		mLabelLeft.setVisible(false);
+		mTextLeft = new Label("", labelStyle);
+		mTextLeft.setPosition(50, 650);
+		mTextLeft.setVisible(false);
 
 		LabelStyle style = new LabelStyle(Engine.resource("font", BitmapFont.class), new Color(0, 1, 1, 1));
 		style.background = new NinePatchDrawable(new NinePatch(atlas.createPatch("pop_right")));
-		mLabelRight = new Label("", style);
-		mLabelRight.setVisible(false);
+		mTextRight = new Label("", style);
+		mTextRight.setVisible(false);
 
-		mDrawablesWave = new TextureRegionDrawable[] { new TextureRegionDrawable(atlas.findRegion("wave1")),
-				new TextureRegionDrawable(atlas.findRegion("wave2")), new TextureRegionDrawable(atlas.findRegion("wave3")),
-				new TextureRegionDrawable(atlas.findRegion("wave4")), new TextureRegionDrawable(atlas.findRegion("wave5")) };
-		mDrawablesWait = new TextureRegionDrawable[] { new TextureRegionDrawable(atlas.findRegion("wait1")),
-				new TextureRegionDrawable(atlas.findRegion("wait2")), new TextureRegionDrawable(atlas.findRegion("wait3")) };
-
-		mImageWave = new Image(mDrawablesWave[0]);
-		mImageWave.setVisible(false);
-		mImageWave.setPosition((Engine.getWidth() - mImageWave.getWidth()) / 2, 10);
-
-		mImageWait = new Image(mDrawablesWait[0]);
-		mImageWait.setVisible(false);
-		mImageWait.setPosition((Engine.getWidth() - mImageWave.getWidth()) / 2, 10);
+		// menu
+		mMenu = new Menu();
+		mMenu.setPosition(-mMenu.getWidth() + 60, 720);
 
 		callback = new CallBack() {
 
 			@Override
 			public void recognitionBegin() {
-				showWaitAnimation();
+				mRecordButton.showWaitAnimation();
 			}
 
 			@Override
 			public void recognitionEnd(String text, boolean success) {
-				hideWaitAnimation();
+				mRecordButton.hideWaitAnimation();
 				if (success) {
 					Gdx.app.debug("debug", "问：" + text);
-					mLabelLeft.setText(text);
-					mLabelLeft.setVisible(true);
-					mLabelLeft.pack();
-					mLabelRight.setVisible(false);
+					mTextLeft.setText(text);
+					mTextLeft.setVisible(true);
+					mTextLeft.pack();
+					mTextRight.setVisible(false);
 					listener.performThink();
 				} else {
 					// TODO
@@ -137,11 +121,10 @@ public class UIStage extends C2dStage {
 			public void response(String text, boolean success) {
 				if (success) {
 					Gdx.app.debug("debug", "答：" + text);
-					mLabelRight.setText(text);
-					mLabelLeft.setVisible(false);
-					mLabelRight.setVisible(true);
-					mLabelRight.pack();
-					mLabelRight.setPosition(Engine.getWidth() - mLabelRight.getWidth() - 50, 600);
+					mTextRight.setText(text);
+					mTextRight.setVisible(true);
+					mTextRight.pack();
+					mTextRight.setPosition(Engine.getWidth() - mTextRight.getWidth() - 50, 600);
 				} else {
 					// TODO
 				}
@@ -156,57 +139,16 @@ public class UIStage extends C2dStage {
 			@Override
 			public void synthesizerEnd(boolean success) {
 				listener.performNormal();
-				mLabelLeft.setVisible(false);
-				mLabelRight.setVisible(false);
+				mTextLeft.setVisible(false);
+				mTextRight.setVisible(false);
 			}
 
 		};
 
-		mButtonTalk.setPosition((Engine.getWidth() - mButtonTalk.getWidth()) / 2, 10);
-		this.addActor(mLabelLeft);
-		this.addActor(mLabelRight);
-		this.addActor(mImageWave);
-		this.addActor(mImageWait);
-		this.addActor(mButtonTalk);
-	}
-
-	private void showWaveAnimation() {
-		counter = 0;
-		mImageWave.setVisible(true);
-		mImageWave.addAction(Actions.forever(Actions.delay(0.2f, Actions.run(new Runnable() {
-
-			@Override
-			public void run() {
-				counter++;
-				int temp = counter % 5;
-				mImageWave.setDrawable(mDrawablesWave[temp]);
-			}
-		}))));
-	}
-
-	private void showWaitAnimation() {
-		mImageWave.clearActions();
-		mImageWave.setDrawable(mDrawablesWave[0]);
-		mImageWave.setVisible(false);
-
-		// mImageWait
-		counter = 0;
-		mImageWait.setVisible(true);
-		mImageWait.addAction(Actions.forever(Actions.delay(0.2f, Actions.run(new Runnable() {
-
-			@Override
-			public void run() {
-				counter++;
-				int temp = counter % 3;
-				mImageWait.setDrawable(mDrawablesWait[temp]);
-			}
-		}))));
-	}
-
-	private void hideWaitAnimation() {
-		mImageWait.clearActions();
-		mImageWait.setDrawable(mDrawablesWait[0]);
-		mImageWait.setVisible(false);
+		this.addActor(mMenu);
+		this.addActor(mTextLeft);
+		this.addActor(mTextRight);
+		this.addActor(mRecordButton);
 	}
 
 	public static interface UIEventListener {

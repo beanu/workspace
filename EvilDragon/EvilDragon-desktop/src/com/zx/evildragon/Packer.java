@@ -13,11 +13,11 @@ public class Packer {
 		settings.edgePadding = false;
 		settings.maxWidth = 1024;
 		settings.maxHeight = 1024;
-		//
-		// TexturePacker2.process(settings, "img/",
-		// "../EvilDragon-android/assets/data", "a");
+		
+		 TexturePacker2.process(settings, "img/",
+		 "../EvilDragon-android/assets/data", "a");
 
-		TexturePacker2.process(settings, "dragoncat/", "../EvilDragon-android/assets/data", "cat");
+//		TexturePacker2.process(settings, "dragoncat/", "../EvilDragon-android/assets/data", "cat");
 
 	}
 

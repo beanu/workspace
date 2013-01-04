@@ -5,140 +5,98 @@ filter: Nearest,Nearest
 repeat: none
 bg
   rotate: false
-  xy: 0, 222
+  xy: 0, 205
   size: 480, 800
   orig: 480, 800
   offset: 0, 0
   index: -1
-dragonhead1
-  rotate: false
-  xy: 482, 762
-  size: 228, 260
-  orig: 228, 260
-  offset: 0, 0
-  index: -1
-dragonhead2
-  rotate: false
-  xy: 482, 518
-  size: 228, 242
-  orig: 228, 242
-  offset: 0, 0
-  index: -1
-dragonbody1
-  rotate: false
-  xy: 0, 31
-  size: 152, 189
-  orig: 152, 189
-  offset: 0, 0
-  index: -1
 wait1
   rotate: false
-  xy: 712, 949
+  xy: 0, 130
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
   index: -1
 wait2
   rotate: false
-  xy: 154, 147
+  xy: 482, 932
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
   index: -1
 wait3
   rotate: false
-  xy: 712, 874
+  xy: 0, 55
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
   index: -1
 wave1
   rotate: false
-  xy: 154, 72
+  xy: 240, 130
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
   index: -1
 wave2
   rotate: false
-  xy: 712, 799
+  xy: 482, 857
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
   index: -1
 wave3
   rotate: false
-  xy: 712, 724
+  xy: 722, 932
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
   index: -1
 wave4
   rotate: false
-  xy: 712, 649
+  xy: 240, 55
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
   index: -1
 wave5
   rotate: false
-  xy: 712, 574
+  xy: 482, 782
   size: 238, 73
   orig: 238, 73
   offset: 0, 0
   index: -1
-dragoneye1
-  rotate: false
-  xy: 482, 430
-  size: 180, 86
-  orig: 180, 86
-  offset: 0, 0
-  index: -1
-dragoneye2
-  rotate: false
-  xy: 482, 342
-  size: 180, 86
-  orig: 180, 86
-  offset: 0, 0
-  index: -1
-dragoneye3
-  rotate: false
-  xy: 482, 254
-  size: 180, 86
-  orig: 180, 86
-  offset: 0, 0
-  index: -1
 voicetalking_button01
   rotate: false
-  xy: 394, 111
+  xy: 722, 821
   size: 108, 109
   orig: 108, 109
   offset: 0, 0
   index: -1
 voicetalking_button02
   rotate: false
-  xy: 394, 0
+  xy: 482, 671
   size: 108, 109
   orig: 108, 109
   offset: 0, 0
   index: -1
 voicetalking_over01
   rotate: false
-  xy: 504, 143
+  xy: 832, 821
   size: 108, 109
   orig: 108, 109
   offset: 0, 0
   index: -1
 voicetalking_over02
   rotate: false
-  xy: 504, 32
+  xy: 482, 560
   size: 108, 109
   orig: 108, 109
   offset: 0, 0
   index: -1
 pop_left
   rotate: false
-  xy: 712, 519
+  xy: 0, 0
   size: 109, 53
   split: 31, 25, 22, 24
   pad: 10, 12, 14, 7
@@ -147,94 +105,89 @@ pop_left
   index: -1
 pop_right
   rotate: false
-  xy: 823, 516
+  xy: 592, 724
   size: 106, 56
   split: 33, 35, 23, 28
   pad: 9, 10, 5, 16
   orig: 106, 56
   offset: 0, 0
   index: -1
-dragonhandL1
+menu_home
   rotate: false
-  xy: 952, 916
-  size: 42, 106
-  orig: 42, 106
+  xy: 482, 494
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-dragonhandR2
+menu1
   rotate: false
-  xy: 614, 146
-  size: 41, 106
-  orig: 41, 106
+  xy: 962, 955
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-dragonhandR1
+menu1down
   rotate: false
-  xy: 664, 410
-  size: 38, 106
-  orig: 38, 106
+  xy: 111, 3
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-dragonhandL2
+menu2
   rotate: false
-  xy: 952, 833
-  size: 66, 81
-  orig: 66, 81
+  xy: 592, 672
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-dragonmouth1
+menu2down
   rotate: false
-  xy: 952, 786
-  size: 61, 45
-  orig: 61, 45
+  xy: 482, 442
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-dragonmouth2
+menu3
   rotate: false
-  xy: 952, 739
-  size: 61, 45
-  orig: 61, 45
+  xy: 163, 3
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-dragonmouth3
+menu3down
   rotate: false
-  xy: 952, 692
-  size: 61, 45
-  orig: 61, 45
+  xy: 592, 620
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-dragonmouth4
+menu4
   rotate: false
-  xy: 952, 645
-  size: 61, 45
-  orig: 61, 45
+  xy: 644, 672
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-dragonmouth5
+menu4down
   rotate: false
-  xy: 952, 598
-  size: 61, 45
-  orig: 61, 45
+  xy: 482, 390
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-dragonmouth6
+menu_bg
   rotate: false
-  xy: 154, 25
-  size: 61, 45
-  orig: 61, 45
+  xy: 548, 494
+  size: 22, 64
+  split: 0, 0, 2, 1
+  orig: 22, 64
   offset: 0, 0
   index: -1
-handpath
+blank
   rotate: false
-  xy: 614, 112
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-handstar
-  rotate: false
-  xy: 664, 376
-  size: 32, 32
-  orig: 32, 32
+  xy: 722, 817
+  size: 2, 2
+  split: 0, 0, 0, 0
+  orig: 2, 2
   offset: 0, 0
   index: -1

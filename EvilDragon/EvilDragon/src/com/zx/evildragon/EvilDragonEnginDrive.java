@@ -2,11 +2,17 @@ package com.zx.evildragon;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
+import info.u250.c2d.engine.events.Event;
+import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.engine.resources.AliasResourceManager;
 
+import com.zx.evildragon.scenes.SceneDialog;
 import com.zx.evildragon.scenes.SceneMain;
 
 public class EvilDragonEnginDrive implements EngineDrive {
+
+	SceneMain main;
+	SceneDialog dialog;
 
 	@Override
 	public EngineOptions onSetupEngine() {
@@ -21,8 +27,25 @@ public class EvilDragonEnginDrive implements EngineDrive {
 		Engine.getPreferences().putBoolean("com.zx.evildragon.showhelp", false);
 		Engine.getPreferences().flush();
 
-		SceneMain main = new SceneMain();
+		main = new SceneMain();
+		dialog = new SceneDialog();
 		Engine.setMainScene(main);
+
+		Engine.getEventManager().register(Constant.EVENT_GOTO_SCREENDIALOG, new EventListener() {
+
+			@Override
+			public void onEvent(Event event) {
+				Engine.setMainScene(dialog);
+			}
+		});
+
+		Engine.getEventManager().register(Constant.EVENT_GOTO_SCREENMAIN, new EventListener() {
+
+			@Override
+			public void onEvent(Event event) {
+				Engine.setMainScene(main);
+			}
+		});
 	}
 
 	@Override

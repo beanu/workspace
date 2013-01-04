@@ -45,37 +45,30 @@ eye3
   orig: 180, 86
   offset: 0, 0
   index: -1
-eye4
+eye5
   rotate: false
   xy: 566, 330
   size: 180, 86
   orig: 180, 86
   offset: 0, 0
   index: -1
-eye5
+eye6
   rotate: false
   xy: 748, 418
   size: 180, 86
   orig: 180, 86
   offset: 0, 0
   index: -1
-eye6
+eye7
   rotate: false
   xy: 748, 330
   size: 180, 86
   orig: 180, 86
   offset: 0, 0
   index: -1
-eye7
-  rotate: false
-  xy: 230, 227
-  size: 180, 86
-  orig: 180, 86
-  offset: 0, 0
-  index: -1
 eye8
   rotate: false
-  xy: 230, 139
+  xy: 230, 227
   size: 180, 86
   orig: 180, 86
   offset: 0, 0
@@ -89,7 +82,7 @@ hand1
   index: -1
 hand2
   rotate: false
-  xy: 230, 57
+  xy: 230, 145
   size: 74, 80
   orig: 74, 80
   offset: 0, 0
@@ -103,98 +96,98 @@ hand3
   index: -1
 hand4
   rotate: false
-  xy: 306, 57
+  xy: 230, 63
   size: 74, 80
   orig: 74, 80
   offset: 0, 0
   index: -1
-hair
-  rotate: false
-  xy: 230, 26
-  size: 124, 29
-  orig: 124, 29
-  offset: 0, 0
-  index: -1
 hand_left
   rotate: false
-  xy: 412, 222
+  xy: 306, 119
   size: 42, 106
   orig: 42, 106
   offset: 0, 0
   index: -1
 hand_right1
   rotate: false
-  xy: 456, 222
+  xy: 350, 119
   size: 41, 106
   orig: 41, 106
   offset: 0, 0
   index: -1
-shape606
+eyebrow
   rotate: false
-  xy: 412, 158
+  xy: 412, 299
+  size: 124, 29
+  orig: 124, 29
+  offset: 0, 0
+  index: -1
+hand5
+  rotate: false
+  xy: 412, 235
   size: 83, 62
   orig: 83, 62
   offset: 0, 0
   index: -1
-shape607
+hand6
   rotate: false
-  xy: 499, 266
+  xy: 306, 55
   size: 83, 62
   orig: 83, 62
   offset: 0, 0
   index: -1
 hand_right
   rotate: false
-  xy: 382, 31
+  xy: 393, 119
   size: 38, 106
   orig: 38, 106
   offset: 0, 0
   index: -1
 mouth0
   rotate: false
-  xy: 584, 283
+  xy: 230, 16
   size: 61, 45
   orig: 61, 45
   offset: 0, 0
   index: -1
 mouth1
   rotate: false
-  xy: 647, 283
+  xy: 433, 188
   size: 61, 45
   orig: 61, 45
   offset: 0, 0
   index: -1
 mouth2
   rotate: false
-  xy: 710, 283
+  xy: 433, 141
   size: 61, 45
   orig: 61, 45
   offset: 0, 0
   index: -1
 mouth3
   rotate: false
-  xy: 773, 283
+  xy: 538, 283
   size: 61, 45
   orig: 61, 45
   offset: 0, 0
   index: -1
 mouth4
   rotate: false
-  xy: 836, 283
+  xy: 601, 283
   size: 61, 45
   orig: 61, 45
   offset: 0, 0
   index: -1
 mouth5
   rotate: false
-  xy: 499, 219
+  xy: 664, 283
   size: 61, 45
   orig: 61, 45
   offset: 0, 0
   index: -1
 mouth6
   rotate: false
-  xy: 497, 185
+  xy: 391, 85
   size: 37, 32
   orig: 37, 32
   offset: 0, 0

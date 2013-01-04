@@ -1,8 +1,8 @@
 package com.zx.evildragon.sprite;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.spriter.file.FileLoader;
-import info.u250.spriter.file.Reference;
+import info.u250.spriter.plugin.file.FileLoader;
+import info.u250.spriter.plugin.file.Reference;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
