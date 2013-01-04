@@ -16,3 +16,7 @@ gen/
 local.properties
 
 .DS_Store
+
+# target directories:
+/EvilDragon/EvilDragon-desktop/dragoncat
+/EvilDragon/EvilDragon-desktop/img
