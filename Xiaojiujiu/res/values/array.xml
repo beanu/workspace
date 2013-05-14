@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="color_names">
+        <item>优惠信息</item>
+        <item>电子会员卡</item>
+        <item>实体卡</item>
+        <item>商家新鲜事</item>
+        <item>个人中心</item>
+        <item>设置</item>
+    </string-array>
+
+</resources>
