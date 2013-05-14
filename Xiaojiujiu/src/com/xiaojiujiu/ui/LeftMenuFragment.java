@@ -17,6 +17,11 @@ import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.coupons.CouponsFragment;
 import com.xiaojiujiu.ui.ecard.ECardFragment;
 
+/**
+ * 左边菜单栏
+ * @author beanu
+ *
+ */
 public class LeftMenuFragment extends SherlockListFragment {
 
 	// private int currentIndex = -1;
