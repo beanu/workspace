@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="ContentDescription">
+        <ignore path="res/layout/ecard_detail_activity.xml" />
+    </issue>
+    <issue id="SelectableText">
+        <ignore path="res/layout/ecard_detail_activity.xml" />
+    </issue>
+</lint>

@@ -3,5 +3,6 @@
 
     <string name="app_name">小九九</string>
     <string name="action_settings">设置</string>
+    <string name="ecard_detail_see_more">查看更多</string>
 
 </resources>

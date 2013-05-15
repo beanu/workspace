@@ -8,22 +8,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <!-- 图片 -->
+
         <ImageView
             android:id="@+id/ecard_detail_big_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="96dp"
             android:src="@drawable/abs__progress_bg_holo_dark" />
+
+        <!-- 商户说明 -->
 
         <TextView
             android:id="@+id/ecard_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pitch8"
+            android:layout_marginLeft="@dimen/pitch16"
+            android:layout_marginTop="@dimen/pitch16"
+            android:text="删除掉"
             android:textSize="@dimen/mediumtext" >
         </TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pitch16"
+            android:layout_marginLeft="@dimen/pitch16"
+            android:layout_marginRight="@dimen/pitch16"
             android:background="@drawable/ecard_detail_module_bg"
             android:orientation="vertical" >
 
@@ -39,12 +51,55 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
+        <!-- 查看更多 -->
+
         <RelativeLayout
             android:id="@+id/ecard_detail_moreinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pitch16"
+            android:layout_marginLeft="@dimen/pitch16"
+            android:layout_marginRight="@dimen/pitch16"
             android:background="@drawable/ecard_detail_button" >
+
+            <ImageView
+                android:id="@+id/ecard_detail_tag_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/pitch8"
+                android:src="@drawable/ecard_detail_tag_more" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ecard_detail_tag_more"
+                android:text="@string/ecard_detail_see_more"
+                android:textSize="@dimen/smalltext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/pitch12"
+                android:src="@drawable/arrows" />
         </RelativeLayout>
+
+        <!-- 门店位置电话信息 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pitch16"
+            android:layout_marginLeft="@dimen/pitch16"
+            android:layout_marginRight="@dimen/pitch16"
+            android:background="@drawable/ecard_detail_module_bg"
+            android:orientation="horizontal" >
+ 			
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
