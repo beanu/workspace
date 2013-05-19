@@ -13,33 +13,71 @@
         android:layout_weight="0.5"
         android:scaleType="fitXY" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
         android:padding="8dp" >
 
         <TextView
             android:id="@+id/coupon_list_item_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:ellipsize="end"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:maxWidth="100dp"
             android:singleLine="true"
-            android:textColor="@color/abs__primary_text_holo_dark"
+            android:text="小汾阳"
             android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/coupon_list_item_title"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/coupon_tag_hui" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/coupon_tag_quan" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/coupon_tag_xian" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/coupon_tag_xin" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/coupon_list_item_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/coupon_list_item_title"
+            android:ellipsize="end"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:textColor="@color/abs__background_holo_dark"
+            android:text="限时抢购，夏季所有衣服5折出售"
             android:textSize="@dimen/smalltext" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/coupon_list_item_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="地址：济南天桥区北园大街" />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,14 +26,20 @@ import com.beanu.arad.support.utils.AppLogger;
 import com.xiaojiujiu.entity.Coupon;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
 
-public class CouponsFragment extends PullToRefreshListFragment implements OnRefreshListener<ListView>,
+/**
+ * 优惠券列表页面
+ * 
+ * @author beanu
+ * 
+ */
+public class CouponsListFragment extends PullToRefreshListFragment implements OnRefreshListener<ListView>,
 		OnLastItemVisibleListener {
 
-	public static CouponsFragment newInstance(String typeId, int position) {
+	public static CouponsListFragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
 		// args.putString(TYPEID, typeId);
 		// args.putInt(POSITION, position);
-		CouponsFragment fragment = new CouponsFragment();
+		CouponsListFragment fragment = new CouponsListFragment();
 		// fragment.setArguments(args);
 		return fragment;
 	}
@@ -50,6 +57,8 @@ public class CouponsFragment extends PullToRefreshListFragment implements OnRefr
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), CouponsDetailActivity.class);
+				startActivity(intent);
 			}
 		});
 
@@ -97,7 +106,7 @@ public class CouponsFragment extends PullToRefreshListFragment implements OnRefr
 					String resCode = response.getString("resCode");
 					if (resCode != null && resCode.equals("1")) {
 						JSONArray jsonArray = response.getJSONArray("CouponList");
-						ArrayList<Coupon> _list=new ArrayList<Coupon>();
+						ArrayList<Coupon> _list = new ArrayList<Coupon>();
 						for (int i = 0; i < jsonArray.length(); i++) {
 							JSONObject item = jsonArray.getJSONObject(i);
 							// Coupon c =
@@ -110,11 +119,11 @@ public class CouponsFragment extends PullToRefreshListFragment implements OnRefr
 							c.setSmallImageUrl(item.getString("SmallImageUrl"));
 							_list.add(c);
 						}
-						
-						//如果有重复的去掉重复的，然后在加上最新的信息
-						for(Coupon newest:_list){
-							for(Coupon older:mCouponList){
-								if(newest.getCouponID()==older.getCouponID()){
+
+						// 如果有重复的去掉重复的，然后在加上最新的信息
+						for (Coupon newest : _list) {
+							for (Coupon older : mCouponList) {
+								if (newest.getCouponID() == older.getCouponID()) {
 									mCouponList.remove(older);
 									break;
 								}

@@ -8,27 +8,74 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <!-- 图片 -->
+        <!-- 头部信息 -->
 
-        <ImageView
-            android:id="@+id/ecard_detail_big_image"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="96dp"
-            android:src="@drawable/abs__progress_bg_holo_dark" />
+            android:layout_height="@dimen/ecard_deatail_top_title_height"
+            android:layout_marginBottom="@dimen/pitch16"
+            android:background="@color/white"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/ecard_detail_big_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="@dimen/pitch12"
+                android:src="@drawable/ic_launcher" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/ecard_detail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="@dimen/pitch12"
+                    android:layout_marginTop="@dimen/pitch12"
+                    android:text="小肥羊火锅电子会员卡"
+                    android:textSize="@dimen/smalltext" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/ecard_detail_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="12dp"
+                    android:drawableLeft="@drawable/ecard_detail_tag_distance"
+                    android:drawablePadding="4dp"
+                    android:text="1000" />
+
+                <TextView
+                    android:id="@+id/ecard_detail_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@id/ecard_detail_score"
+                    android:drawableLeft="@drawable/ecard_detail_tag_distance"
+                    android:drawablePadding="4dp"
+                    android:text="钻石卡" />
+
+                <TextView
+                    android:id="@+id/ecard_detail_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="@dimen/pitch12"
+                    android:text="8折" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <!-- 会员卡说明 -->
-
-        <TextView
-            android:id="@+id/ecard_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch8"
-            android:layout_marginLeft="@dimen/pitch16"
-            android:layout_marginTop="@dimen/pitch16"
-            android:text="删除掉"
-            android:textSize="@dimen/mediumtext" >
-        </TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,13 +89,15 @@
             <TextView
                 android:id="@+id/ecard_detail_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:text="使用说明那个，说明，说明，说明" >
             </TextView>
 
             <TextView
                 android:id="@+id/ecard_detail_effectiveTime"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="有效期：2014年1月1号" />
         </LinearLayout>
 
         <!-- 查看更多 -->
@@ -145,14 +194,81 @@
                     android:layout_toLeftOf="@id/ecard_detail_nearby_shop_phone"
                     android:src="@drawable/ecard_detail_tag_vline" />
             </RelativeLayout>
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/ecard_detail_nearby_shop_more"
+        <!-- 适用门店 -->
+
+        <RelativeLayout
+            android:id="@+id/ecard_detail_moreshops"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pitch16"
+            android:layout_marginLeft="@dimen/pitch16"
+            android:layout_marginRight="@dimen/pitch16"
+            android:background="@drawable/ecard_detail_button" >
+
+            <ImageView
+                android:id="@+id/ecard_detail_tag_stores"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="查看更多分店" />
-        </LinearLayout>
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/pitch8"
+                android:src="@drawable/ecard_detail_tag_stores" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ecard_detail_tag_stores"
+                android:text="适用门店（5家）"
+                android:textSize="@dimen/smalltext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/pitch12"
+                android:src="@drawable/arrows" />
+        </RelativeLayout>
+
+        <!-- 优惠活动 -->
+
+        <RelativeLayout
+            android:id="@+id/ecard_detail_promotion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pitch16"
+            android:layout_marginLeft="@dimen/pitch16"
+            android:layout_marginRight="@dimen/pitch16"
+            android:background="@drawable/ecard_detail_button" >
+
+            <ImageView
+                android:id="@+id/ecard_detail_tag_promotion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/pitch8"
+                android:src="@drawable/ecard_detail_tag_promotion" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ecard_detail_tag_promotion"
+                android:text="优惠活动"
+                android:textSize="@dimen/smalltext" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/pitch12"
+                android:src="@drawable/arrows" />
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

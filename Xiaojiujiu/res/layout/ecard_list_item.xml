@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="3dp" >
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/ecard_list_item_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <TextView
+            android:id="@+id/ecard_list_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:singleLine="true"
+            android:text="小肥羊电子会员卡"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/ecard_list_item_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/ecard_detail_tag_distance"
+                android:drawablePadding="4dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="1000"
+                android:textColor="@color/abs__background_holo_dark"
+                android:textSize="@dimen/smalltext" />
+
+            <TextView
+                android:id="@+id/ecard_list_item_useamount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pitch12"
+                android:layout_toRightOf="@id/ecard_list_item_score"
+                android:text="300人在使用" />
+
+            <TextView
+                android:id="@+id/ecard_list_item_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/pitch12"
+                android:text="8折" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/ecard_list_item_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="地址：dddddddddddddddddd"
+            android:textSize="@dimen/smalltext" />
+    </LinearLayout>
+
+</LinearLayout>

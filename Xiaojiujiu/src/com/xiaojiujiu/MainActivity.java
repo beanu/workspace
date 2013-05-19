@@ -12,8 +12,8 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.xiaojiujiu.ui.ColorFragment;
 import com.xiaojiujiu.ui.LeftMenuFragment;
-import com.xiaojiujiu.ui.coupons.CouponsFragment;
-import com.xiaojiujiu.ui.ecard.ECardFragment;
+import com.xiaojiujiu.ui.coupons.CouponsListFragment;
+import com.xiaojiujiu.ui.ecard.ECardFListragment;
 
 public class MainActivity extends SlidingFragmentActivity {
 
@@ -38,7 +38,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		// buildCustomActionBarTitle();
 
-		setContentView(R.layout.content_fragment);
+		setContentView(R.layout.main_fragment);
 		setBehindContentView(R.layout.menu_fragment);
 
 		// set the Above View
@@ -124,17 +124,17 @@ public class MainActivity extends SlidingFragmentActivity {
 		return fragment;
 	}
 
-	public CouponsFragment getCouponsFragment() {
-		CouponsFragment fragment = ((CouponsFragment) getSupportFragmentManager().findFragmentByTag("coupons"));
+	public CouponsListFragment getCouponsFragment() {
+		CouponsListFragment fragment = ((CouponsListFragment) getSupportFragmentManager().findFragmentByTag("coupons"));
 		if (fragment == null)
-			fragment = new CouponsFragment();
+			fragment = new CouponsListFragment();
 		return fragment;
 	}
 
-	public ECardFragment getECardFragment() {
-		ECardFragment fragment = ((ECardFragment) getSupportFragmentManager().findFragmentByTag("ecard"));
+	public ECardFListragment getECardFragment() {
+		ECardFListragment fragment = ((ECardFListragment) getSupportFragmentManager().findFragmentByTag("ecard"));
 		if (fragment == null)
-			fragment = new ECardFragment();
+			fragment = new ECardFListragment();
 
 		return fragment;
 	}

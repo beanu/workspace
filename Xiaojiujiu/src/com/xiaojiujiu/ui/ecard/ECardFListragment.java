@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,19 +33,19 @@ import com.xiaojiujiu.entity.ECard;
 import com.xiaojiujiu.ui.adapter.ECardListAdapter;
 
 /**
- * 电子会员卡页面
+ * 电子会员卡列表页面
  * 
  * @author beanu
  * 
  */
-public class ECardFragment extends PullToRefreshListFragment implements OnRefreshListener<ListView>,
+public class ECardFListragment extends PullToRefreshListFragment implements OnRefreshListener<ListView>,
 		OnLastItemVisibleListener {
 
-	public static ECardFragment newInstance(String typeId, int position) {
+	public static ECardFListragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
 		// args.putString(TYPEID, typeId);
 		// args.putInt(POSITION, position);
-		ECardFragment fragment = new ECardFragment();
+		ECardFListragment fragment = new ECardFListragment();
 		// fragment.setArguments(args);
 		return fragment;
 	}
@@ -59,7 +60,7 @@ public class ECardFragment extends PullToRefreshListFragment implements OnRefres
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.ecard_fragment, container, false);
+		View view = inflater.inflate(R.layout.ecard_list_fragment, container, false);
 		empty = (TextView) view.findViewById(R.id.empty);
 		progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_listView);
@@ -80,6 +81,8 @@ public class ECardFragment extends PullToRefreshListFragment implements OnRefres
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), ECardDetailActivity.class);
+				startActivity(intent);
 			}
 		});
 

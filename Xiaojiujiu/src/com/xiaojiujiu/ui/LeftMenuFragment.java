@@ -14,8 +14,8 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.xiaojiujiu.MainActivity;
 import com.xiaojiujiu.R;
-import com.xiaojiujiu.ui.coupons.CouponsFragment;
-import com.xiaojiujiu.ui.ecard.ECardFragment;
+import com.xiaojiujiu.ui.coupons.CouponsListFragment;
+import com.xiaojiujiu.ui.ecard.ECardFListragment;
 
 /**
  * 左边菜单栏
@@ -84,7 +84,7 @@ public class LeftMenuFragment extends SherlockListFragment {
 
 		ft.hide(rightFragments.get(_INDEX1));
 		ft.hide(rightFragments.get(_INDEX3));
-		ECardFragment fragment = (ECardFragment) rightFragments.get(_INDEX2);
+		ECardFListragment fragment = (ECardFListragment) rightFragments.get(_INDEX2);
 		ft.show(fragment);
 		ft.commit();
 		((MainActivity) getSherlockActivity()).getSlidingMenu().showContent();
@@ -95,7 +95,7 @@ public class LeftMenuFragment extends SherlockListFragment {
 
 		ft.hide(rightFragments.get(_INDEX2));
 		ft.hide(rightFragments.get(_INDEX3));
-		CouponsFragment fragment = (CouponsFragment) rightFragments.get(_INDEX1);
+		CouponsListFragment fragment = (CouponsListFragment) rightFragments.get(_INDEX1);
 		ft.show(fragment);
 		ft.commit();
 		((MainActivity) getSherlockActivity()).getSlidingMenu().showContent();
