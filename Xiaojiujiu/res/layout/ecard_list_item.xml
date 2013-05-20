@@ -50,7 +50,7 @@
                 android:focusableInTouchMode="false"
                 android:text="1000"
                 android:textColor="@color/abs__background_holo_dark"
-                android:textSize="@dimen/smalltext" />
+                android:textSize="@dimen/textsize14" />
 
             <TextView
                 android:id="@+id/ecard_list_item_useamount"
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="地址：dddddddddddddddddd"
-            android:textSize="@dimen/smalltext" />
+            android:textSize="@dimen/textsize14" />
     </LinearLayout>
 
 </LinearLayout>

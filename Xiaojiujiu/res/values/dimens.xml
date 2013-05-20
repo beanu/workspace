@@ -24,10 +24,13 @@
     <integer name="num_cols">1</integer>
 
     <!-- 字体大小 -->
-    <dimen name="microtext">12sp</dimen>
-    <dimen name="smalltext">14sp</dimen>
-    <dimen name="mediumtext">18sp</dimen>
-    <dimen name="largetext">22sp</dimen>
+    <dimen name="textsize12">12sp</dimen>
+    <dimen name="textsize13">13sp</dimen>
+    <dimen name="textsize14">14sp</dimen>
+    <dimen name="textsize16">16sp</dimen>
+    <dimen name="textsize17">17sp</dimen>
+    <dimen name="textsize18">18sp</dimen>
+    <dimen name="textsize22">22sp</dimen>
 
     <!-- 默认列表的高度 -->
     <dimen name="height">48dp</dimen>
@@ -38,6 +41,5 @@
     <dimen name="divider">1px</dimen>
 
     <!-- 自定义高度 -->
-    <dimen name="ecard_deatail_top_title_height">72dp</dimen>
 
 </resources>

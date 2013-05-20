@@ -12,7 +12,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ecard_deatail_top_title_height"
+            android:layout_height="72dp"
             android:layout_marginBottom="@dimen/pitch16" >
 
             <ImageView
@@ -29,7 +29,7 @@
                 android:layout_marginBottom="4dp"
                 android:gravity="center_horizontal"
                 android:text="小肥羊火锅电子会员卡"
-                android:textSize="@dimen/smalltext" >
+                android:textSize="@dimen/textsize14" >
             </TextView>
         </FrameLayout>
 
@@ -170,7 +170,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/coupon_detail_tag_stores"
                 android:text="适用门店（5家）"
-                android:textSize="@dimen/smalltext" />
+                android:textSize="@dimen/textsize14" />
 
             <ImageView
                 android:layout_width="wrap_content"

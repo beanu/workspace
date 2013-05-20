@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="none" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,94 +12,97 @@
 
         <!-- 头部信息 -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ecard_deatail_top_title_height"
-            android:layout_marginBottom="@dimen/pitch16"
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="horizontal" >
+            android:padding="@dimen/pitch16" >
 
             <ImageView
                 android:id="@+id/ecard_detail_big_image"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="@dimen/pitch12"
-                android:src="@drawable/ic_launcher" />
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:background="#ffffffff"
+                android:scaleType="centerCrop" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/ecard_detail_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/ecard_detail_big_image"
+                android:layout_alignLeft="@id/ecard_detail_title"
+                android:layout_marginBottom="4dp"
+                android:text="@string/app_name"
+                android:textColor="@color/ecard_detail_score"
+                android:textSize="@dimen/textsize16" />
 
-                <TextView
-                    android:id="@+id/ecard_detail_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="@dimen/pitch12"
-                    android:layout_marginTop="@dimen/pitch12"
-                    android:text="小肥羊火锅电子会员卡"
-                    android:textSize="@dimen/smalltext" >
-                </TextView>
+            <TextView
+                android:id="@+id/ecard_detail_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/ecard_detail_score"
+                android:layout_alignTop="@id/ecard_detail_big_image"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@id/ecard_detail_big_image"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="biaotiititit跳的阿斯顿噶的个"
+                android:textColor="@color/ecard_detail_title"
+                android:textSize="@dimen/textsize16" />
 
-                <TextView
-                    android:id="@+id/ecard_detail_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="12dp"
-                    android:drawableLeft="@drawable/ecard_detail_tag_distance"
-                    android:drawablePadding="4dp"
-                    android:text="1000" />
+            <TextView
+                android:id="@+id/ecard_detail_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/ecard_detail_score"
+                android:layout_marginLeft="2.0dip"
+                android:layout_toRightOf="@id/ecard_detail_score"
+                android:text="@string/app_name"
+                android:textColor="@color/ecard_detail_level"
+                android:textSize="13sp" />
 
-                <TextView
-                    android:id="@+id/ecard_detail_level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_toRightOf="@id/ecard_detail_score"
-                    android:drawableLeft="@drawable/ecard_detail_tag_distance"
-                    android:drawablePadding="4dp"
-                    android:text="钻石卡" />
-
-                <TextView
-                    android:id="@+id/ecard_detail_discount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginRight="@dimen/pitch12"
-                    android:text="8折" />
-            </RelativeLayout>
-        </LinearLayout>
+            <TextView
+                android:id="@+id/ecard_detail_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/ecard_detail_level"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="2dp"
+                android:text="@string/app_name"
+                android:textColor="@color/ecard_detail_discount"
+                android:textSize="13sp" />
+        </RelativeLayout>
 
         <!-- 会员卡说明 -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch16"
-            android:layout_marginLeft="@dimen/pitch16"
-            android:layout_marginRight="@dimen/pitch16"
+            android:layout_margin="@dimen/pitch16"
             android:background="@drawable/ecard_detail_module_bg"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="@dimen/pitch12" >
 
             <TextView
                 android:id="@+id/ecard_detail_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="使用说明那个，说明，说明，说明" >
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="使用说明那个，说明，说明，说明dddddasdgasdgadsgjn南大街那是假的噶少的呢个"
+                android:textColor="@color/ecard_detail_discount"
+                android:textSize="@dimen/textsize14" >
             </TextView>
 
             <TextView
                 android:id="@+id/ecard_detail_effectiveTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="有效期：2014年1月1号" />
+                android:layout_marginTop="@dimen/pitch12"
+                android:text="有效期：2014年1月1号"
+                android:textColor="@color/ecard_detail_discount"
+                android:textSize="@dimen/textsize14" />
         </LinearLayout>
 
         <!-- 查看更多 -->
@@ -126,7 +131,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/ecard_detail_tag_more"
                 android:text="@string/ecard_detail_see_more"
-                android:textSize="@dimen/smalltext" />
+                android:textSize="@dimen/textsize14" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -146,29 +151,44 @@
             android:layout_marginLeft="@dimen/pitch16"
             android:layout_marginRight="@dimen/pitch16"
             android:background="@drawable/ecard_detail_module_bg"
+            android:gravity="center_horizontal"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/ecard_detail_nearby_shop_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="小肥羊" />
+                android:ellipsize="end"
+                android:padding="@dimen/pitch16"
+                android:singleLine="true"
+                android:text="小肥羊"
+                android:textColor="@color/ecard_detail_title"
+                android:textSize="@dimen/textsize17" />
 
-            <ImageView
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/dotted_line" />
+                android:layout_height="1dp"
+                android:background="@drawable/dotted_line" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="60dp"
+                android:paddingLeft="@dimen/pitch16" >
 
                 <TextView
                     android:id="@+id/ecard_detail_nearby_shop_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="地址" />
+                    android:layout_marginTop="@dimen/pitch8"
+                    android:ellipsize="end"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:text="地址:济南条取闹的洪家楼"
+                    android:textColor="@color/ecard_detail_discount"
+                    android:textSize="@dimen/textsize14" />
 
                 <TextView
                     android:id="@+id/ecard_detail_nearby_shop_distance"
@@ -176,23 +196,29 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/ecard_detail_nearby_shop_address"
-                    android:drawableLeft="@drawable/ecard_detail_tag_distance" >
+                    android:layout_marginTop="@dimen/pitch8"
+                    android:drawableLeft="@drawable/ecard_detail_tag_distance"
+                    android:drawablePadding="@dimen/pitch4"
+                    android:textColor="@color/ecard_detail_discount"
+                    android:textSize="@dimen/textsize14" >
                 </TextView>
 
                 <ImageView
                     android:id="@+id/ecard_detail_nearby_shop_phone"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:clickable="true"
                     android:src="@drawable/ecard_detail_tag_phone" >
                 </ImageView>
 
-                <ImageView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/ecard_detail_nearby_shop_phone"
-                    android:src="@drawable/ecard_detail_tag_vline" />
+                    android:background="@drawable/ecard_detail_tag_vline" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -222,7 +248,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/ecard_detail_tag_stores"
                 android:text="适用门店（5家）"
-                android:textSize="@dimen/smalltext" />
+                android:textSize="@dimen/textsize14" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -259,7 +285,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/ecard_detail_tag_promotion"
                 android:text="优惠活动"
-                android:textSize="@dimen/smalltext" />
+                android:textSize="@dimen/textsize14" />
 
             <ImageView
                 android:layout_width="wrap_content"
