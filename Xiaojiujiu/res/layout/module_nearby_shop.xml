@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ecard_detail_module_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/ecard_detail_nearby_shop_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:padding="@dimen/pitch16"
+        android:singleLine="true"
+        android:text="小肥羊"
+        android:textColor="@color/ecard_detail_title"
+        android:textSize="@dimen/textsize17" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/dotted_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="@dimen/pitch16" >
+
+        <TextView
+            android:id="@+id/ecard_detail_nearby_shop_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/pitch8"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="地址:济南条取闹的洪家楼"
+            android:textColor="@color/ecard_detail_discount"
+            android:textSize="@dimen/textsize14" />
+
+        <TextView
+            android:id="@+id/ecard_detail_nearby_shop_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/ecard_detail_nearby_shop_address"
+            android:layout_marginTop="@dimen/pitch8"
+            android:drawableLeft="@drawable/ecard_detail_tag_distance"
+            android:drawablePadding="@dimen/pitch4"
+            android:textColor="@color/ecard_detail_discount"
+            android:textSize="@dimen/textsize14" >
+        </TextView>
+
+        <ImageView
+            android:id="@+id/ecard_detail_nearby_shop_phone"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:src="@drawable/ecard_detail_tag_phone" >
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/ecard_detail_nearby_shop_phone"
+            android:background="@drawable/ecard_detail_tag_vline" />
+    </RelativeLayout>
+
+</LinearLayout>

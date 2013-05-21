@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="ContentDescription">
+        <ignore path="res/layout/coupon_detail_activity.xml" />
         <ignore path="res/layout/ecard_detail_activity.xml" />
+        <ignore path="res/layout/module_button.xml" />
     </issue>
     <issue id="SelectableText">
         <ignore path="res/layout/ecard_detail_activity.xml" />

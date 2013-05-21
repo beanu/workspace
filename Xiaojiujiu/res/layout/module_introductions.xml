@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ecard_detail_module_bg"
+    android:orientation="vertical"
+    android:padding="@dimen/pitch12" >
+
+    <TextView
+        android:id="@+id/ecard_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="使用说明那个，说明，说明，说明dddddasdgasdgadsgjn南大街那是假的噶少的呢个"
+        android:textColor="@color/ecard_detail_discount"
+        android:textSize="@dimen/textsize14" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/ecard_detail_effectiveTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pitch12"
+        android:text="有效期：2014年1月1号"
+        android:textColor="@color/ecard_detail_discount"
+        android:textSize="@dimen/textsize14" />
+
+</LinearLayout>
