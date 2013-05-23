@@ -8,15 +8,14 @@
 
     <ImageView
         android:id="@+id/coupon_list_item_img"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_weight="0.5"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="@dimen/pitch4"
         android:scaleType="fitXY" />
 
     <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="8dp" >
 
         <TextView
@@ -36,22 +35,28 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@id/coupon_list_item_title"
+            android:layout_marginLeft="@dimen/pitch8"
+            android:layout_marginTop="@dimen/pitch4"
             android:layout_toRightOf="@id/coupon_list_item_title"
             android:orientation="horizontal" >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
                 android:src="@drawable/coupon_tag_hui" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
                 android:src="@drawable/coupon_tag_quan" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
                 android:src="@drawable/coupon_tag_xian" />
 
             <ImageView
@@ -65,18 +70,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/coupon_list_item_title"
+            android:layout_marginTop="@dimen/pitch4"
             android:ellipsize="end"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:text="限时抢购，夏季所有衣服5折出售"
-            android:textSize="@dimen/textsize14" />
+            android:maxLines="2"
+            android:text="限时抢购，夏季所有衣服5折出售,55折出售了....."
+            android:textSize="@dimen/textsize12"
+            android:textColor="@color/ecard_detail_discount" />
 
         <TextView
             android:id="@+id/coupon_list_item_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:layout_below="@id/coupon_list_item_content"
+            android:layout_marginTop="@dimen/pitch4"
             android:text="地址：济南天桥区北园大街" />
     </RelativeLayout>
 

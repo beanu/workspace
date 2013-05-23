@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nearby_shop_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/ecard_detail_module_bg"
@@ -7,7 +8,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/ecard_detail_nearby_shop_name"
+        android:id="@+id/nearby_shop_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -28,7 +29,7 @@
         android:paddingLeft="@dimen/pitch16" >
 
         <TextView
-            android:id="@+id/ecard_detail_nearby_shop_address"
+            android:id="@+id/nearby_shop_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -43,11 +44,11 @@
             android:textSize="@dimen/textsize14" />
 
         <TextView
-            android:id="@+id/ecard_detail_nearby_shop_distance"
+            android:id="@+id/nearby_shop_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/ecard_detail_nearby_shop_address"
+            android:layout_below="@id/nearby_shop_address"
             android:layout_marginTop="@dimen/pitch8"
             android:drawableLeft="@drawable/ecard_detail_tag_distance"
             android:drawablePadding="@dimen/pitch4"
@@ -56,7 +57,7 @@
         </TextView>
 
         <ImageView
-            android:id="@+id/ecard_detail_nearby_shop_phone"
+            android:id="@+id/nearby_shop_phone"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -69,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/ecard_detail_nearby_shop_phone"
+            android:layout_toLeftOf="@id/nearby_shop_phone"
             android:background="@drawable/ecard_detail_tag_vline" />
     </RelativeLayout>
 

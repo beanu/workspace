@@ -12,9 +12,15 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.xiaojiujiu.ui.ColorFragment;
 import com.xiaojiujiu.ui.LeftMenuFragment;
+import com.xiaojiujiu.ui.RightMenuFragment;
 import com.xiaojiujiu.ui.coupons.CouponsListFragment;
 import com.xiaojiujiu.ui.ecard.ECardFListragment;
 
+/**
+ * 主页
+ * @author beanu
+ *
+ */
 public class MainActivity extends SlidingFragmentActivity {
 
 	private long waitTime = 2000;
@@ -22,15 +28,15 @@ public class MainActivity extends SlidingFragmentActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		setTheme(com.actionbarsherlock.R.style.Theme_Sherlock_Light);
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.main_activity);
+//		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.top_bg));
 
 		// setTitle(getResources().getString(R.string.app_name));
 
 		SlidingMenu sm = getSlidingMenu();
+		sm.setMode(SlidingMenu.LEFT_RIGHT);
 		sm.setShadowWidthRes(R.dimen.shadow_width);
-		sm.setShadowDrawable(R.drawable.shadow);
+		sm.setShadowDrawable(R.drawable.shadowleft);
 		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -39,20 +45,26 @@ public class MainActivity extends SlidingFragmentActivity {
 		// buildCustomActionBarTitle();
 
 		setContentView(R.layout.main_fragment);
-		setBehindContentView(R.layout.menu_fragment);
+		setBehindContentView(R.layout.menu_left_fragment);
 
-		// set the Above View
+		sm.setSecondaryMenu(R.layout.menu_right_fragment);
+		sm.setSecondaryShadowDrawable(R.drawable.shadowright);
+
 		if (savedInstanceState == null) {
+
+			// set the Content View
 			initFragments();
 
-			// set the Above View
-			// getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,
-			// mContent).commit();
-
-			// set the Behind View
+			// set the Left View
 			FragmentTransaction secondFragmentTransaction = getSupportFragmentManager().beginTransaction();
-			secondFragmentTransaction.replace(R.id.menu_fragment, getMenuFragment(), LeftMenuFragment.class.getName());
+			secondFragmentTransaction.replace(R.id.menu_left, getLeftMenuFragment(),
+					LeftMenuFragment.class.getName());
+
+			// set the right view
+			secondFragmentTransaction.replace(R.id.menu_right, getRightMenuFragment(),
+					RightMenuFragment.class.getName());
 			secondFragmentTransaction.commit();
+
 			// getSlidingMenu().showContent();
 		}
 	}
@@ -115,11 +127,20 @@ public class MainActivity extends SlidingFragmentActivity {
 		}
 	}
 
-	public LeftMenuFragment getMenuFragment() {
+	public LeftMenuFragment getLeftMenuFragment() {
 		LeftMenuFragment fragment = ((LeftMenuFragment) getSupportFragmentManager().findFragmentByTag(
 				LeftMenuFragment.class.getName()));
 		if (fragment == null) {
 			fragment = new LeftMenuFragment();
+		}
+		return fragment;
+	}
+
+	public RightMenuFragment getRightMenuFragment() {
+		RightMenuFragment fragment = ((RightMenuFragment) getSupportFragmentManager().findFragmentByTag(
+				RightMenuFragment.class.getName()));
+		if (fragment == null) {
+			fragment = new RightMenuFragment();
 		}
 		return fragment;
 	}

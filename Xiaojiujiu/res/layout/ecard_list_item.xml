@@ -12,8 +12,9 @@
 
         <ImageView
             android:id="@+id/ecard_list_item_img"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_margin="@dimen/pitch4"
             android:scaleType="fitXY" />
     </FrameLayout>
 
@@ -37,7 +38,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pitch8" >
 
             <TextView
                 android:id="@+id/ecard_list_item_score"
@@ -66,15 +68,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/pitch12"
-                android:text="8折" />
+                android:text="8折"
+                android:textColor="@color/ecard_detail_discount"
+                android:textSize="@dimen/textsize13" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/ecard_list_item_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pitch8"
             android:text="地址：dddddddddddddddddd"
-            android:textSize="@dimen/textsize14" />
+            android:textSize="@dimen/textsize13" />
     </LinearLayout>
 
 </LinearLayout>

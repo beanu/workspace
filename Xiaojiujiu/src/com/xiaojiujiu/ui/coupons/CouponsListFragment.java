@@ -22,7 +22,7 @@ import com.beanu.arad.pulltorefresh.PullToRefreshBase;
 import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
 import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.beanu.arad.pulltorefresh.PullToRefreshListFragment;
-import com.beanu.arad.support.utils.AppLogger;
+import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.entity.Coupon;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
 
@@ -77,7 +77,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	@Override
 	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-		AppLogger.d("onRefresh");
+		Log.d("onRefresh");
 		AjaxParams params = new AjaxParams();
 		params.put("op", "searchByTypeAndDistance");
 		params.put("cityID", "1");

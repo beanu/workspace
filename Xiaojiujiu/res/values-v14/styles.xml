@@ -6,8 +6,9 @@
         res/values-v11/styles.xml on API 14+ devices.
     -->
     <style name="AppBaseTheme" parent="Theme.Sherlock.Light">
+
         <!-- API 14 theme customizations can go here. -->
-        <item name="android:windowBackground">@drawable/app_background</item>
+        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
     </style>
 
 </resources>

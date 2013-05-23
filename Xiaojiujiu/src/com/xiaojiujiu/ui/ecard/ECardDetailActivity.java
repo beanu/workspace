@@ -16,7 +16,8 @@ public class ECardDetailActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.ecard_detail_activity);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 }
