@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.beanu.arad.base.BaseActivity;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.widget.LongButton;
@@ -48,6 +50,34 @@ public class CouponsDetailActivity extends BaseActivity implements OnClickListen
 			startActivity(intentMoreShop);
 			break;
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		MenuItem collectMenuItem = menu.add(Menu.NONE, R.id.menu_collect, Menu.NONE, "收藏");
+		collectMenuItem.setIcon(R.drawable.menu_unfav);
+		collectMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+		MenuItem shareMenuItem = menu.add(Menu.NONE, R.id.menu_share, Menu.NONE, "分享");
+		shareMenuItem.setIcon(R.drawable.menu_share);
+		shareMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.menu_collect:
+
+			break;
+		case R.id.menu_share:
+			break;
+
+		}
+		return false;
 	}
 
 }
