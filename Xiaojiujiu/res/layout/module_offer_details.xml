@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:padding="@dimen/pitch16"
+        android:padding="@dimen/pitch8"
         android:singleLine="true"
         android:text="优惠详情"
         android:textColor="@color/ecard_detail_title"

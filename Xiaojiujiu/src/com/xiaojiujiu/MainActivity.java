@@ -13,7 +13,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.xiaojiujiu.ui.ColorFragment;
 import com.xiaojiujiu.ui.LeftMenuFragment;
 import com.xiaojiujiu.ui.RightMenuFragment;
-import com.xiaojiujiu.ui.coupons.CouponsListFragment;
+import com.xiaojiujiu.ui.coupons.CouponsFragment;
 import com.xiaojiujiu.ui.ecard.ECardFListragment;
 
 /**
@@ -145,10 +145,10 @@ public class MainActivity extends SlidingFragmentActivity {
 		return fragment;
 	}
 
-	public CouponsListFragment getCouponsFragment() {
-		CouponsListFragment fragment = ((CouponsListFragment) getSupportFragmentManager().findFragmentByTag("coupons"));
+	public CouponsFragment getCouponsFragment() {
+		CouponsFragment fragment = ((CouponsFragment) getSupportFragmentManager().findFragmentByTag("coupons"));
 		if (fragment == null)
-			fragment = new CouponsListFragment();
+			fragment = new CouponsFragment();
 		return fragment;
 	}
 
