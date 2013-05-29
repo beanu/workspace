@@ -30,6 +30,7 @@ import com.beanu.arad.pulltorefresh.PullToRefreshListView;
 import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.entity.ECard;
+import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.ECardListAdapter;
 
 /**
@@ -83,6 +84,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), ECardDetailActivity.class);
 				startActivity(intent);
+				UIUtil.intentSlidIn(getSherlockActivity());
 			}
 		});
 

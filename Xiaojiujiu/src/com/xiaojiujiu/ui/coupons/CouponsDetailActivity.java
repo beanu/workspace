@@ -10,6 +10,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.beanu.arad.base.BaseActivity;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.widget.LongButton;
 
 /**
@@ -44,10 +45,12 @@ public class CouponsDetailActivity extends BaseActivity implements OnClickListen
 			Intent intent = new Intent(CouponsDetailActivity.this, CouponsDescriptionActivity.class);
 			intent.putExtra("url", "http://www.163.com");
 			startActivity(intent);
+			UIUtil.intentSlidIn(this);
 			break;
 		case R.id.coupon_detail_moreshops:
 			Intent intentMoreShop = new Intent(CouponsDetailActivity.this, CouponsShopApplyActivity.class);
 			startActivity(intentMoreShop);
+			UIUtil.intentSlidIn(this);
 			break;
 		}
 	}

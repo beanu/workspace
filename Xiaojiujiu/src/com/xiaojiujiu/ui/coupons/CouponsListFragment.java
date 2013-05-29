@@ -24,6 +24,7 @@ import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.beanu.arad.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.entity.Coupon;
+import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
 
 /**
@@ -59,6 +60,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), CouponsDetailActivity.class);
 				startActivity(intent);
+				UIUtil.intentSlidIn(getSherlockActivity());
 			}
 		});
 

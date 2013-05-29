@@ -80,7 +80,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/pitch8"
-            android:text="@string/user_login_regrightnow"
+            android:text="@string/user_login_registnow"
             android:textColor="@color/blue"
             android:textSize="@dimen/textsize16" />
     </RelativeLayout>
