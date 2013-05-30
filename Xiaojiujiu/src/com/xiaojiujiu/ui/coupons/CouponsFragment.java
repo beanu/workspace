@@ -8,9 +8,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import android.widget.PopupWindow;
 import com.beanu.arad.base.BaseFragment;
 import com.xiaojiujiu.R;
-import com.xiaojiujiu.ui.common.SelectorAreaActivity;
+import com.xiaojiujiu.ui.common.SelectorAreaWindow;
 
 /**
  * 优惠券列表页面
@@ -61,7 +62,7 @@ public class CouponsFragment extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.distance:
-			Intent intent = new Intent(getSherlockActivity(), SelectorAreaActivity.class);
+			Intent intent = new Intent(getSherlockActivity(), SelectorAreaWindow.class);
 			startActivity(intent);
 			break;
 		case R.id.food:
