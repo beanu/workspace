@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+       android:orientation="vertical"
+    android:layout_margin="@dimen/pitch16"
+    >
+
+    <TextView
+        android:id="@+id/category_account"
+        android:textSize="@dimen/textsize14"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="系统设置" />
+
+    <ImageView
+        android:id="@+id/account_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:background="#ffbbbbbb" />
+
+    <RelativeLayout
+        android:id="@+id/my_account"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_list_selector"
+        android:paddingBottom="15.0dip"
+        android:paddingTop="15.0dip" >
+
+        <TextView
+            android:id="@+id/account_my"
+            android:textSize="@dimen/textsize17"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15.0dip"
+            android:text="我的帐号" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:textSize="@dimen/textsize17"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5.0dip"
+            android:text="user name" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/push_zone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_list_selector"
+        android:clickable="true"
+        android:paddingBottom="15.0dip"
+        android:paddingTop="15.0dip" >
+
+        <TextView
+            android:id="@+id/application_push"
+            android:textSize="@dimen/textsize17"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15.0dip"
+            android:text="推送" />
+
+        <CheckBox
+            android:id="@+id/switch_push"
+            android:layout_width="62.599976dip"
+            android:layout_height="22.599976dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5.0dip"
+            android:button="@drawable/base_checkbox_selector" />
+    </RelativeLayout>
+</LinearLayout>

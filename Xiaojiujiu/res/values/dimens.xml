@@ -41,4 +41,7 @@
     <dimen name="divider">1px</dimen>
 
     <!-- 自定义高度 -->
+    <dimen name="popupWindow_width">280dp</dimen>
+    <dimen name="popupWindow_height">300dp</dimen>
+
 </resources>

@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+              android:layout_width="280dp"
+              android:layout_height="450dp"
+              android:orientation="horizontal"
+              android:layoutAnimation="@anim/selector_anim_layout">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="80dp"
-        android:layoutAnimation="@anim/selector_anim_layout" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+    <com.xiaojiujiu.ui.widget.Pull_ListView
+        android:id="@+id/listLeft"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:cacheColorHint="@android:color/transparent"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:scrollbars="none">
+    </com.xiaojiujiu.ui.widget.Pull_ListView>
 
-            <com.xiaojiujiu.ui.widget.Pull_ListView
-                android:id="@+id/listLeft"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:cacheColorHint="@android:color/transparent"
-                android:choiceMode="singleChoice"
-                android:divider="@null"
-                android:scrollbars="none" >
-            </com.xiaojiujiu.ui.widget.Pull_ListView>
-
-            <com.xiaojiujiu.ui.widget.Pull_ListView
-                android:id="@+id/listRight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:cacheColorHint="@android:color/transparent"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:scrollbars="none" >
-            </com.xiaojiujiu.ui.widget.Pull_ListView>
-        </LinearLayout>
-    </RelativeLayout>
+    <com.xiaojiujiu.ui.widget.Pull_ListView
+        android:id="@+id/listRight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:scrollbars="none">
+    </com.xiaojiujiu.ui.widget.Pull_ListView>
 
 </LinearLayout>

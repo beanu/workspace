@@ -24,6 +24,7 @@ public class CouponsFragment extends BaseFragment implements OnClickListener {
 	private Button distance;
 	private Button citys;
 	private Button order;
+    private SelectorAreaWindow selectorAreaWindow;
 
 	public static CouponsFragment newInstance() {
 		// Bundle args = new Bundle();
@@ -37,7 +38,9 @@ public class CouponsFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	}
+        if (savedInstanceState==null)
+            selectorAreaWindow=new SelectorAreaWindow(getSherlockActivity());
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class CouponsFragment extends BaseFragment implements OnClickListener {
 		distance.setOnClickListener(this);
 		citys.setOnClickListener(this);
 		order.setOnClickListener(this);
+
 		return view;
 	}
 
@@ -62,8 +66,9 @@ public class CouponsFragment extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.distance:
-			Intent intent = new Intent(getSherlockActivity(), SelectorAreaWindow.class);
-			startActivity(intent);
+//			Intent intent = new Intent(getSherlockActivity(), SelectorAreaWindow.class);
+//			startActivity(intent);
+            selectorAreaWindow.showPopupwindow(distance);
 			break;
 		case R.id.food:
 			break;

@@ -20,3 +20,8 @@ local.properties
 # target directories:
 /EvilDragon/EvilDragon-desktop/dragoncat
 /EvilDragon/EvilDragon-desktop/img
+
+# android studio
+.idea/
+*/.idea/
+*.iml

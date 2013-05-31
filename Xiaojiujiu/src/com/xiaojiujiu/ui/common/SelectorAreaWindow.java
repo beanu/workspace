@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ public class SelectorAreaWindow {
     private PopupWindow popupWindow;
 	private Pull_ListView listRight;
 	private Pull_ListView listLeft;
+    private LinearLayout layout;
+
 	private SelectorRightAdapter rightAdapter;
 	private SelectorLeftAdapter leftAdapter;
 
@@ -56,7 +59,6 @@ public class SelectorAreaWindow {
 
     public SelectorAreaWindow(Context ctx){
         this.context=ctx;
-        LinearLayout layout= (LinearLayout)LayoutInflater.from(context).inflate(R.layout.selector_list_activity,null);
 
         // TODO delete TEST
         for (int i = 0; i < food.length; i++) {
@@ -64,6 +66,20 @@ public class SelectorAreaWindow {
         }
 
         leftAdapter = new SelectorLeftAdapter(context, leftData);
+        rightAdapter = new SelectorRightAdapter(context, cities, 0);
+        initView();
+        popupWindow=new PopupWindow(context);
+        popupWindow.setWidth((int)context.getResources().getDimension(R.dimen.popupWindow_width));
+        popupWindow.setHeight((int)context.getResources().getDimension(R.dimen.popupWindow_height));
+        popupWindow.setContentView(layout);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setFocusable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.setOutsideTouchable(true);
+    }
+
+    private void initView(){
+        layout= (LinearLayout)LayoutInflater.from(context).inflate(R.layout.selector_list_activity,null);
         listLeft = (Pull_ListView) layout.findViewById(R.id.listLeft);
         listLeft.setAdapter(leftAdapter);
         listLeft.setOnItemClickListener(new OnItemClickListener() {
@@ -78,7 +94,6 @@ public class SelectorAreaWindow {
             }
         });
 
-        rightAdapter = new SelectorRightAdapter(context, cities, 0);
         listRight = (Pull_ListView) layout.findViewById(R.id.listRight);
         listRight.setAdapter(rightAdapter);
         listRight.setOnItemClickListener(new OnItemClickListener() {
@@ -90,20 +105,27 @@ public class SelectorAreaWindow {
             }
         });
 
-        popupWindow=new PopupWindow(context);
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setWidth(400);
-        popupWindow.setHeight(600);
-        popupWindow.setContentView(layout);
+
     }
 
     /**
      * 显示浮动框，筛选器
-     * @param x
-     * @param y
      */
-    public void showPopupwindow(View view,int x,int y){
-        if (popupWindow!=null)
-            popupWindow.showAtLocation(view, Gravity.LEFT|Gravity.TOP,x,y);
+    public void showPopupwindow(View view){
+        if (popupWindow!=null){
+            if (popupWindow.isShowing())
+                popupWindow.dismiss();
+            else{
+                popupWindow.showAsDropDown(view);
+            }
+
+        }
+    }
+
+    public void dismissPopupwindow(){
+        if (popupWindow!=null){
+            popupWindow.dismiss();
+        }
+
     }
 }
