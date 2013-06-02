@@ -1,7 +1,5 @@
 package com.xiaojiujiu.ui.adapter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.beanu.arad.utils.AndroidUtil;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.entity.CouponShop;
+
+import java.util.List;
 
 /**
  * 优惠券适用门店列表Adapter

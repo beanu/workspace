@@ -10,19 +10,20 @@ import android.widget.TextView;
 import com.beanu.arad.Arad;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.entity.ECard;
+import com.xiaojiujiu.entity.EntityCard;
 
 import java.util.List;
 
 /**
- * 电子会员卡信息列表Adapter
+ * 实体卡列表Adapter
  * 
  * @author beanu
  * 
  */
-public class ECardListAdapter extends BaseAdapter {
+public class EntityCardListAdapter extends BaseAdapter {
 
-	private List<ECard> list;
-	private LayoutInflater mlinflater;
+	private List<EntityCard> list;
+	private LayoutInflater inflater;
 
 	private class ViewHolder {
 		public ImageView img;
@@ -30,8 +31,8 @@ public class ECardListAdapter extends BaseAdapter {
 		public TextView content;
 	}
 
-	public ECardListAdapter(Context context, List<ECard> data) {
-		this.mlinflater = LayoutInflater.from(context);
+	public EntityCardListAdapter(Context context, List<EntityCard> data) {
+		this.inflater = LayoutInflater.from(context);
 		this.list = data;
 	}
 
@@ -52,13 +53,13 @@ public class ECardListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View view, ViewGroup viewGroup) {
-		final ECard topic = list.get(position);
+		final EntityCard card = list.get(position);
 		if (view == null) {
-			view = mlinflater.inflate(R.layout.ecard_list_item, null);
+			view = inflater.inflate(R.layout.entity_card_list_item, null);
 			ViewHolder vh = new ViewHolder();
-			vh.title = (TextView) view.findViewById(R.id.ecard_list_item_title);
-			vh.content = (TextView) view.findViewById(R.id.ecard_list_item_address);
-			vh.img = (ImageView) view.findViewById(R.id.ecard_list_item_img);
+			vh.title = (TextView) view.findViewById(R.id.entity_card_title);
+			vh.content = (TextView) view.findViewById(R.id.entity_card_content);
+			vh.img = (ImageView) view.findViewById(R.id.entity_card_imageView);
 			view.setTag(vh);
 		}
 
@@ -66,9 +67,9 @@ public class ECardListAdapter extends BaseAdapter {
 		// AppHolder.getInsatnce().imageLoader.DisplayImage(Constant.IMGPATH +
 		// "/" + topic.getImgPath(), holder.img,
 		// R.drawable.icon_default);
-		Arad.imageLoader.display(topic.getSmallImageUrl(), holder.img, R.drawable.ic_launcher);
-		holder.title.setText(topic.geteCardTitle());
-		holder.content.setText(topic.geteCardDesc());
+		Arad.imageLoader.display(card.getImgPath(), holder.img, R.drawable.default_avatar);
+		holder.title.setText(card.getName());
+		holder.content.setText(card.getValidPeriod());
 		return view;
 	}
 }

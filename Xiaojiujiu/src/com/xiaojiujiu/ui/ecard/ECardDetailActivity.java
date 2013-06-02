@@ -1,10 +1,9 @@
 package com.xiaojiujiu.ui.ecard;
 
 import android.os.Bundle;
-
-import com.beanu.arad.base.BaseActivity;
 import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.ui.UIUtil;
 
 /**
@@ -13,7 +12,7 @@ import com.xiaojiujiu.ui.UIUtil;
  * @author beanu
  * 
  */
-public class ECardDetailActivity extends BaseActivity {
+public class ECardDetailActivity extends MyActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,8 @@ public class ECardDetailActivity extends BaseActivity {
 			
 			@Override
 			public void rightSlidingEvent() {
-				finish();
+                if (!isFinishing())
+				    finish();
 				UIUtil.intentSlidOut(ECardDetailActivity.this);
 				Log.d("right sliding");
 			}
@@ -37,12 +37,6 @@ public class ECardDetailActivity extends BaseActivity {
 				
 			}
 		});
-	}
-
-	@Override
-	public void onBackPressed() {
-		finish();
-		UIUtil.intentSlidOut(this);
 	}
 
 }

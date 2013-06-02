@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.beanu.arad.base.BaseActivity;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.widget.LongButton;
 
@@ -19,7 +18,7 @@ import com.xiaojiujiu.ui.widget.LongButton;
  * @author beanu
  * 
  */
-public class CouponsDetailActivity extends BaseActivity implements OnClickListener {
+public class CouponsDetailActivity extends MyActivity implements OnClickListener {
 
 	private Button offer_detail_button;
 	private LongButton moreShop;
@@ -30,6 +29,19 @@ public class CouponsDetailActivity extends BaseActivity implements OnClickListen
 		setContentView(R.layout.coupon_detail_activity);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        enableSlideGestureDetector(true);
+        setSlidingEventListener(new SlidingEventListener() {
+            @Override
+            public void leftSlidingEvent() {
+
+            }
+
+            @Override
+            public void rightSlidingEvent() {
+                finish();
+                UIUtil.intentSlidOut(CouponsDetailActivity.this);
+            }
+        });
 
 		offer_detail_button = (Button) findViewById(R.id.offer_detail_button);
 		offer_detail_button.setOnClickListener(this);
@@ -80,6 +92,7 @@ public class CouponsDetailActivity extends BaseActivity implements OnClickListen
 			break;
 
 		}
+        super.onOptionsItemSelected(item);
 		return false;
 	}
 

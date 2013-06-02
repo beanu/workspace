@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="@dimen/pitch16">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pitch16"
+        android:id="@+id/editText"
+        android:hint="商家名"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pitch16"
+        android:id="@+id/editText2"
+        android:hint="卡号"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pitch16"
+        android:id="@+id/editText3"
+        android:hint="条形码"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pitch16"
+        android:id="@+id/imageView"
+        android:src="@drawable/entity_card_default_avatar"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/entity_card_add_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/pitch12"
+        android:layout_marginTop="@dimen/pitch16"
+        android:background="@drawable/login_button"
+        android:text="添加会员卡"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize16"/>
+
+</LinearLayout>

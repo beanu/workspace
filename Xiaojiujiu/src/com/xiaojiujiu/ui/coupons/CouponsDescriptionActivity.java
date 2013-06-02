@@ -3,9 +3,9 @@ package com.xiaojiujiu.ui.coupons;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebView;
-
-import com.beanu.arad.base.BaseActivity;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.base.MyActivity;
+import com.xiaojiujiu.ui.UIUtil;
 
 /**
  * 优惠图文详情
@@ -13,13 +13,28 @@ import com.xiaojiujiu.R;
  * @author beanu
  * 
  */
-public class CouponsDescriptionActivity extends BaseActivity {
+public class CouponsDescriptionActivity extends MyActivity {
 
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.coupon_description_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        enableSlideGestureDetector(true);
+        setSlidingEventListener(new SlidingEventListener() {
+            @Override
+            public void leftSlidingEvent() {
+
+            }
+
+            @Override
+            public void rightSlidingEvent() {
+                finish();
+                UIUtil.intentSlidOut(CouponsDescriptionActivity.this);
+            }
+        });
 
 		String url = getIntent().getStringExtra("url");
 		if (url != null && !url.equals("")) {

@@ -12,7 +12,8 @@
     <color name="ecard_detail_discount">#ff8c8c8c</color>
     <color name="coupon_detail_more_info">#ffffaa00</color>
     <color name="account_profile_split">#ffbbbbbb</color>
-    
+
+    <color name="entity_card_text_background">#ffd2ce</color>
     <!-- 刷选器的颜色值 -->
 
 </resources>

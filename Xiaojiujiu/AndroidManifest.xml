@@ -55,6 +55,18 @@
             android:name=".ui.user.RegisterActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+                android:name=".ui.user.SettingActivity"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ui.entitycard.AddEntityCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ui.entitycard.EntityCardDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

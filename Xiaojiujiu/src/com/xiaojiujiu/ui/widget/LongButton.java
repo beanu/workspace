@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.xiaojiujiu.R;
 
 /**

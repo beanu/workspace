@@ -1,22 +1,11 @@
 package com.xiaojiujiu.ui.coupons;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
 import com.beanu.arad.Arad;
 import com.beanu.arad.pulltorefresh.PullToRefreshBase;
 import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
@@ -26,6 +15,14 @@ import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.entity.Coupon;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 优惠券列表页面

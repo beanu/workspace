@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
-import com.beanu.arad.base.BaseActivity;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.ui.UIUtil;
 
 /**
@@ -16,7 +15,7 @@ import com.xiaojiujiu.ui.UIUtil;
  * @author beanu
  * 
  */
-public class LoginActivity extends BaseActivity implements OnClickListener {
+public class LoginActivity extends MyActivity implements OnClickListener {
 
 	private TextView registerTextView;
 
@@ -24,6 +23,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_login_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        enableSlideGestureDetector(true);
+        setSlidingEventListener(new SlidingEventListener() {
+            @Override
+            public void leftSlidingEvent() {
+
+            }
+
+            @Override
+            public void rightSlidingEvent() {
+                finish();
+                UIUtil.intentSlidOut(LoginActivity.this);
+            }
+        });
 
 		registerTextView = (TextView) findViewById(R.id.login_register);
 		registerTextView.setOnClickListener(this);

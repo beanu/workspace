@@ -1,24 +1,20 @@
 package com.xiaojiujiu.ui.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
 import com.xiaojiujiu.ui.adapter.SelectorRightAdapter;
 import com.xiaojiujiu.ui.widget.Pull_ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectorAreaWindow {
 

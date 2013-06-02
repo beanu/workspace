@@ -1,7 +1,5 @@
 package com.xiaojiujiu.ui;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.xiaojiujiu.MainActivity;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.coupons.CouponsFragment;
 import com.xiaojiujiu.ui.ecard.ECardFListragment;
+import com.xiaojiujiu.ui.entitycard.EntityCardFragment;
+
+import java.util.ArrayList;
 
 /**
  * 左边菜单栏
@@ -47,7 +47,7 @@ public class LeftMenuFragment extends SherlockListFragment {
 
 		rightFragments.add(_INDEX1, ((MainActivity) getSherlockActivity()).getCouponsFragment());
 		rightFragments.add(_INDEX2, ((MainActivity) getSherlockActivity()).getECardFragment());
-		rightFragments.add(_INDEX3, ((MainActivity) getSherlockActivity()).getMyCardFragment());
+		rightFragments.add(_INDEX3, ((MainActivity) getSherlockActivity()).getEntityCardFragment());
 		switchCategory(0);
 	}
 
@@ -56,24 +56,27 @@ public class LeftMenuFragment extends SherlockListFragment {
 		switch (position) {
 		case 0:
 			showCouponsFragment();
+            ((MainActivity)getSherlockActivity()).showEntityCardMenu(false);
 			break;
 		case 1:
 			showECardFragment();
+            ((MainActivity)getSherlockActivity()).showEntityCardMenu(false);
 			break;
 		case 2:
-			showMyCardFragment();
+			showEntityCardFragment();
+            ((MainActivity)getSherlockActivity()).showEntityCardMenu(true);
 			break;
 		}
 		// drawButtonsBackground(position);
 
 	}
 
-	private void showMyCardFragment() {
+	private void showEntityCardFragment() {
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 
 		ft.hide(rightFragments.get(_INDEX1));
 		ft.hide(rightFragments.get(_INDEX2));
-		ColorFragment fragment = (ColorFragment) rightFragments.get(_INDEX3);
+        EntityCardFragment fragment = (EntityCardFragment) rightFragments.get(_INDEX3);
 		ft.show(fragment);
 		ft.commit();
 		((MainActivity) getSherlockActivity()).getSlidingMenu().showContent();
@@ -108,12 +111,15 @@ public class LeftMenuFragment extends SherlockListFragment {
 		switch (position) {
 		case 0:
 			showCouponsFragment();
+            ((MainActivity)getSherlockActivity()).showEntityCardMenu(false);
 			break;
 		case 1:
 			showECardFragment();
+            ((MainActivity)getSherlockActivity()).showEntityCardMenu(false);
 			break;
 		case 2:
-			showMyCardFragment();
+			showEntityCardFragment();
+            ((MainActivity)getSherlockActivity()).showEntityCardMenu(true);
 			break;
 		case 3:
 			// newContent = new ColorFragment(android.R.color.white);

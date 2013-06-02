@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:id="@+id/entity_card_imageView"
+        android:layout_margin="@dimen/pitch8"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/default_avatar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/entity_card_title"
+        android:layout_alignTop="@+id/entity_card_imageView"
+        android:layout_toRightOf="@+id/entity_card_imageView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/entity_card_content"
+        android:layout_marginTop="@dimen/pitch8"
+        android:layout_below="@+id/entity_card_title"
+        android:layout_alignLeft="@+id/entity_card_title"/>
+
+</RelativeLayout>

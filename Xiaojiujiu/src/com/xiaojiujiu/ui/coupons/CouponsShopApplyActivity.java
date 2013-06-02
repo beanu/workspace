@@ -1,15 +1,15 @@
 package com.xiaojiujiu.ui.coupons;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.widget.ListView;
-
-import com.beanu.arad.base.BaseActivity;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.entity.CouponShop;
+import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponShopApplyListAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 优惠券适用门店
@@ -17,7 +17,7 @@ import com.xiaojiujiu.ui.adapter.CouponShopApplyListAdapter;
  * @author beanu
  * 
  */
-public class CouponsShopApplyActivity extends BaseActivity {
+public class CouponsShopApplyActivity extends MyActivity {
 
 	private ListView listView;
 	private CouponShopApplyListAdapter adapter;
@@ -26,6 +26,21 @@ public class CouponsShopApplyActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.coupon_shop_apply_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        enableSlideGestureDetector(true);
+        setSlidingEventListener(new SlidingEventListener() {
+            @Override
+            public void leftSlidingEvent() {
+
+            }
+
+            @Override
+            public void rightSlidingEvent() {
+                finish();
+                UIUtil.intentSlidOut(CouponsShopApplyActivity.this);
+            }
+        });
 
 		List<CouponShop> data = new ArrayList<CouponShop>();
 		for (int i = 0; i < 4; i++) {
