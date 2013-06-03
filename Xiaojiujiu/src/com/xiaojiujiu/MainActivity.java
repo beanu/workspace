@@ -18,6 +18,7 @@ import com.xiaojiujiu.ui.coupons.CouponsFragment;
 import com.xiaojiujiu.ui.ecard.ECardFListragment;
 import com.xiaojiujiu.ui.entitycard.AddEntityCardActivity;
 import com.xiaojiujiu.ui.entitycard.EntityCardFragment;
+import com.xiaojiujiu.ui.freshnews.FreshNewsListFragment;
 
 /**
  * 主页
@@ -121,6 +122,7 @@ public class MainActivity extends SlidingFragmentActivity {
         Fragment couponsFragment = getCouponsFragment();
         Fragment eCardFragment = getECardFragment();
         Fragment myCardFragment = getEntityCardFragment();
+        Fragment freshNewsFragment=getFreshNewsFragment();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (!couponsFragment.isAdded()) {
@@ -135,6 +137,10 @@ public class MainActivity extends SlidingFragmentActivity {
         if (!myCardFragment.isAdded()) {
             fragmentTransaction.add(R.id.content_fragment, myCardFragment, "mycard");
             fragmentTransaction.hide(myCardFragment);
+        }
+        if (!freshNewsFragment.isAdded()) {
+            fragmentTransaction.add(R.id.content_fragment, freshNewsFragment, "freshNews");
+            fragmentTransaction.hide(freshNewsFragment);
         }
         if (!fragmentTransaction.isEmpty()) {
             fragmentTransaction.commit();
@@ -179,6 +185,14 @@ public class MainActivity extends SlidingFragmentActivity {
         EntityCardFragment fragment = ((EntityCardFragment) getSupportFragmentManager().findFragmentByTag("mycard"));
         if (fragment == null)
             fragment = EntityCardFragment.newInstance();
+
+        return fragment;
+    }
+
+    public FreshNewsListFragment getFreshNewsFragment() {
+        FreshNewsListFragment fragment = ((FreshNewsListFragment) getSupportFragmentManager().findFragmentByTag("freshNews"));
+        if (fragment == null)
+            fragment = FreshNewsListFragment.newInstance();
 
         return fragment;
     }
