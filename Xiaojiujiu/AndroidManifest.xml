@@ -6,6 +6,12 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- zxing -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -65,6 +71,10 @@
         </activity>
         <activity
             android:name=".ui.entitycard.EntityCardDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ui.freshnews.FreshNewsDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
 

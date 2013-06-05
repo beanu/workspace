@@ -1,5 +1,6 @@
 package com.xiaojiujiu.ui.freshnews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +10,7 @@ import com.beanu.arad.pulltorefresh.PullToRefreshBase;
 import com.beanu.arad.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.entity.FreshNews;
+import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.FreshNewsAdapter;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
@@ -49,9 +51,9 @@ public class FreshNewsListFragment extends PullToRefreshListFragment implements 
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-//                Intent intent = new Intent(getSherlockActivity().getApplicationContext(), CouponsDetailActivity.class);
-//                startActivity(intent);
-//                UIUtil.intentSlidIn(getSherlockActivity());
+                Intent intent = new Intent(getSherlockActivity().getApplicationContext(), FreshNewsDetailActivity.class);
+                startActivity(intent);
+                UIUtil.intentSlidIn(getSherlockActivity());
             }
         });
 
