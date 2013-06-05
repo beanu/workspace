@@ -67,6 +67,13 @@
             android:name=".ui.entitycard.EntityCardDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
+
+
+        <!-- 依赖工程-->
+        <activity
+            android:name="com.google.zxing.CaptureActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

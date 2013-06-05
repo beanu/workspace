@@ -22,13 +22,31 @@
         android:hint="卡号"
         android:layout_gravity="center"/>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="@dimen/pitch16"
-        android:id="@+id/editText3"
-        android:hint="条形码"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/entity_card_add_code_textView"
+            android:hint="条形码"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/entity_card_add_scan"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/pitch8"
+            android:src="@drawable/abs__ic_go_search_api_holo_light"/>
+
+    </LinearLayout>
+
 
     <ImageView
         android:layout_width="wrap_content"

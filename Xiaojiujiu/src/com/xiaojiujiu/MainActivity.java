@@ -10,7 +10,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.xiaojiujiu.ui.ColorFragment;
 import com.xiaojiujiu.ui.LeftMenuFragment;
 import com.xiaojiujiu.ui.RightMenuFragment;
 import com.xiaojiujiu.ui.UIUtil;
@@ -135,7 +134,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
         }
         if (!myCardFragment.isAdded()) {
-            fragmentTransaction.add(R.id.content_fragment, myCardFragment, "mycard");
+
             fragmentTransaction.hide(myCardFragment);
         }
         if (!freshNewsFragment.isAdded()) {
