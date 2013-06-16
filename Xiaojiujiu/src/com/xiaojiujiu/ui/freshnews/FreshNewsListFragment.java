@@ -1,25 +1,28 @@
 package com.xiaojiujiu.ui.freshnews;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import com.beanu.arad.Arad;
-import com.beanu.arad.pulltorefresh.PullToRefreshBase;
-import com.beanu.arad.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.utils.Log;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
 import com.xiaojiujiu.entity.FreshNews;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.FreshNewsAdapter;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 新鲜事列表

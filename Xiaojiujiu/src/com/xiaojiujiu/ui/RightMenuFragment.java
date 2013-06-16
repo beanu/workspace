@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.beanu.arad.base.BaseFragment;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.user.LoginActivity;

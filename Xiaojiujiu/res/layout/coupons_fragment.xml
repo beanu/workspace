@@ -6,10 +6,23 @@
 
     <include layout="@layout/selector_header" />
 
+    <include layout="@layout/pull_to_refresh_listview_layout" >
+
+        <!--
+        <FrameLayout
+            android:id="@+id/coupons_list_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </FrameLayout>
+
+        
     <fragment
         android:id="@+id/coupons_list_fragment"
         android:name="com.xiaojiujiu.ui.coupons.CouponsListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+        -->
+
+    </include>
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.xiaojiujiu.ui.adapter;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.entity.FreshNews;
-
-import java.util.List;
 
 /**
  * Created by beanu on 13-6-3.

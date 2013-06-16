@@ -1,6 +1,7 @@
 package com.xiaojiujiu.ui.entitycard;
 
 import android.os.Bundle;
+
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.ui.UIUtil;

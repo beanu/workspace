@@ -1,6 +1,7 @@
 package com.xiaojiujiu.ui.ecard;
 
 import android.os.Bundle;
+
 import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;

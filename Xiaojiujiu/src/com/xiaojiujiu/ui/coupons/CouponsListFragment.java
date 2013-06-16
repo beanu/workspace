@@ -1,28 +1,40 @@
 package com.xiaojiujiu.ui.coupons;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import com.beanu.arad.Arad;
-import com.beanu.arad.pulltorefresh.PullToRefreshBase;
-import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
-import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.beanu.arad.pulltorefresh.PullToRefreshListFragment;
-import com.beanu.arad.utils.Log;
-import com.xiaojiujiu.entity.Coupon;
-import com.xiaojiujiu.ui.UIUtil;
-import com.xiaojiujiu.ui.adapter.CouponListAdapter;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.beanu.arad.Arad;
+import com.beanu.arad.utils.Log;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
+import com.xiaojiujiu.R;
+import com.xiaojiujiu.entity.Coupon;
+import com.xiaojiujiu.ui.UIUtil;
+import com.xiaojiujiu.ui.adapter.CouponListAdapter;
+import com.xiaojiujiu.ui.common.SelectorAreaWindow;
 
 /**
  * 优惠券列表页面
@@ -31,7 +43,7 @@ import java.util.List;
  * 
  */
 public class CouponsListFragment extends PullToRefreshListFragment implements OnRefreshListener<ListView>,
-		OnLastItemVisibleListener {
+		OnLastItemVisibleListener,OnClickListener {
 
 	public static CouponsListFragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
@@ -44,6 +56,42 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	private CouponListAdapter mAdapter;
 	private List<Coupon> mCouponList = new ArrayList<Coupon>();
+
+	private Button distance;
+	private Button citys;
+	private Button order;
+	private SelectorAreaWindow selectorAreaWindow;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		if (savedInstanceState == null)
+			selectorAreaWindow = new SelectorAreaWindow(getSherlockActivity());
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.coupons_fragment, container, false);
+		empty = (TextView) view.findViewById(R.id.empty);
+		progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_listView);
+
+		footerView = inflater.inflate(R.layout.pull_to_refresh_footer, null);
+		getListView().addFooterView(footerView);
+		getListView().setHeaderDividersEnabled(false);
+		dismissFooterView();
+
+		//刷选
+		distance = (Button) view.findViewById(R.id.distance);
+		citys = (Button) view.findViewById(R.id.food);
+		order = (Button) view.findViewById(R.id.array);
+
+		distance.setOnClickListener(this);
+		citys.setOnClickListener(this);
+		order.setOnClickListener(this);
+
+		return view;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -69,6 +117,24 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		}
 	}
 
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.distance:
+			// Intent intent = new Intent(getSherlockActivity(),
+			// SelectorAreaWindow.class);
+			// startActivity(intent);
+			selectorAreaWindow.showPopupwindow(distance);
+			break;
+		case R.id.food:
+			break;
+		case R.id.array:
+			break;
+		default:
+			break;
+		}
+	}
+	
 	@Override
 	public void onLastItemVisible() {
 

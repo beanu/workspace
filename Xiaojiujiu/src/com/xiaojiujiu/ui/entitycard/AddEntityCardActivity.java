@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
 import com.beanu.arad.utils.MessageUtil;
 import com.google.zxing.CaptureActivity;
 import com.xiaojiujiu.R;

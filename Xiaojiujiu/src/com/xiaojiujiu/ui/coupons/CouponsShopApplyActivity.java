@@ -1,15 +1,16 @@
 package com.xiaojiujiu.ui.coupons;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.widget.ListView;
+
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.entity.CouponShop;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponShopApplyListAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 优惠券适用门店

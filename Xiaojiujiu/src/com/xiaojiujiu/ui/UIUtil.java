@@ -1,6 +1,7 @@
 package com.xiaojiujiu.ui;
 
 import android.app.Activity;
+
 import com.xiaojiujiu.R;
 
 public class UIUtil {

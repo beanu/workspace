@@ -1,16 +1,17 @@
 package com.xiaojiujiu.ui.entitycard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+
 import com.beanu.arad.base.BaseListFragment;
 import com.xiaojiujiu.entity.EntityCard;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.EntityCardListAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by beanu on 13-6-2.

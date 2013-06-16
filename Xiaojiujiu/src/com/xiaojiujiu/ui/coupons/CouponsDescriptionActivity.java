@@ -3,6 +3,7 @@ package com.xiaojiujiu.ui.coupons;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebView;
+
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.ui.UIUtil;

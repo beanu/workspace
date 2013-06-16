@@ -1,5 +1,15 @@
 package com.xiaojiujiu.ui.ecard;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,25 +20,18 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.beanu.arad.Arad;
-import com.beanu.arad.pulltorefresh.PullToRefreshBase;
-import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
-import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.beanu.arad.pulltorefresh.PullToRefreshListFragment;
-import com.beanu.arad.pulltorefresh.PullToRefreshListView;
 import com.beanu.arad.utils.Log;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
+import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.entity.ECard;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.ECardListAdapter;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 电子会员卡列表页面
