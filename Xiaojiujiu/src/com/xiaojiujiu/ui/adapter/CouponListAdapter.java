@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.beanu.arad.Arad;
 import com.xiaojiujiu.R;
-import com.xiaojiujiu.entity.Coupon;
+import com.xiaojiujiu.entity.CouponItem;
 
 /**
  * 优惠信息列表Adapter
@@ -22,7 +22,7 @@ import com.xiaojiujiu.entity.Coupon;
  */
 public class CouponListAdapter extends BaseAdapter {
 
-	private List<Coupon> list;
+	private List<CouponItem> list;
 	private LayoutInflater mlinflater;
 
 	private class ViewHolder {
@@ -31,7 +31,7 @@ public class CouponListAdapter extends BaseAdapter {
 		public TextView content;
 	}
 
-	public CouponListAdapter(Context context, List<Coupon> data) {
+	public CouponListAdapter(Context context, List<CouponItem> data) {
 		this.mlinflater = LayoutInflater.from(context);
 		this.list = data;
 	}
@@ -53,7 +53,7 @@ public class CouponListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View view, ViewGroup viewGroup) {
-		final Coupon topic = list.get(position);
+		final CouponItem topic = list.get(position);
 		if (view == null) {
 			view = mlinflater.inflate(R.layout.coupon_list_item, null);
 			ViewHolder vh = new ViewHolder();
@@ -66,9 +66,9 @@ public class CouponListAdapter extends BaseAdapter {
 		ViewHolder holder = (ViewHolder) view.getTag();
 //		AppHolder.getInsatnce().imageLoader.DisplayImage(Constant.IMGPATH + "/" + topic.getImgPath(), holder.img,
 //				R.drawable.icon_default);
-		Arad.imageLoader.display(topic.getSmallImageUrl(), holder.img, R.drawable.ic_launcher);
-		holder.title.setText(topic.getCouponTitle());
-		holder.content.setText(topic.getCouponDesc());
+		Arad.imageLoader.display(topic.getItemImageUrl(), holder.img, R.drawable.ic_launcher);
+		holder.title.setText(topic.getItemTitle());
+		holder.content.setText(topic.getItemDetail());
 		return view;
 	}
 }

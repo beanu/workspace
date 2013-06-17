@@ -3,12 +3,12 @@ package com.xiaojiujiu.ui.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -28,7 +28,7 @@ import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
 import com.xiaojiujiu.ui.adapter.SelectorRightAdapter;
 import com.xiaojiujiu.ui.widget.Pull_ListView;
 
-public class SelectorAreaWindow {
+public class SelectorShopTypeWindow {
 
 	private Context context;
 	private PopupWindow popupWindow;
@@ -41,13 +41,12 @@ public class SelectorAreaWindow {
 
 	List<String> leftData = new ArrayList<String>();
 
-	public SelectorAreaWindow(Context ctx) {
+	public SelectorShopTypeWindow(Context ctx) {
 		this.context = ctx;
 
-		if (AppHolder.getInstance().area.size() == 0) {
+		if (AppHolder.getInstance().shopType.size() == 0) {
 			AjaxParams params = new AjaxParams();
-			params.put("op", "district");
-			params.put("cityid", "1");
+			params.put("op", "shop");
 			Arad.http.get(Constant.URL_CATEGORY, params, new AjaxCallBack<String>() {
 
 				@Override
@@ -67,7 +66,7 @@ public class SelectorAreaWindow {
 		}
 
 		leftAdapter = new SelectorLeftAdapter(context, leftData);
-		rightAdapter = new SelectorRightAdapter(context, AppHolder.getInstance().area, 0);
+		rightAdapter = new SelectorRightAdapter(context, AppHolder.getInstance().shopType, 0);
 		initView();
 		popupWindow = new PopupWindow(context);
 		popupWindow.setWidth((int) context.getResources().getDimension(R.dimen.popupWindow_width));
@@ -107,7 +106,7 @@ public class SelectorAreaWindow {
 		});
 
 	}
-	
+
 	private void praseJson(String json) {
 
 		try {
@@ -133,7 +132,7 @@ public class SelectorAreaWindow {
 						childList.add(c);
 					}
 					category.setChildCategoryList(childList);
-					AppHolder.getInstance().area.add(category);
+					AppHolder.getInstance().shopType.add(category);
 				}
 			}
 		} catch (JSONException e) {
@@ -143,7 +142,7 @@ public class SelectorAreaWindow {
 	}
 
 	private void updateData() {
-		for (Category c : AppHolder.getInstance().area) {
+		for (Category c : AppHolder.getInstance().shopType) {
 			leftData.add(c.getCategoryName());
 		}
 		leftAdapter.notifyDataSetChanged();

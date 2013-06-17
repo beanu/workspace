@@ -6,30 +6,30 @@
     android:background="@drawable/selector_bg" >
 
     <Button
-        android:id="@+id/distance"
+        android:id="@+id/selector_shoptype"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:drawableRight="@drawable/selector_down_icon"
-        android:text="500米" />
+        android:text="全部" />
 
     <Button
-        android:id="@+id/food"
+        android:id="@+id/selector_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:drawableRight="@drawable/selector_down_icon"
-        android:text="小吃快餐" />
+        android:text="5千米" />
 
     <Button
-        android:id="@+id/array"
+        android:id="@+id/selector_sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:drawableRight="@drawable/selector_down_icon"
-        android:text="人气排序" />
+        android:text="最新发布" />
 
 </LinearLayout>

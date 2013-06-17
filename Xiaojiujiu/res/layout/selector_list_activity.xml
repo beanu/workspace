@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="280dp"
-              android:layout_height="450dp"
+              android:layout_width="@dimen/popupWindow_width"
+              android:layout_height="@dimen/popupWindow_height"
               android:orientation="horizontal"
               android:layoutAnimation="@anim/selector_anim_layout">
 
@@ -13,6 +13,7 @@
         android:layout_weight="1"
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice"
+        android:background="#f2f2f2"
         android:divider="@null"
         android:scrollbars="none">
     </com.xiaojiujiu.ui.widget.Pull_ListView>

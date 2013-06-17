@@ -31,10 +31,13 @@ import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
 import com.xiaojiujiu.R;
-import com.xiaojiujiu.entity.Coupon;
+import com.xiaojiujiu.base.Constant;
+import com.xiaojiujiu.entity.CouponItem;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
 import com.xiaojiujiu.ui.common.SelectorAreaWindow;
+import com.xiaojiujiu.ui.common.SelectorShopTypeWindow;
+import com.xiaojiujiu.ui.common.SelectorSortWindow;
 
 /**
  * 优惠券列表页面
@@ -43,7 +46,7 @@ import com.xiaojiujiu.ui.common.SelectorAreaWindow;
  * 
  */
 public class CouponsListFragment extends PullToRefreshListFragment implements OnRefreshListener<ListView>,
-		OnLastItemVisibleListener,OnClickListener {
+		OnLastItemVisibleListener, OnClickListener {
 
 	public static CouponsListFragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
@@ -55,20 +58,25 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	}
 
 	private CouponListAdapter mAdapter;
-	private List<Coupon> mCouponList = new ArrayList<Coupon>();
+	private List<CouponItem> mCouponList = new ArrayList<CouponItem>();
 
-	private Button distance;
-	private Button citys;
-	private Button order;
+	private Button btn_shoptype;
+	private Button btn_area;
+	private Button btn_sort;
+	private SelectorShopTypeWindow selectorShopTypeWindow;
 	private SelectorAreaWindow selectorAreaWindow;
+	private SelectorSortWindow selectorSortWindow;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (savedInstanceState == null)
+		if (savedInstanceState == null) {
+			selectorShopTypeWindow = new SelectorShopTypeWindow(getSherlockActivity());
 			selectorAreaWindow = new SelectorAreaWindow(getSherlockActivity());
+			selectorSortWindow = new SelectorSortWindow(getSherlockActivity());
+		}
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.coupons_fragment, container, false);
@@ -81,14 +89,14 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		getListView().setHeaderDividersEnabled(false);
 		dismissFooterView();
 
-		//刷选
-		distance = (Button) view.findViewById(R.id.distance);
-		citys = (Button) view.findViewById(R.id.food);
-		order = (Button) view.findViewById(R.id.array);
+		// 刷选
+		btn_shoptype = (Button) view.findViewById(R.id.selector_shoptype);
+		btn_area = (Button) view.findViewById(R.id.selector_area);
+		btn_sort = (Button) view.findViewById(R.id.selector_sort);
 
-		distance.setOnClickListener(this);
-		citys.setOnClickListener(this);
-		order.setOnClickListener(this);
+		btn_shoptype.setOnClickListener(this);
+		btn_area.setOnClickListener(this);
+		btn_sort.setOnClickListener(this);
 
 		return view;
 	}
@@ -120,21 +128,20 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.distance:
-			// Intent intent = new Intent(getSherlockActivity(),
-			// SelectorAreaWindow.class);
-			// startActivity(intent);
-			selectorAreaWindow.showPopupwindow(distance);
+		case R.id.selector_shoptype:
+			selectorShopTypeWindow.showPopupwindow(btn_shoptype);
 			break;
-		case R.id.food:
+		case R.id.selector_area:
+			selectorAreaWindow.showPopupwindow(btn_area);
 			break;
-		case R.id.array:
+		case R.id.selector_sort:
+			selectorSortWindow.showPopupwindow(btn_sort);
 			break;
 		default:
 			break;
 		}
 	}
-	
+
 	@Override
 	public void onLastItemVisible() {
 
@@ -156,7 +163,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		params.put("lat", "36.65231");
 		params.put("pageSize", "3");
 		params.put("pageIndex", "1");
-		Arad.http.get("http://www.x99local.com/CouponHandler.ashx", params, new AjaxCallBack<String>() {
+		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
 
 			@Override
 			public void onStart() {
@@ -170,25 +177,27 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 					JSONObject response = new JSONObject(t);
 					String resCode = response.getString("resCode");
 					if (resCode != null && resCode.equals("1")) {
-						JSONArray jsonArray = response.getJSONArray("CouponList");
-						ArrayList<Coupon> _list = new ArrayList<Coupon>();
+						JSONArray jsonArray = response.getJSONArray("ItemList");
+
+						ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
 						for (int i = 0; i < jsonArray.length(); i++) {
 							JSONObject item = jsonArray.getJSONObject(i);
-							// Coupon c =
-							// AppHolder.getInstance().objectMapper.readValue(item.toString(),
-							// Coupon.class);
-							Coupon c = new Coupon();
-							c.setCouponID(item.getInt("CouponID"));
-							c.setCouponTitle(item.getString("CouponTitle"));
-							c.setCouponDesc(item.getString("CouponDesc"));
-							c.setSmallImageUrl(item.getString("SmallImageUrl"));
+
+							CouponItem c = new CouponItem();
+							// c.setItemID(item.getInt("CouponID"));
+							c.setItemTitle(item.getString("ItemTitle"));
+							c.setItemDetail(item.getString("ItemDetail"));
+							c.setItemImageUrl(item.getString("ItemImageUrl"));
+							c.setDistance(item.getDouble("Distance"));
+							c.setItemType(item.getInt("ItemType"));
+							c.setItemAddress(item.getString("ItemAddress"));
 							_list.add(c);
 						}
 
 						// 如果有重复的去掉重复的，然后在加上最新的信息
-						for (Coupon newest : _list) {
-							for (Coupon older : mCouponList) {
-								if (newest.getCouponID() == older.getCouponID()) {
+						for (CouponItem newest : _list) {
+							for (CouponItem older : mCouponList) {
+								if (newest.getItemID() == older.getItemID()) {
 									mCouponList.remove(older);
 									break;
 								}
@@ -199,15 +208,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-				}
-				// catch (JsonParseException e) {
-				// e.printStackTrace();
-				// } catch (JsonMappingException e) {
-				// e.printStackTrace();
-				// } catch (IOException e) {
-				// e.printStackTrace();
-				// }
-				finally {
+				} finally {
 					pullToRefreshListView.onRefreshComplete();
 					showListView(true);
 				}
