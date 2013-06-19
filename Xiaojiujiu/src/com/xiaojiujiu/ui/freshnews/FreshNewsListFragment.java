@@ -63,7 +63,7 @@ public class FreshNewsListFragment extends PullToRefreshListFragment implements 
         pullToRefreshListView.setOnRefreshListener(this);
         pullToRefreshListView.setOnLastItemVisibleListener(this);
         if (getCurrentState(savedInstanceState) == FIRST_TIME_START) {
-            pullToRefreshListView.startRefreshNow();
+            pullToRefreshListView.setRefreshing();
             showListView(false);
         }
     }

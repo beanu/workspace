@@ -26,6 +26,7 @@ import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.entity.Category;
 import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
 import com.xiaojiujiu.ui.adapter.SelectorRightAdapter;
+import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
 import com.xiaojiujiu.ui.widget.Pull_ListView;
 
 public class SelectorAreaWindow {
@@ -40,6 +41,7 @@ public class SelectorAreaWindow {
 	private SelectorLeftAdapter leftAdapter;
 
 	List<String> leftData = new ArrayList<String>();
+	private OnSelectedListener listener;
 
 	public SelectorAreaWindow(Context ctx) {
 		this.context = ctx;
@@ -101,13 +103,19 @@ public class SelectorAreaWindow {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// TODO Auto-generated method stub
+				dismissPopupwindow();
+				if (listener != null) {
+					listener.onSelected(AppHolder.getInstance().area.get(rightAdapter.leftPoition)
+							.getChildCategoryList().get(position).getCategoryID()
+							+ "",AppHolder.getInstance().area.get(rightAdapter.leftPoition)
+							.getChildCategoryList().get(position).getCategoryName());
+				}
 
 			}
 		});
 
 	}
-	
+
 	private void praseJson(String json) {
 
 		try {
@@ -169,5 +177,9 @@ public class SelectorAreaWindow {
 			popupWindow.dismiss();
 		}
 
+	}
+	
+	public void setOnSelectedListener(OnSelectedListener listener) {
+		this.listener = listener;
 	}
 }

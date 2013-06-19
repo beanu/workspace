@@ -14,6 +14,7 @@ import android.widget.PopupWindow;
 
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
+import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
 import com.xiaojiujiu.ui.widget.Pull_ListView;
 
 /**
@@ -33,6 +34,7 @@ public class SelectorSortWindow {
 	private SelectorLeftAdapter leftAdapter;
 
 	List<String> leftData = new ArrayList<String>();
+	private OnSelectedListener listener;
 
 	public SelectorSortWindow(Context ctx) {
 		this.context = ctx;
@@ -64,7 +66,10 @@ public class SelectorSortWindow {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// leftAdapter.notifyDataSetInvalidated();
+				dismissPopupwindow();
+				if (listener != null) {
+					listener.onSelected(position + "", leftData.get(position));
+				}
 
 			}
 		});
@@ -93,5 +98,9 @@ public class SelectorSortWindow {
 			popupWindow.dismiss();
 		}
 
+	}
+
+	public void setOnSelectedListener(OnSelectedListener listener) {
+		this.listener = listener;
 	}
 }

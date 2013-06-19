@@ -64,9 +64,9 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		View view = inflater.inflate(R.layout.ecard_list_fragment, container, false);
 		empty = (TextView) view.findViewById(R.id.empty);
 		progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
-		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_listView);
+		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.listView);
 
-		footerView = inflater.inflate(R.layout.pull_to_refresh_footer, null);
+		footerView = inflater.inflate(R.layout.pull_to_refresh_listview_footer_layout, null);
 		getListView().addFooterView(footerView);
 		getListView().setHeaderDividersEnabled(false);
 		dismissFooterView();
@@ -91,7 +91,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		pullToRefreshListView.setOnRefreshListener(this);
 		pullToRefreshListView.setOnLastItemVisibleListener(this);
 		if (getCurrentState(savedInstanceState) == FIRST_TIME_START) {
-			pullToRefreshListView.startRefreshNow();
+			pullToRefreshListView.setRefreshing(false);
 			showListView(false);
 		}
 	}

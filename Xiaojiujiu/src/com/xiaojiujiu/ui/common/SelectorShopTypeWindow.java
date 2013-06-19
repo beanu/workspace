@@ -40,6 +40,17 @@ public class SelectorShopTypeWindow {
 	private SelectorLeftAdapter leftAdapter;
 
 	List<String> leftData = new ArrayList<String>();
+	private OnSelectedListener listener;
+
+	/**
+	 * 选择事件
+	 * 
+	 * @author beanu
+	 * 
+	 */
+	public interface OnSelectedListener {
+		public void onSelected(String selectedId, String selectedName);
+	}
 
 	public SelectorShopTypeWindow(Context ctx) {
 		this.context = ctx;
@@ -100,7 +111,13 @@ public class SelectorShopTypeWindow {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// TODO Auto-generated method stub
+				dismissPopupwindow();
+				if (listener != null) {
+					listener.onSelected(AppHolder.getInstance().shopType.get(rightAdapter.leftPoition)
+							.getChildCategoryList().get(position).getCategoryID()
+							+ "", AppHolder.getInstance().shopType.get(rightAdapter.leftPoition).getChildCategoryList()
+							.get(position).getCategoryName());
+				}
 
 			}
 		});
@@ -169,4 +186,9 @@ public class SelectorShopTypeWindow {
 		}
 
 	}
+
+	public void setOnSelectedListener(OnSelectedListener listener) {
+		this.listener = listener;
+	}
+
 }
