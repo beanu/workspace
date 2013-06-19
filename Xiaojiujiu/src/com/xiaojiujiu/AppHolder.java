@@ -23,6 +23,7 @@ public class AppHolder {
 		user = new User();
 		shopType=new ArrayList<Category>();
 		area=new ArrayList<Category>();
+		location=new BDLocation();
 		
 		objectMapper = new ObjectMapper();
 		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

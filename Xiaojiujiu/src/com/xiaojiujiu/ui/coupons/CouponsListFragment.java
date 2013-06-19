@@ -133,6 +133,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), CouponsDetailActivity.class);
+				intent.putExtra("id", mCouponList.get(position).getItemID());
 				startActivity(intent);
 				UIUtil.intentSlidIn(getSherlockActivity());
 			}
@@ -304,7 +305,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onSelected(String selectedId, String selectedName) {
 				btn_area.setText(selectedName);
-				param.put("cityID", selectedId);
+				param.put("businessDistrictID", selectedId);
 				updateData();
 			}
 		});

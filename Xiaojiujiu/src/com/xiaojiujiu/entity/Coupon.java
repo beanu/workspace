@@ -1,6 +1,5 @@
 package com.xiaojiujiu.entity;
 
-
 /**
  * 优惠券实体类
  * 
@@ -8,167 +7,133 @@ package com.xiaojiujiu.entity;
  * 
  */
 public class Coupon {
-//	private int row;
-	private int couponID;//唯一标示
-	private String couponTitle;
-	private String couponDesc;
-	private String viewTimes;
-	private String updateTime;
-	private String bigImageUrl;
-	private String smallImageUrl;
-	private int parentShopID;
-	private String parentShopName;
-	private int shopID;
-	private String shopName;
-	private float distance;
-	private String shopAddress;
-	private String shopTel;
-	private double shopLongitude;
-	private double shopLatitude;
-	private String shopNum;
+	// private int row;
+	private int CouponID;// 唯一标示
+	private String CouponTitle;
+	private String CouponDesc;
+	private String ParentShopName;
+	private int RemainingDays;
 
-//	public int getRow() {
-//		return row;
-//	}
-//
-//	public void setRow(int row) {
-//		this.row = row;
-//	}
+	private String UseIntroduction;
+	private String NearestShopName;
+	private int NearestShopAddress;
+	private String NearestShopDistance;
+	private int IsFavorite;
+	private int AttentionNum;
+	private double NearestShopLng;
+	private double NearestShopLat;
+	private int FitShopNum;
 
 	public int getCouponID() {
-		return couponID;
+		return CouponID;
 	}
 
 	public void setCouponID(int couponID) {
-		this.couponID = couponID;
+		CouponID = couponID;
 	}
 
 	public String getCouponTitle() {
-		return couponTitle;
+		return CouponTitle;
 	}
 
 	public void setCouponTitle(String couponTitle) {
-		this.couponTitle = couponTitle;
+		CouponTitle = couponTitle;
 	}
 
 	public String getCouponDesc() {
-		return couponDesc;
+		return CouponDesc;
 	}
 
 	public void setCouponDesc(String couponDesc) {
-		this.couponDesc = couponDesc;
-	}
-
-	public String getViewTimes() {
-		return viewTimes;
-	}
-
-	public void setViewTimes(String viewTimes) {
-		this.viewTimes = viewTimes;
-	}
-
-	public String getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getBigImageUrl() {
-		return bigImageUrl;
-	}
-
-	public void setBigImageUrl(String bigImageUrl) {
-		this.bigImageUrl = bigImageUrl;
-	}
-
-	public String getSmallImageUrl() {
-		return smallImageUrl;
-	}
-
-	public void setSmallImageUrl(String smallImageUrl) {
-		this.smallImageUrl = smallImageUrl;
-	}
-
-	public int getParentShopID() {
-		return parentShopID;
-	}
-
-	public void setParentShopID(int parentShopID) {
-		this.parentShopID = parentShopID;
+		CouponDesc = couponDesc;
 	}
 
 	public String getParentShopName() {
-		return parentShopName;
+		return ParentShopName;
 	}
 
 	public void setParentShopName(String parentShopName) {
-		this.parentShopName = parentShopName;
+		ParentShopName = parentShopName;
 	}
 
-	public int getShopID() {
-		return shopID;
+	public int getRemainingDays() {
+		return RemainingDays;
 	}
 
-	public void setShopID(int shopID) {
-		this.shopID = shopID;
+	public void setRemainingDays(int remainingDays) {
+		RemainingDays = remainingDays;
 	}
 
-	public String getShopName() {
-		return shopName;
+	public String getUseIntroduction() {
+		return UseIntroduction;
 	}
 
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
+	public void setUseIntroduction(String useIntroduction) {
+		UseIntroduction = useIntroduction;
 	}
 
-	public float getDistance() {
-		return distance;
+	public String getNearestShopName() {
+		return NearestShopName;
 	}
 
-	public void setDistance(float distance) {
-		this.distance = distance;
+	public void setNearestShopName(String nearestShopName) {
+		NearestShopName = nearestShopName;
 	}
 
-	public String getShopAddress() {
-		return shopAddress;
+	public int getNearestShopAddress() {
+		return NearestShopAddress;
 	}
 
-	public void setShopAddress(String shopAddress) {
-		this.shopAddress = shopAddress;
+	public void setNearestShopAddress(int nearestShopAddress) {
+		NearestShopAddress = nearestShopAddress;
 	}
 
-	public String getShopTel() {
-		return shopTel;
+	public String getNearestShopDistance() {
+		return NearestShopDistance;
 	}
 
-	public void setShopTel(String shopTel) {
-		this.shopTel = shopTel;
+	public void setNearestShopDistance(String nearestShopDistance) {
+		NearestShopDistance = nearestShopDistance;
 	}
 
-	public double getShopLongitude() {
-		return shopLongitude;
+	public int getIsFavorite() {
+		return IsFavorite;
 	}
 
-	public void setShopLongitude(double shopLongitude) {
-		this.shopLongitude = shopLongitude;
+	public void setIsFavorite(int isFavorite) {
+		IsFavorite = isFavorite;
 	}
 
-	public double getShopLatitude() {
-		return shopLatitude;
+	public int getAttentionNum() {
+		return AttentionNum;
 	}
 
-	public void setShopLatitude(double shopLatitude) {
-		this.shopLatitude = shopLatitude;
+	public void setAttentionNum(int attentionNum) {
+		AttentionNum = attentionNum;
 	}
 
-	public String getShopNum() {
-		return shopNum;
+	public double getNearestShopLng() {
+		return NearestShopLng;
 	}
 
-	public void setShopNum(String shopNum) {
-		this.shopNum = shopNum;
+	public void setNearestShopLng(double nearestShopLng) {
+		NearestShopLng = nearestShopLng;
+	}
+
+	public double getNearestShopLat() {
+		return NearestShopLat;
+	}
+
+	public void setNearestShopLat(double nearestShopLat) {
+		NearestShopLat = nearestShopLat;
+	}
+
+	public int getFitShopNum() {
+		return FitShopNum;
+	}
+
+	public void setFitShopNum(int fitShopNum) {
+		FitShopNum = fitShopNum;
 	}
 
 }

@@ -132,6 +132,12 @@ public class SelectorAreaWindow {
 
 					JSONArray child = item.getJSONArray("ChildCategoryList");
 					List<Category> childList = new ArrayList<Category>();
+					Category all = new Category();
+					all.setCategoryID(item.getInt("CategoryID"));
+					all.setCategoryName("全部");
+					all.setLetter(item.getString("Letter"));
+					childList.add(all);
+					
 					for (int j = 0; j < child.length(); j++) {
 						JSONObject second = child.getJSONObject(j);
 						Category c = new Category();

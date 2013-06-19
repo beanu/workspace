@@ -29,6 +29,7 @@ public class CouponListAdapter extends BaseAdapter {
 		public ImageView img;
 		public TextView title;
 		public TextView content;
+		public TextView address;
 	}
 
 	public CouponListAdapter(Context context, List<CouponItem> data) {
@@ -60,6 +61,7 @@ public class CouponListAdapter extends BaseAdapter {
 			vh.title = (TextView) view.findViewById(R.id.coupon_list_item_title);
 			vh.content = (TextView) view.findViewById(R.id.coupon_list_item_content);
 			vh.img = (ImageView) view.findViewById(R.id.coupon_list_item_img);
+			vh.address=(TextView)view.findViewById(R.id.coupon_list_item_address);
 			view.setTag(vh);
 		}
 
@@ -69,6 +71,7 @@ public class CouponListAdapter extends BaseAdapter {
 		Arad.imageLoader.display(topic.getItemImageUrl(), holder.img, R.drawable.ic_launcher);
 		holder.title.setText(topic.getItemTitle());
 		holder.content.setText(topic.getItemDetail());
+		holder.address.setText("地址："+topic.getItemAddress());
 		return view;
 	}
 }
