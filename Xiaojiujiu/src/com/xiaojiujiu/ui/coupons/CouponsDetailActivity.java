@@ -2,6 +2,7 @@ package com.xiaojiujiu.ui.coupons;
 
 import java.io.IOException;
 
+import net.tsz.afinal.annotation.view.ViewInject;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
@@ -40,30 +41,26 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 	private LongButton moreShop;
 	private int couponId;
 	private Coupon coupon;
-	private ViewHolder vh;
+
+	@ViewInject(id=R.id.ecard_detail_title) TextView ecard_detail_title;
+	@ViewInject(id=R.id.ecard_shop_name) TextView ecard_shop_name;
+	@ViewInject(id=R.id.offer_detail_content) TextView offer_detail_content;
+	@ViewInject(id=R.id.nearby_shop_name) TextView nearby_shop_name;
+	@ViewInject(id=R.id.nearby_shop_address) TextView nearby_shop_address;
+	@ViewInject(id=R.id.nearby_shop_distance) TextView nearby_shop_distance;
 	
-	class ViewHolder{
-		public TextView ecard_detail_title;
-		public TextView ecard_shop_name;
-		public TextView offer_detail_content;
-		public TextView nearby_shop_name;
-		public TextView nearby_shop_address;
-		public TextView nearby_shop_distance;
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.coupon_detail_activity);
-		vh=new ViewHolder();
-		vh.ecard_detail_title=(TextView)findViewById(R.id.ecard_detail_title);
-		vh.ecard_shop_name=(TextView)findViewById(R.id.ecard_shop_name);
-		vh.offer_detail_content=(TextView)findViewById(R.id.offer_detail_content);
-		vh.nearby_shop_name=(TextView)findViewById(R.id.nearby_shop_name);
-		vh.nearby_shop_address=(TextView)findViewById(R.id.nearby_shop_address);
-		vh.nearby_shop_distance=(TextView)findViewById(R.id.nearby_shop_distance);
-		
-		
+
+//		ecard_detail_title=(TextView)findViewById(R.id.ecard_detail_title);
+//		ecard_shop_name=(TextView)findViewById(R.id.ecard_shop_name);
+//		offer_detail_content=(TextView)findViewById(R.id.offer_detail_content);
+//		nearby_shop_name=(TextView)findViewById(R.id.nearby_shop_name);
+//		nearby_shop_address=(TextView)findViewById(R.id.nearby_shop_address);
+//		nearby_shop_distance=(TextView)findViewById(R.id.nearby_shop_distance);
 		
 		couponId = getIntent().getIntExtra("id", 0);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -140,7 +137,7 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 		AjaxParams params = new AjaxParams();
 		params.put("op", "couponDetail");
 		params.put("couponID", couponId + "");
-		params.put("IMEI", Arad.deviceInfo.getDeviceID());
+		params.put("IMEI", Arad.app.deviceInfo.getDeviceID());
 		params.put("userID", AppHolder.getInstance().user.getId());
 
 		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
@@ -178,12 +175,12 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 	
 	private void refreshPage(Coupon coupon){
 		if(coupon!=null){
-			vh.ecard_detail_title.setText(coupon.getCouponTitle());
-			vh.ecard_shop_name.setText(coupon.getParentShopName());
-			vh.offer_detail_content.setText(coupon.getCouponDesc());
-			vh.nearby_shop_name.setText(coupon.getNearestShopName());
-			vh.nearby_shop_address.setText(coupon.getNearestShopAddress());
-			vh.nearby_shop_distance.setText(coupon.getNearestShopDistance());
+			ecard_detail_title.setText(coupon.getCouponTitle());
+			ecard_shop_name.setText(coupon.getParentShopName());
+			offer_detail_content.setText(coupon.getCouponDesc());
+			nearby_shop_name.setText(coupon.getNearestShopName());
+			nearby_shop_address.setText(coupon.getNearestShopAddress());
+			nearby_shop_distance.setText(coupon.getNearestShopDistance());
 		}
 	}
 }

@@ -1,9 +1,6 @@
 package com.xiaojiujiu.ui.coupons;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
@@ -32,9 +29,9 @@ import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleLi
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
-import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.Constant;
+import com.xiaojiujiu.dao.CouponListDao;
 import com.xiaojiujiu.entity.CouponItem;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
@@ -62,7 +59,6 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	}
 
 	private CouponListAdapter mAdapter;
-	private List<CouponItem> mCouponList = new ArrayList<CouponItem>();
 
 	private Button btn_shoptype;
 	private Button btn_area;
@@ -71,7 +67,8 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	private SelectorAreaWindow selectorAreaWindow;
 	private SelectorSortWindow selectorSortWindow;
 
-	private Map<String, String> param;
+	// private Map<String, String> param;
+	CouponListDao dao;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,19 +79,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			selectorSortWindow = new SelectorSortWindow(getSherlockActivity());
 			setSelectedWindowListener();
 
-			param = new HashMap<String, String>();
-			param.put("op", "searchByTypeAndDistance");
-			param.put("cityID", "1");
-			param.put("radius", "5000");
-			param.put("shopFirstCateID", "11");
-			param.put("shopSecondCateID", "12");
-			param.put("couponTypeID", "15");
-			param.put("imei", Arad.deviceInfo.getDeviceID());
-			param.put("orderType", "2");
-			param.put("lng", AppHolder.getInstance().location.getLongitude() + "");
-			param.put("lat", AppHolder.getInstance().location.getLatitude() + "");
-			param.put("pageSize", "10");
-			param.put("pageIndex", "1");
+			dao = new CouponListDao();
 		}
 	}
 
@@ -126,14 +111,14 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		mAdapter = new CouponListAdapter(getSherlockActivity(), mCouponList);
+		mAdapter = new CouponListAdapter(getSherlockActivity(), dao.getCouponList());
 		getListView().setAdapter(mAdapter);
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), CouponsDetailActivity.class);
-				intent.putExtra("id", mCouponList.get(position).getItemID());
+				intent.putExtra("id", dao.getCouponList().get(position).getItemID());
 				startActivity(intent);
 				UIUtil.intentSlidIn(getSherlockActivity());
 			}
@@ -166,53 +151,14 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	@Override
 	public void onLastItemVisible() {
-		param.put("pageIndex", (Integer.parseInt(param.get("pageIndex")) + 1) + "");
-		AjaxParams params = new AjaxParams(param);
-		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
 
-			@Override
-			public void onStart() {
-
-			}
-
+		dao.nextPage(new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
 
-				try {
-					JSONObject response = new JSONObject(t);
-					String resCode = response.getString("resCode");
-					if (resCode != null && resCode.equals("1")) {
-						JSONArray jsonArray = response.getJSONArray("ItemList");
-
-						ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject item = jsonArray.getJSONObject(i);
-
-							CouponItem c = new CouponItem();
-							// c.setItemID(item.getInt("CouponID"));
-							c.setItemTitle(item.getString("ItemTitle"));
-							c.setItemDetail(item.getString("ItemDetail"));
-							c.setItemImageUrl(item.getString("ItemImageUrl"));
-							c.setDistance(item.getDouble("Distance"));
-							c.setItemType(item.getInt("ItemType"));
-							c.setItemAddress(item.getString("ItemAddress"));
-							_list.add(c);
-						}
-
-						if (_list.size() > 0) {
-							mCouponList.addAll(0, _list);
-							mAdapter.notifyDataSetChanged();
-						} else {
-							
-						}
-
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} finally {
-					pullToRefreshListView.onRefreshComplete();
-					showListView(true);
-				}
+				mAdapter.notifyDataSetChanged();
+				pullToRefreshListView.onRefreshComplete();
+				showListView(true);
 			}
 
 			@Override
@@ -220,63 +166,20 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				pullToRefreshListView.onRefreshComplete();
 				showListView(true);
 			}
-
 		});
+
 	}
 
 	@Override
 	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
 		Log.d("onRefresh");
-		AjaxParams params = new AjaxParams(param);
-		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
 
-			@Override
-			public void onStart() {
-
-			}
-
+		dao.pulltorefresh(new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
-
-				try {
-					JSONObject response = new JSONObject(t);
-					String resCode = response.getString("resCode");
-					if (resCode != null && resCode.equals("1")) {
-						JSONArray jsonArray = response.getJSONArray("ItemList");
-
-						ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject item = jsonArray.getJSONObject(i);
-
-							CouponItem c = new CouponItem();
-							// c.setItemID(item.getInt("CouponID"));
-							c.setItemTitle(item.getString("ItemTitle"));
-							c.setItemDetail(item.getString("ItemDetail"));
-							c.setItemImageUrl(item.getString("ItemImageUrl"));
-							c.setDistance(item.getDouble("Distance"));
-							c.setItemType(item.getInt("ItemType"));
-							c.setItemAddress(item.getString("ItemAddress"));
-							_list.add(c);
-						}
-
-						// 如果有重复的去掉重复的，然后在加上最新的信息
-						for (CouponItem newest : _list) {
-							for (CouponItem older : mCouponList) {
-								if (newest.getItemID() == older.getItemID()) {
-									mCouponList.remove(older);
-									break;
-								}
-							}
-						}
-						mCouponList.addAll(0, _list);
-						mAdapter.notifyDataSetChanged();
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} finally {
-					pullToRefreshListView.onRefreshComplete();
-					showListView(true);
-				}
+				mAdapter.notifyDataSetChanged();
+				pullToRefreshListView.onRefreshComplete();
+				showListView(true);
 			}
 
 			@Override
@@ -284,8 +187,8 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				pullToRefreshListView.onRefreshComplete();
 				showListView(true);
 			}
-
 		});
+
 	}
 
 	// 初始化筛选框的事件
@@ -295,8 +198,8 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onSelected(String selectedId, String selectedName) {
 				btn_shoptype.setText(selectedName);
-				param.put("shopSecondCateID", selectedId);
-				updateData();
+//				param.put("shopSecondCateID", selectedId);
+//				updateData();
 			}
 		});
 
@@ -305,8 +208,8 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onSelected(String selectedId, String selectedName) {
 				btn_area.setText(selectedName);
-				param.put("businessDistrictID", selectedId);
-				updateData();
+//				param.put("businessDistrictID", selectedId);
+//				updateData();
 			}
 		});
 
@@ -315,67 +218,67 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onSelected(String selectedId, String selectedName) {
 				btn_sort.setText(selectedName);
-				param.put("orderType", selectedId);
-				updateData();
+//				param.put("orderType", selectedId);
+//				updateData();
 			}
 		});
 	}
 
 	// 筛选数据
-	private void updateData() {
-		AjaxParams params = new AjaxParams(param);
-		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
-
-			@Override
-			public void onStart() {
-
-			}
-
-			@Override
-			public void onSuccess(String t) {
-
-				try {
-					JSONObject response = new JSONObject(t);
-					String resCode = response.getString("resCode");
-					if (resCode != null && resCode.equals("1")) {
-						JSONArray jsonArray = response.getJSONArray("ItemList");
-
-						ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject item = jsonArray.getJSONObject(i);
-
-							CouponItem c = new CouponItem();
-							// c.setItemID(item.getInt("CouponID"));
-							c.setItemTitle(item.getString("ItemTitle"));
-							c.setItemDetail(item.getString("ItemDetail"));
-							c.setItemImageUrl(item.getString("ItemImageUrl"));
-							c.setDistance(item.getDouble("Distance"));
-							c.setItemType(item.getInt("ItemType"));
-							c.setItemAddress(item.getString("ItemAddress"));
-							_list.add(c);
-						}
-
-						// 如果有重复的去掉重复的，然后在加上最新的信息
-						mCouponList.clear();
-
-						mCouponList.addAll(0, _list);
-						mAdapter.notifyDataSetChanged();
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} finally {
-					pullToRefreshListView.onRefreshComplete();
-					showListView(true);
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable t, String strMsg) {
-				pullToRefreshListView.onRefreshComplete();
-				showListView(true);
-			}
-
-		});
-
-	}
+//	private void updateData() {
+//		AjaxParams params = new AjaxParams(param);
+//		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
+//
+//			@Override
+//			public void onStart() {
+//
+//			}
+//
+//			@Override
+//			public void onSuccess(String t) {
+//
+//				try {
+//					JSONObject response = new JSONObject(t);
+//					String resCode = response.getString("resCode");
+//					if (resCode != null && resCode.equals("1")) {
+//						JSONArray jsonArray = response.getJSONArray("ItemList");
+//
+//						ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
+//						for (int i = 0; i < jsonArray.length(); i++) {
+//							JSONObject item = jsonArray.getJSONObject(i);
+//
+//							CouponItem c = new CouponItem();
+//							// c.setItemID(item.getInt("CouponID"));
+//							c.setItemTitle(item.getString("ItemTitle"));
+//							c.setItemDetail(item.getString("ItemDetail"));
+//							c.setItemImageUrl(item.getString("ItemImageUrl"));
+//							c.setDistance(item.getDouble("Distance"));
+//							c.setItemType(item.getInt("ItemType"));
+//							c.setItemAddress(item.getString("ItemAddress"));
+//							_list.add(c);
+//						}
+//
+//						// 如果有重复的去掉重复的，然后在加上最新的信息
+//						mCouponList.clear();
+//
+//						mCouponList.addAll(0, _list);
+//						mAdapter.notifyDataSetChanged();
+//					}
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				} finally {
+//					pullToRefreshListView.onRefreshComplete();
+//					showListView(true);
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(Throwable t, String strMsg) {
+//				pullToRefreshListView.onRefreshComplete();
+//				showListView(true);
+//			}
+//
+//		});
+//
+//	}
 }
