@@ -1,6 +1,5 @@
 package com.xiaojiujiu.dao;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +13,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.beanu.arad.Arad;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.entity.CouponItem;
@@ -70,45 +66,46 @@ public class CouponListDao {
 			@Override
 			public void onSuccess(String t) {
 
-				ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
+				List<CouponItem> _list = new ArrayList<CouponItem>();
 
 				try {
 					JSONObject response = new JSONObject(t);
 					String resCode = response.getString("resCode");
 					if (resCode != null && resCode.equals("1")) {
-//						JSONArray jsonArray = response.getJSONArray("ItemList");
+						JSONArray jsonArray = response.getJSONArray("ItemList");
 
-						_list = AppHolder.getInstance().objectMapper.readValue(response.getString("ItemList"),
-								new TypeReference<ArrayList<CouponItem>>() {
-								});
-//						for (int i = 0; i < jsonArray.length(); i++) {
-//							JSONObject item = jsonArray.getJSONObject(i);
-//
-//							CouponItem c = new CouponItem();
-//							// c.setItemID(item.getInt("CouponID"));
-//							c.setItemTitle(item.getString("ItemTitle"));
-//							c.setItemDetail(item.getString("ItemDetail"));
-//							c.setItemImageUrl(item.getString("ItemImageUrl"));
-//							c.setDistance(item.getDouble("Distance"));
-//							c.setItemType(item.getInt("ItemType"));
-//							c.setItemAddress(item.getString("ItemAddress"));
-//							_list.add(c);
-//						}
+						// _list =
+						// AppHolder.getInstance().objectMapper.readValue(response.getString("ItemList"),
+						// new TypeReference<List<CouponItem>>() {
+						// });
+						for (int i = 0; i < jsonArray.length(); i++) {
+							JSONObject item = jsonArray.getJSONObject(i);
+
+							CouponItem c = new CouponItem();
+							// c.setItemID(item.getInt("CouponID"));
+							c.setItemTitle(item.getString("ItemTitle"));
+							c.setItemDetail(item.getString("ItemDetail"));
+							c.setItemImageUrl(item.getString("ItemImageUrl"));
+							c.setDistance(item.getDouble("Distance"));
+							c.setItemType(item.getInt("ItemType"));
+							c.setItemAddress(item.getString("ItemAddress"));
+							_list.add(c);
+						}
 
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-				} catch (JsonParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JsonMappingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+//				} catch (JsonParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (JsonMappingException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
 				} finally {
-					if (_list.size() > 0)
+					if (_list != null && _list.size() > 0)
 						mCouponList.addAll(_list);
 					callBack.onSuccess(t);
 				}

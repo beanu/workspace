@@ -1,14 +1,6 @@
 package com.xiaojiujiu.ui.coupons;
 
-import java.util.ArrayList;
-
 import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +14,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.beanu.arad.Arad;
 import com.beanu.arad.utils.Log;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
@@ -30,9 +21,7 @@ import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
 import com.xiaojiujiu.R;
-import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.dao.CouponListDao;
-import com.xiaojiujiu.entity.CouponItem;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
 import com.xiaojiujiu.ui.common.SelectorAreaWindow;
@@ -151,11 +140,11 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	@Override
 	public void onLastItemVisible() {
-
+		showFooterView();
 		dao.nextPage(new AjaxCallBack<String>() {
 			@Override
 			public void onSuccess(String t) {
-
+				dismissFooterView();
 				mAdapter.notifyDataSetChanged();
 				pullToRefreshListView.onRefreshComplete();
 				showListView(true);
@@ -163,6 +152,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 			@Override
 			public void onFailure(Throwable t, String strMsg) {
+				dismissFooterView();
 				pullToRefreshListView.onRefreshComplete();
 				showListView(true);
 			}

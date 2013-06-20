@@ -16,8 +16,8 @@ public class Coupon {
 
 	private String UseIntroduction;
 	private String NearestShopName;
-	private int NearestShopAddress;
-	private String NearestShopDistance;
+	private String NearestShopAddress;
+	private double NearestShopDistance;
 	private int IsFavorite;
 	private int AttentionNum;
 	private double NearestShopLng;
@@ -80,19 +80,19 @@ public class Coupon {
 		NearestShopName = nearestShopName;
 	}
 
-	public int getNearestShopAddress() {
+	public String getNearestShopAddress() {
 		return NearestShopAddress;
 	}
 
-	public void setNearestShopAddress(int nearestShopAddress) {
+	public void setNearestShopAddress(String nearestShopAddress) {
 		NearestShopAddress = nearestShopAddress;
 	}
 
-	public String getNearestShopDistance() {
+	public double getNearestShopDistance() {
 		return NearestShopDistance;
 	}
 
-	public void setNearestShopDistance(String nearestShopDistance) {
+	public void setNearestShopDistance(double nearestShopDistance) {
 		NearestShopDistance = nearestShopDistance;
 	}
 
