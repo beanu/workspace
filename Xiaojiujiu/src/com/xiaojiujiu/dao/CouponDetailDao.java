@@ -5,12 +5,11 @@ import java.io.IOException;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.beanu.arad.Arad;
+import com.beanu.arad.utils.JsonUtil;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.entity.Coupon;
@@ -28,7 +27,7 @@ public class CouponDetailDao {
 		this.couponId = couponId;
 	}
 
-	public void getDetailInfo(final IDao<Coupon> listener) {
+	public void getDetailInfo(final IDataListener<Coupon> listener) {
 		AjaxParams params = new AjaxParams();
 		params.put("op", "couponDetail");
 		params.put("couponID", couponId + "");
@@ -41,16 +40,12 @@ public class CouponDetailDao {
 			public void onSuccess(String t) {
 
 				try {
-					JSONObject response = new JSONObject(t);
-					String resCode = response.getString("resCode");
+					JsonNode node = JsonUtil.json2node(t);
+					String resCode = node.findValue("resCode").asText();
 					if (resCode != null && resCode.equals("1")) {
-						coupon = AppHolder.getInstance().objectMapper.readValue(response.getString("CouponDetail"),
-								Coupon.class);
-						// refreshPage(coupon);
+						coupon = JsonUtil.node2pojo(node.findValue("CouponDetail"), Coupon.class);
 						listener.updateUI(coupon);
 					}
-				} catch (JSONException e) {
-					e.printStackTrace();
 				} catch (JsonParseException e) {
 					e.printStackTrace();
 				} catch (JsonMappingException e) {
@@ -63,7 +58,7 @@ public class CouponDetailDao {
 
 			@Override
 			public void onFailure(Throwable t, String strMsg) {
-
+				listener.onFailure(coupon, t, strMsg);
 			}
 
 		});

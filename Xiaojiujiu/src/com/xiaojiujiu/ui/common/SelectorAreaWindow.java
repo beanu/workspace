@@ -105,10 +105,24 @@ public class SelectorAreaWindow {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				dismissPopupwindow();
 				if (listener != null) {
-					listener.onSelected(AppHolder.getInstance().area.get(rightAdapter.leftPoition)
-							.getChildCategoryList().get(position).getCategoryID()
-							+ "",AppHolder.getInstance().area.get(rightAdapter.leftPoition)
-							.getChildCategoryList().get(position).getCategoryName());
+
+					if (listener != null) {
+						String selectedId = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
+								.getChildCategoryList().get(position).getCategoryID()
+								+ "";
+						String parentId = AppHolder.getInstance().area.get(rightAdapter.leftPoition).getCategoryID()
+								+ "";
+						String selectedName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
+								.getChildCategoryList().get(position).getCategoryName();
+						String parentName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
+								.getCategoryName();
+
+						if (position == 0) {
+							listener.onSelected(parentId, null, parentName);
+						} else {
+							listener.onSelected(parentId, selectedId, selectedName);
+						}
+					}
 				}
 
 			}
@@ -137,7 +151,7 @@ public class SelectorAreaWindow {
 					all.setCategoryName("全部");
 					all.setLetter(item.getString("Letter"));
 					childList.add(all);
-					
+
 					for (int j = 0; j < child.length(); j++) {
 						JSONObject second = child.getJSONObject(j);
 						Category c = new Category();
@@ -184,7 +198,7 @@ public class SelectorAreaWindow {
 		}
 
 	}
-	
+
 	public void setOnSelectedListener(OnSelectedListener listener) {
 		this.listener = listener;
 	}

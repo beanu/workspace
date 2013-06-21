@@ -49,7 +49,7 @@ public class SelectorShopTypeWindow {
 	 * 
 	 */
 	public interface OnSelectedListener {
-		public void onSelected(String selectedId, String selectedName);
+		public void onSelected(String parentId, String selectedId, String selectedName);
 	}
 
 	public SelectorShopTypeWindow(Context ctx) {
@@ -113,10 +113,21 @@ public class SelectorShopTypeWindow {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				dismissPopupwindow();
 				if (listener != null) {
-					listener.onSelected(AppHolder.getInstance().shopType.get(rightAdapter.leftPoition)
+					String selectedId = AppHolder.getInstance().shopType.get(rightAdapter.leftPoition)
 							.getChildCategoryList().get(position).getCategoryID()
-							+ "", AppHolder.getInstance().shopType.get(rightAdapter.leftPoition).getChildCategoryList()
-							.get(position).getCategoryName());
+							+ "";
+					String parentId = AppHolder.getInstance().shopType.get(rightAdapter.leftPoition).getCategoryID()
+							+ "";
+					String selectedName = AppHolder.getInstance().shopType.get(rightAdapter.leftPoition)
+							.getChildCategoryList().get(position).getCategoryName();
+					String parentName = AppHolder.getInstance().shopType.get(rightAdapter.leftPoition)
+							.getCategoryName();
+
+					if (position == 0) {
+						listener.onSelected(parentId, null, parentName);
+					} else {
+						listener.onSelected(parentId, selectedId, selectedName);
+					}
 				}
 
 			}

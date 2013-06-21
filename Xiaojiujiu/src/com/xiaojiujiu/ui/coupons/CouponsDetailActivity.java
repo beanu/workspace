@@ -13,7 +13,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.dao.CouponDetailDao;
-import com.xiaojiujiu.dao.IDao;
+import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.entity.Coupon;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.widget.LongButton;
@@ -30,21 +30,28 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 	private int couponId;
 	CouponDetailDao dao;
 
-	@ViewInject(id = R.id.offer_detail_button) Button offer_detail_button;
-	@ViewInject(id = R.id.ecard_detail_title) TextView ecard_detail_title;
-	@ViewInject(id = R.id.ecard_shop_name) TextView ecard_shop_name;
-	@ViewInject(id = R.id.offer_detail_content) TextView offer_detail_content;
-	@ViewInject(id = R.id.nearby_shop_name) TextView nearby_shop_name;
-	@ViewInject(id = R.id.nearby_shop_address) TextView nearby_shop_address;
-	@ViewInject(id = R.id.nearby_shop_distance) TextView nearby_shop_distance;
+	@ViewInject(id = R.id.offer_detail_button)
+	Button offer_detail_button;
+	@ViewInject(id = R.id.ecard_detail_title)
+	TextView ecard_detail_title;
+	@ViewInject(id = R.id.ecard_shop_name)
+	TextView ecard_shop_name;
+	@ViewInject(id = R.id.offer_detail_content)
+	TextView offer_detail_content;
+	@ViewInject(id = R.id.nearby_shop_name)
+	TextView nearby_shop_name;
+	@ViewInject(id = R.id.nearby_shop_address)
+	TextView nearby_shop_address;
+	@ViewInject(id = R.id.nearby_shop_distance)
+	TextView nearby_shop_distance;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.coupon_detail_activity);
 
-		couponId = getIntent().getIntExtra("id", 0);
-//		 couponId=2;
+		// couponId = getIntent().getIntExtra("id", 0);
+		couponId = 2;
 		dao = new CouponDetailDao(couponId);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,11 +74,17 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 		moreShop = (LongButton) findViewById(R.id.coupon_detail_moreshops);
 		moreShop.setOnClickListener(this);
 
-		dao.getDetailInfo(new IDao<Coupon>() {
+		dao.getDetailInfo(new IDataListener<Coupon>() {
 
 			@Override
 			public void updateUI(Coupon result) {
 				refreshPage(result);
+
+			}
+
+			@Override
+			public void onFailure(Coupon result, Throwable t, String strMsg) {
+				// TODO ERROR
 
 			}
 		});

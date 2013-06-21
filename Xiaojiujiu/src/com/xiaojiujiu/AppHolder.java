@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.baidu.location.BDLocation;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xiaojiujiu.entity.Category;
 import com.xiaojiujiu.entity.User;
 
@@ -21,12 +19,10 @@ public class AppHolder {
 
 	private AppHolder() {
 		user = new User();
-		shopType=new ArrayList<Category>();
-		area=new ArrayList<Category>();
-		location=new BDLocation();
-		
-		objectMapper = new ObjectMapper();
-		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		shopType = new ArrayList<Category>();
+		area = new ArrayList<Category>();
+		location = new BDLocation();
+
 		initTest();
 	}
 
@@ -40,16 +36,12 @@ public class AppHolder {
 	// 用户信息
 	public User user;
 
-	//JACKSON
-	public ObjectMapper objectMapper;
-	
-	//位置信息
+	// 位置信息
 	public BDLocation location;
-	
-	//商户类型
+
+	// 商户类型
 	public List<Category> shopType;
 	public List<Category> area;
-	
 
 	// TODO 测试数据
 	private void initTest() {

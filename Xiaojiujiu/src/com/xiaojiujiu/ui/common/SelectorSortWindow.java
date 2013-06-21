@@ -68,7 +68,7 @@ public class SelectorSortWindow {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				dismissPopupwindow();
 				if (listener != null) {
-					listener.onSelected(position + "", leftData.get(position));
+					listener.onSelected(position + "", null, leftData.get(position));
 				}
 
 			}

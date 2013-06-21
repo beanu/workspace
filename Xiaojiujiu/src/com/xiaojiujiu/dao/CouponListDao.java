@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.beanu.arad.Arad;
+import com.beanu.arad.utils.StringUtil;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.entity.CouponItem;
@@ -52,16 +53,11 @@ public class CouponListDao {
 	 * 
 	 * @param callBack
 	 */
-	public void nextPage(final AjaxCallBack<String> callBack) {
+	public void nextPage(final IDataListener<String> listener) {
 
 		param.put("pageIndex", (Integer.parseInt(param.get("pageIndex")) + 1) + "");
 		AjaxParams params = new AjaxParams(param);
 		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
-
-			@Override
-			public void onStart() {
-				callBack.onStart();
-			}
 
 			@Override
 			public void onSuccess(String t) {
@@ -95,42 +91,37 @@ public class CouponListDao {
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-//				} catch (JsonParseException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (JsonMappingException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
+
 				} finally {
-					if (_list != null && _list.size() > 0)
-						mCouponList.addAll(_list);
-					callBack.onSuccess(t);
+					if (_list != null && _list.size() > 0) {
+						for (CouponItem last : _list) {
+							for (CouponItem item : mCouponList) {
+								if (item.getItemID() == last.getItemID()) {
+									break;
+								}
+								mCouponList.add(last);
+							}
+						}
+					}
+					listener.updateUI(t);
 				}
 			}
 
 			@Override
 			public void onFailure(Throwable t, String strMsg) {
-				callBack.onFailure(t, strMsg);
+				listener.onFailure(null, t, strMsg);
 			}
 
 		});
 
 	}
 
-	public void pulltorefresh(final AjaxCallBack<String> callBack) {
+	public void pulltorefresh(final IDataListener<String> listener) {
 		Map<String, String> _param = new HashMap<String, String>(param);
 		_param.put("pageIndex", "1");
 
 		AjaxParams params = new AjaxParams(_param);
 		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
-
-			@Override
-			public void onStart() {
-				callBack.onStart();
-			}
 
 			@Override
 			public void onSuccess(String t) {
@@ -171,8 +162,7 @@ public class CouponListDao {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				} finally {
-
-					callBack.onSuccess(t);
+					listener.updateUI(t);
 					// pullToRefreshListView.onRefreshComplete();
 					// showListView(true);
 				}
@@ -182,7 +172,8 @@ public class CouponListDao {
 			public void onFailure(Throwable t, String strMsg) {
 				// pullToRefreshListView.onRefreshComplete();
 				// showListView(true);
-				callBack.onFailure(t, strMsg);
+				// callBack.onFailure(t, strMsg);
+				listener.onFailure(null, t, strMsg);
 			}
 
 		});
@@ -190,6 +181,93 @@ public class CouponListDao {
 
 	public List<CouponItem> getCouponList() {
 		return mCouponList;
+	}
+
+	public void onClickShop(String parentId, String shopId, IDataListener<String> listener) {
+		if (!StringUtil.isNull(shopId) && !StringUtil.isNull(parentId)) {
+			param.put("shopFirstCateID", parentId);
+			param.put("shopSecondCateID", shopId);
+		} else if (!StringUtil.isNull(parentId) && StringUtil.isNull(shopId)) {
+			param.put("shopFirstCateID", parentId);
+			param.put("shopSecondCateID", "");
+		}
+
+		updateData(listener);
+	}
+
+	public void onClickArea(String parentId, String areaId, IDataListener<String> listener) {
+		if (!StringUtil.isNull(areaId) && !StringUtil.isNull(parentId)) {
+			param.put("districtID", parentId);
+			param.put("businessDistrictID", areaId);
+		} else if (!StringUtil.isNull(parentId) && StringUtil.isNull(areaId)) {
+			param.put("districtID", parentId);
+			param.put("businessDistrictID", "");
+		}
+
+		updateData(listener);
+
+	}
+
+	public void onClickSort(String parentId, IDataListener<String> listener) {
+
+		param.put("orderType", parentId);
+		updateData(listener);
+
+	}
+
+	// 筛选数据
+	private void updateData(final IDataListener<String> listener) {
+		AjaxParams params = new AjaxParams(param);
+		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
+
+			@Override
+			public void onStart() {
+
+			}
+
+			@Override
+			public void onSuccess(String t) {
+
+				try {
+					JSONObject response = new JSONObject(t);
+					String resCode = response.getString("resCode");
+					if (resCode != null && resCode.equals("1")) {
+						JSONArray jsonArray = response.getJSONArray("ItemList");
+
+						ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
+						for (int i = 0; i < jsonArray.length(); i++) {
+							JSONObject item = jsonArray.getJSONObject(i);
+
+							CouponItem c = new CouponItem();
+							// c.setItemID(item.getInt("CouponID"));
+							c.setItemTitle(item.getString("ItemTitle"));
+							c.setItemDetail(item.getString("ItemDetail"));
+							c.setItemImageUrl(item.getString("ItemImageUrl"));
+							c.setDistance(item.getDouble("Distance"));
+							c.setItemType(item.getInt("ItemType"));
+							c.setItemAddress(item.getString("ItemAddress"));
+							_list.add(c);
+						}
+
+						// 如果有重复的去掉重复的，然后在加上最新的信息
+						mCouponList.clear();
+
+						mCouponList.addAll(0, _list);
+
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} finally {
+					listener.updateUI(t);
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable t, String strMsg) {
+			}
+
+		});
+
 	}
 
 }
