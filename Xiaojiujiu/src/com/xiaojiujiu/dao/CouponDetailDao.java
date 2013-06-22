@@ -32,7 +32,7 @@ public class CouponDetailDao {
 		params.put("op", "couponDetail");
 		params.put("couponID", couponId + "");
 		params.put("IMEI", Arad.app.deviceInfo.getDeviceID());
-		params.put("userID", AppHolder.getInstance().user.getId());
+		params.put("userID", AppHolder.getInstance().user.getMemberID()+"");
 
 		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
 
@@ -44,7 +44,7 @@ public class CouponDetailDao {
 					String resCode = node.findValue("resCode").asText();
 					if (resCode != null && resCode.equals("1")) {
 						coupon = JsonUtil.node2pojo(node.findValue("CouponDetail"), Coupon.class);
-						listener.updateUI(coupon);
+						listener.onSuccess(coupon);
 					}
 				} catch (JsonParseException e) {
 					e.printStackTrace();

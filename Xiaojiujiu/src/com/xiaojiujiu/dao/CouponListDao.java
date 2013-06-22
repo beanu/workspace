@@ -103,7 +103,7 @@ public class CouponListDao {
 							}
 						}
 					}
-					listener.updateUI(t);
+					listener.onSuccess(t);
 				}
 			}
 
@@ -162,7 +162,7 @@ public class CouponListDao {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				} finally {
-					listener.updateUI(t);
+					listener.onSuccess(t);
 					// pullToRefreshListView.onRefreshComplete();
 					// showListView(true);
 				}
@@ -258,7 +258,7 @@ public class CouponListDao {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				} finally {
-					listener.updateUI(t);
+					listener.onSuccess(t);
 				}
 			}
 

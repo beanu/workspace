@@ -11,4 +11,6 @@ public class Constant {
 	/** 分类信息 */
 	public static String URL_CATEGORY = "http://www.x99local.com/CategoryHandler.ashx";
 
+	/** 用户模块 */
+	public static String URL_MEMBER = "http://www.x99local.com/MemberHandler.ashx";
 }

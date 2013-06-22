@@ -23,7 +23,6 @@ public class AppHolder {
 		area = new ArrayList<Category>();
 		location = new BDLocation();
 
-		initTest();
 	}
 
 	public static AppHolder getInstance() {
@@ -42,11 +41,4 @@ public class AppHolder {
 	// 商户类型
 	public List<Category> shopType;
 	public List<Category> area;
-
-	// TODO 测试数据
-	private void initTest() {
-		user.setId("1");
-		user.setName("xjjuser");
-		user.setPasswd("123456");
-	}
 }

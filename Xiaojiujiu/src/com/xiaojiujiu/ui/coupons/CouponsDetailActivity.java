@@ -77,7 +77,7 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 		dao.getDetailInfo(new IDataListener<Coupon>() {
 
 			@Override
-			public void updateUI(Coupon result) {
+			public void onSuccess(Coupon result) {
 				refreshPage(result);
 
 			}

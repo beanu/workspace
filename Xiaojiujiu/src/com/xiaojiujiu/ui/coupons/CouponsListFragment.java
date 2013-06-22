@@ -144,7 +144,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		dao.nextPage(new IDataListener<String>() {
 
 			@Override
-			public void updateUI(String result) {
+			public void onSuccess(String result) {
 				mAdapter.notifyDataSetChanged();
 				dismissFooterView();
 				pullToRefreshListView.onRefreshComplete();
@@ -170,7 +170,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		dao.pulltorefresh(new IDataListener<String>() {
 
 			@Override
-			public void updateUI(String result) {
+			public void onSuccess(String result) {
 				mAdapter.notifyDataSetChanged();
 				pullToRefreshListView.onRefreshComplete();
 				showListView(true);
@@ -191,7 +191,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		final IDataListener<String> listener = new IDataListener<String>() {
 
 			@Override
-			public void updateUI(String result) {
+			public void onSuccess(String result) {
 				mAdapter.notifyDataSetChanged();
 				pullToRefreshListView.onRefreshComplete();
 				showListView(true);
