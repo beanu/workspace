@@ -7,133 +7,142 @@ package com.xiaojiujiu.entity;
  * 
  */
 public class Coupon {
-	// private int row;
-	private int CouponID;// 唯一标示
-	private String CouponTitle;
-	private String CouponDesc;
-	private String ParentShopName;
-	private int RemainingDays;
 
-	private String UseIntroduction;
-	private String NearestShopName;
-	private String NearestShopAddress;
-	private double NearestShopDistance;
-	private int IsFavorite;
-	private int AttentionNum;
-	private double NearestShopLng;
-	private double NearestShopLat;
-	private int FitShopNum;
+	private int couponID;// 唯一标示
+	private String couponTitle;
+	private String couponDesc;
+	private String parentShopName;
+	private int remainingDays;
+
+	private String useIntroduction;
+	private String nearestShopName;
+	private String nearestShopAddress;
+	private double nearestShopDistance;
+	private int isFavorite;
+	private int attentionNum;
+	private double nearestShopLng;
+	private double nearestShopLat;
+	private String nearestShopTel;
+	private int fitShopNum;
 
 	public int getCouponID() {
-		return CouponID;
+		return couponID;
 	}
 
 	public void setCouponID(int couponID) {
-		CouponID = couponID;
+		this.couponID = couponID;
 	}
 
 	public String getCouponTitle() {
-		return CouponTitle;
+		return couponTitle;
 	}
 
 	public void setCouponTitle(String couponTitle) {
-		CouponTitle = couponTitle;
+		this.couponTitle = couponTitle;
 	}
 
 	public String getCouponDesc() {
-		return CouponDesc;
+		return couponDesc;
 	}
 
 	public void setCouponDesc(String couponDesc) {
-		CouponDesc = couponDesc;
+		this.couponDesc = couponDesc;
 	}
 
 	public String getParentShopName() {
-		return ParentShopName;
+		return parentShopName;
 	}
 
 	public void setParentShopName(String parentShopName) {
-		ParentShopName = parentShopName;
+		this.parentShopName = parentShopName;
 	}
 
 	public int getRemainingDays() {
-		return RemainingDays;
+		return remainingDays;
 	}
 
 	public void setRemainingDays(int remainingDays) {
-		RemainingDays = remainingDays;
+		this.remainingDays = remainingDays;
 	}
 
 	public String getUseIntroduction() {
-		return UseIntroduction;
+		return useIntroduction;
 	}
 
 	public void setUseIntroduction(String useIntroduction) {
-		UseIntroduction = useIntroduction;
+		this.useIntroduction = useIntroduction;
 	}
 
 	public String getNearestShopName() {
-		return NearestShopName;
+		return nearestShopName;
 	}
 
 	public void setNearestShopName(String nearestShopName) {
-		NearestShopName = nearestShopName;
+		this.nearestShopName = nearestShopName;
 	}
 
 	public String getNearestShopAddress() {
-		return NearestShopAddress;
+		return nearestShopAddress;
 	}
 
 	public void setNearestShopAddress(String nearestShopAddress) {
-		NearestShopAddress = nearestShopAddress;
+		this.nearestShopAddress = nearestShopAddress;
 	}
 
 	public double getNearestShopDistance() {
-		return NearestShopDistance;
+		return nearestShopDistance;
 	}
 
 	public void setNearestShopDistance(double nearestShopDistance) {
-		NearestShopDistance = nearestShopDistance;
+		this.nearestShopDistance = nearestShopDistance;
 	}
 
 	public int getIsFavorite() {
-		return IsFavorite;
+		return isFavorite;
 	}
 
 	public void setIsFavorite(int isFavorite) {
-		IsFavorite = isFavorite;
+		this.isFavorite = isFavorite;
 	}
 
 	public int getAttentionNum() {
-		return AttentionNum;
+		return attentionNum;
 	}
 
 	public void setAttentionNum(int attentionNum) {
-		AttentionNum = attentionNum;
+		this.attentionNum = attentionNum;
 	}
 
 	public double getNearestShopLng() {
-		return NearestShopLng;
+		return nearestShopLng;
 	}
 
 	public void setNearestShopLng(double nearestShopLng) {
-		NearestShopLng = nearestShopLng;
+		this.nearestShopLng = nearestShopLng;
 	}
 
 	public double getNearestShopLat() {
-		return NearestShopLat;
+		return nearestShopLat;
 	}
 
 	public void setNearestShopLat(double nearestShopLat) {
-		NearestShopLat = nearestShopLat;
+		this.nearestShopLat = nearestShopLat;
+	}
+
+	public String getNearestShopTel() {
+		return nearestShopTel;
+	}
+
+	public void setNearestShopTel(String nearestShopTel) {
+		this.nearestShopTel = nearestShopTel;
 	}
 
 	public int getFitShopNum() {
-		return FitShopNum;
+		return fitShopNum;
 	}
 
 	public void setFitShopNum(int fitShopNum) {
-		FitShopNum = fitShopNum;
+		this.fitShopNum = fitShopNum;
 	}
 
 }

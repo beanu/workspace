@@ -9,63 +9,78 @@ import java.util.List;
  * 
  */
 public class CouponItem {
-	
+
 	private int itemID;// 唯一标示
-	private String ItemTitle;
-	private String ItemDetail;
-	private List<String> CouponTypeIconUrlList;
-	private String ItemAddress;
-	private String ItemImageUrl;
-	private double Distance;
-	private int ItemType;
-	
+	private String itemTitle;
+	private String itemDetail;
+	private List<String> couponTypeIconUrlList;
+	private String itemAddress;
+	private String itemImageUrl;
+	private double distance;
+	private int itemType;
+
 	public int getItemID() {
 		return itemID;
 	}
+
 	public void setItemID(int itemID) {
 		this.itemID = itemID;
 	}
+
 	public String getItemTitle() {
-		return ItemTitle;
+		return itemTitle;
 	}
+
 	public void setItemTitle(String itemTitle) {
-		ItemTitle = itemTitle;
+		this.itemTitle = itemTitle;
 	}
+
 	public String getItemDetail() {
-		return ItemDetail;
+		return itemDetail;
 	}
+
 	public void setItemDetail(String itemDetail) {
-		ItemDetail = itemDetail;
+		this.itemDetail = itemDetail;
 	}
+
 	public List<String> getCouponTypeIconUrlList() {
-		return CouponTypeIconUrlList;
+		return couponTypeIconUrlList;
 	}
+
 	public void setCouponTypeIconUrlList(List<String> couponTypeIconUrlList) {
-		CouponTypeIconUrlList = couponTypeIconUrlList;
+		this.couponTypeIconUrlList = couponTypeIconUrlList;
 	}
+
 	public String getItemAddress() {
-		return ItemAddress;
+		return itemAddress;
 	}
+
 	public void setItemAddress(String itemAddress) {
-		ItemAddress = itemAddress;
+		this.itemAddress = itemAddress;
 	}
+
 	public String getItemImageUrl() {
-		return ItemImageUrl;
+		return itemImageUrl;
 	}
+
 	public void setItemImageUrl(String itemImageUrl) {
-		ItemImageUrl = itemImageUrl;
+		this.itemImageUrl = itemImageUrl;
 	}
+
 	public double getDistance() {
-		return Distance;
+		return distance;
 	}
+
 	public void setDistance(double distance) {
-		Distance = distance;
+		this.distance = distance;
 	}
+
 	public int getItemType() {
-		return ItemType;
+		return itemType;
 	}
+
 	public void setItemType(int itemType) {
-		ItemType = itemType;
+		this.itemType = itemType;
 	}
 
 }

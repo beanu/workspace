@@ -67,7 +67,7 @@ public class ECardListAdapter extends BaseAdapter {
 		// AppHolder.getInsatnce().imageLoader.DisplayImage(Constant.IMGPATH +
 		// "/" + topic.getImgPath(), holder.img,
 		// R.drawable.icon_default);
-		Arad.imageLoader.display(topic.getSmallImageUrl(), holder.img, R.drawable.ic_launcher);
+		Arad.imageLoader.display(topic.getSmallImageUrl(), holder.img, R.drawable.default_img);
 		holder.title.setText(topic.geteCardTitle());
 		holder.content.setText(topic.geteCardDesc());
 		return view;

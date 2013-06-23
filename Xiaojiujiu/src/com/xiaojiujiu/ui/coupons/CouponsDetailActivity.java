@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.beanu.arad.utils.AndroidUtil;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.dao.CouponDetailDao;
@@ -26,32 +28,25 @@ import com.xiaojiujiu.ui.widget.LongButton;
  */
 public class CouponsDetailActivity extends MyActivity implements OnClickListener {
 
-	private LongButton moreShop;
 	private int couponId;
 	CouponDetailDao dao;
 
-	@ViewInject(id = R.id.offer_detail_button)
-	Button offer_detail_button;
-	@ViewInject(id = R.id.ecard_detail_title)
-	TextView ecard_detail_title;
-	@ViewInject(id = R.id.ecard_shop_name)
-	TextView ecard_shop_name;
-	@ViewInject(id = R.id.offer_detail_content)
-	TextView offer_detail_content;
-	@ViewInject(id = R.id.nearby_shop_name)
-	TextView nearby_shop_name;
-	@ViewInject(id = R.id.nearby_shop_address)
-	TextView nearby_shop_address;
-	@ViewInject(id = R.id.nearby_shop_distance)
-	TextView nearby_shop_distance;
+	@ViewInject(id = R.id.coupon_detail_moreshops, click = "onClick") LongButton moreShop;
+	@ViewInject(id = R.id.offer_detail_button, click = "onClick") Button offer_detail_button;
+	@ViewInject(id = R.id.ecard_detail_title) TextView ecard_detail_title;
+	@ViewInject(id = R.id.ecard_shop_name) TextView ecard_shop_name;
+	@ViewInject(id = R.id.offer_detail_content) TextView offer_detail_content;
+	@ViewInject(id = R.id.nearby_shop_name) TextView nearby_shop_name;
+	@ViewInject(id = R.id.nearby_shop_address) TextView nearby_shop_address;
+	@ViewInject(id = R.id.nearby_shop_distance) TextView nearby_shop_distance;
+	@ViewInject(id = R.id.nearby_shop_phone, click = "onClick") ImageView nearby_shop_phone;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.coupon_detail_activity);
 
-		// couponId = getIntent().getIntExtra("id", 0);
-		couponId = 2;
+		couponId = getIntent().getIntExtra("id", 0);
 		dao = new CouponDetailDao(couponId);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,11 +63,6 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 				UIUtil.intentSlidOut(CouponsDetailActivity.this);
 			}
 		});
-
-		offer_detail_button.setOnClickListener(this);
-
-		moreShop = (LongButton) findViewById(R.id.coupon_detail_moreshops);
-		moreShop.setOnClickListener(this);
 
 		dao.getDetailInfo(new IDataListener<Coupon>() {
 
@@ -103,6 +93,10 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 			Intent intentMoreShop = new Intent(CouponsDetailActivity.this, CouponsShopApplyActivity.class);
 			startActivity(intentMoreShop);
 			UIUtil.intentSlidIn(this);
+			break;
+		case R.id.nearby_shop_phone:
+			if (nearby_shop_phone.getTag() != null && !nearby_shop_phone.getTag().equals(""))
+				AndroidUtil.dial(CouponsDetailActivity.this, (String) nearby_shop_phone.getTag());
 			break;
 		}
 	}
@@ -144,6 +138,7 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 			nearby_shop_name.setText(coupon.getNearestShopName());
 			nearby_shop_address.setText(coupon.getNearestShopAddress());
 			nearby_shop_distance.setText((int) coupon.getNearestShopDistance() + "米");
+			nearby_shop_phone.setTag(coupon.getNearestShopTel());
 		}
 	}
 }

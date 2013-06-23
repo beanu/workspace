@@ -20,7 +20,7 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pitch16"
+            android:layout_margin="@dimen/pitch8"
             layout="@layout/module_introductions" />
 
         <!-- 查看更多 -->
@@ -36,7 +36,7 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pitch16"
+            android:layout_margin="@dimen/pitch8"
             layout="@layout/module_nearby_shop" />
 
         <!-- 适用门店 -->
@@ -44,7 +44,7 @@
         <com.xiaojiujiu.ui.widget.LongButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch16"
+            android:layout_marginBottom="@dimen/pitch8"
             widget:drawableLeft="@drawable/ecard_detail_tag_stores"
             widget:text="适用门店（5家）" />
 
@@ -54,7 +54,7 @@
             android:id="@+id/ecard_detail_promotion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch16"
+            android:layout_marginBottom="@dimen/pitch8"
             widget:drawableLeft="@drawable/ecard_detail_tag_promotion"
             widget:text="优惠活动" />
     </LinearLayout>

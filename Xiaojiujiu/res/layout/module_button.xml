@@ -3,8 +3,8 @@
     android:id="@+id/ecard_detail_moreinfo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/pitch16"
-    android:layout_marginRight="@dimen/pitch16"
+    android:layout_marginLeft="@dimen/pitch8"
+    android:layout_marginRight="@dimen/pitch8"
     android:background="@drawable/ecard_detail_button" >
 
     <ImageView

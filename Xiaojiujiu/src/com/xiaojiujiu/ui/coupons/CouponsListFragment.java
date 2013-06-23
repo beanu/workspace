@@ -107,7 +107,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), CouponsDetailActivity.class);
-				intent.putExtra("id", dao.getCouponList().get(position).getItemID());
+				intent.putExtra("id", dao.getCouponList().get(position-1).getItemID());
 				startActivity(intent);
 				UIUtil.intentSlidIn(getSherlockActivity());
 			}

@@ -54,8 +54,7 @@ public class UserDao {
 				t = "{'resCode':'1','userInfo':{'memberID':1,'userName':'xjjuser','password':'123456','nickName':'小九九','tel':'15098653252','jiFen':200.00,'userType':0,'regTime':'1900-01-01 00:00:00','freezeFlag':0,'memberName':'','sex':'男','birthday':'2013-04-13 00:00:00','email':'495705256@163.com','city':'','address':'','userImageBig':'','userImageSmall':'','favShopNum':19,'favCouponNum':12,'msgNum':0}}";
 
 				try {
-					HttpUtil.handleError(t);
-					JsonNode node = JsonUtil.json2node(t);
+					JsonNode node = HttpUtil.handleResult(t);
 					AppHolder.getInstance().user = JsonUtil.node2pojo(node.findValue("userInfo"), User.class);
 					listener.onSuccess(t);
 

@@ -57,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/pitch8"
-            android:layout_marginLeft="@dimen/pitch16"
-            android:layout_marginRight="@dimen/pitch16"
+            android:layout_marginLeft="@dimen/pitch8"
+            android:layout_marginRight="@dimen/pitch8"
             layout="@layout/module_offer_details" />
 
         <!-- 使用说明 -->
@@ -66,9 +66,9 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch16"
-            android:layout_marginLeft="@dimen/pitch16"
-            android:layout_marginRight="@dimen/pitch16"
+            android:layout_marginBottom="@dimen/pitch8"
+            android:layout_marginLeft="@dimen/pitch8"
+            android:layout_marginRight="@dimen/pitch8"
             layout="@layout/module_introductions" />
 
         <!-- 最近门店位置电话信息 -->
@@ -76,9 +76,9 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch16"
-            android:layout_marginLeft="@dimen/pitch16"
-            android:layout_marginRight="@dimen/pitch16"
+            android:layout_marginBottom="@dimen/pitch8"
+            android:layout_marginLeft="@dimen/pitch8"
+            android:layout_marginRight="@dimen/pitch8"
             layout="@layout/module_nearby_shop" />
 
         <!-- 适用门店 -->

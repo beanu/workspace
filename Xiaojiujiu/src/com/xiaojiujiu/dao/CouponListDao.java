@@ -1,5 +1,6 @@
 package com.xiaojiujiu.dao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,15 +9,18 @@ import java.util.Map;
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.beanu.arad.Arad;
+import com.beanu.arad.error.AradException;
+import com.beanu.arad.utils.JsonUtil;
+import com.beanu.arad.utils.MessageUtil;
 import com.beanu.arad.utils.StringUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.entity.CouponItem;
+import com.xiaojiujiu.ui.HttpUtil;
 
 /**
  * 数据逻辑业务（优惠券列表）
@@ -28,6 +32,7 @@ public class CouponListDao {
 
 	private Map<String, String> param;
 	private List<CouponItem> mCouponList;
+	private final int PageSize = 10;
 
 	public CouponListDao() {
 
@@ -35,14 +40,17 @@ public class CouponListDao {
 		param.put("op", "searchByTypeAndDistance");
 		param.put("cityID", "1");
 		param.put("radius", "5000");
-		param.put("shopFirstCateID", "11");
-		param.put("shopSecondCateID", "12");
-		param.put("couponTypeID", "15");
-		param.put("imei", Arad.app.deviceInfo.getDeviceID());
+		param.put("shopFirstCateID", "");
+		param.put("shopSecondCateID", "");
+		param.put("couponTypeID", "");// 优惠券类型
 		param.put("orderType", "2");
+		param.put("districtID", "");
+		param.put("businessDistrictID", "");
+
+		param.put("imei", Arad.app.deviceInfo.getDeviceID());
 		param.put("lng", AppHolder.getInstance().location.getLongitude() + "");
 		param.put("lat", AppHolder.getInstance().location.getLatitude() + "");
-		param.put("pageSize", "10");
+		param.put("pageSize", String.valueOf(PageSize));
 		param.put("pageIndex", "1");
 
 		mCouponList = new ArrayList<CouponItem>();
@@ -62,40 +70,24 @@ public class CouponListDao {
 			@Override
 			public void onSuccess(String t) {
 
-				List<CouponItem> _list = new ArrayList<CouponItem>();
+				ArrayList<CouponItem> _list = null;
 
 				try {
-					JSONObject response = new JSONObject(t);
-					String resCode = response.getString("resCode");
-					if (resCode != null && resCode.equals("1")) {
-						JSONArray jsonArray = response.getJSONArray("ItemList");
+					JsonNode node = HttpUtil.handleResult(t);
+					_list = JsonUtil.node2pojo(node.findValue("ItemList"), new TypeReference<ArrayList<CouponItem>>() {
+					});
 
-						// _list =
-						// AppHolder.getInstance().objectMapper.readValue(response.getString("ItemList"),
-						// new TypeReference<List<CouponItem>>() {
-						// });
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject item = jsonArray.getJSONObject(i);
-
-							CouponItem c = new CouponItem();
-							// c.setItemID(item.getInt("CouponID"));
-							c.setItemTitle(item.getString("ItemTitle"));
-							c.setItemDetail(item.getString("ItemDetail"));
-							c.setItemImageUrl(item.getString("ItemImageUrl"));
-							c.setDistance(item.getDouble("Distance"));
-							c.setItemType(item.getInt("ItemType"));
-							c.setItemAddress(item.getString("ItemAddress"));
-							_list.add(c);
-						}
-
-					}
-				} catch (JSONException e) {
+				} catch (AradException e) {
+					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
+				} catch (JsonProcessingException e) {
 					e.printStackTrace();
-
+				} catch (IOException e) {
+					e.printStackTrace();
 				} finally {
 					if (_list != null && _list.size() > 0) {
 						for (CouponItem last : _list) {
-							for (CouponItem item : mCouponList) {
+							List<CouponItem> _temp=new ArrayList<CouponItem>(mCouponList);
+							for (CouponItem item : _temp) {
 								if (item.getItemID() == last.getItemID()) {
 									break;
 								}
@@ -127,52 +119,35 @@ public class CouponListDao {
 			public void onSuccess(String t) {
 
 				try {
-					JSONObject response = new JSONObject(t);
-					String resCode = response.getString("resCode");
-					if (resCode != null && resCode.equals("1")) {
-						JSONArray jsonArray = response.getJSONArray("ItemList");
+					JsonNode node = HttpUtil.handleResult(t);
+					ArrayList<CouponItem> _list = JsonUtil.node2pojo(node.findValue("ItemList"),
+							new TypeReference<ArrayList<CouponItem>>() {
+							});
 
-						ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject item = jsonArray.getJSONObject(i);
-
-							CouponItem c = new CouponItem();
-							// c.setItemID(item.getInt("CouponID"));
-							c.setItemTitle(item.getString("ItemTitle"));
-							c.setItemDetail(item.getString("ItemDetail"));
-							c.setItemImageUrl(item.getString("ItemImageUrl"));
-							c.setDistance(item.getDouble("Distance"));
-							c.setItemType(item.getInt("ItemType"));
-							c.setItemAddress(item.getString("ItemAddress"));
-							_list.add(c);
-						}
-
-						// 如果有重复的去掉重复的，然后在加上最新的信息
-						for (CouponItem newest : _list) {
-							for (CouponItem older : mCouponList) {
-								if (newest.getItemID() == older.getItemID()) {
-									mCouponList.remove(older);
-									break;
-								}
+					// 如果有重复的去掉重复的，然后在加上最新的信息
+					for (CouponItem newest : _list) {
+						for (CouponItem older : mCouponList) {
+							if (newest.getItemID() == older.getItemID()) {
+								mCouponList.remove(older);
+								break;
 							}
 						}
-						mCouponList.addAll(0, _list);
-
 					}
-				} catch (JSONException e) {
+					mCouponList.addAll(0, _list);
+
+				} catch (AradException e) {
+					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
 					listener.onSuccess(t);
-					// pullToRefreshListView.onRefreshComplete();
-					// showListView(true);
 				}
 			}
 
 			@Override
 			public void onFailure(Throwable t, String strMsg) {
-				// pullToRefreshListView.onRefreshComplete();
-				// showListView(true);
-				// callBack.onFailure(t, strMsg);
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -229,33 +204,21 @@ public class CouponListDao {
 			public void onSuccess(String t) {
 
 				try {
-					JSONObject response = new JSONObject(t);
-					String resCode = response.getString("resCode");
-					if (resCode != null && resCode.equals("1")) {
-						JSONArray jsonArray = response.getJSONArray("ItemList");
 
-						ArrayList<CouponItem> _list = new ArrayList<CouponItem>();
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject item = jsonArray.getJSONObject(i);
+					JsonNode node = HttpUtil.handleResult(t);
+					ArrayList<CouponItem> _list = JsonUtil.node2pojo(node.findValue("ItemList"),
+							new TypeReference<ArrayList<CouponItem>>() {
+							});
 
-							CouponItem c = new CouponItem();
-							// c.setItemID(item.getInt("CouponID"));
-							c.setItemTitle(item.getString("ItemTitle"));
-							c.setItemDetail(item.getString("ItemDetail"));
-							c.setItemImageUrl(item.getString("ItemImageUrl"));
-							c.setDistance(item.getDouble("Distance"));
-							c.setItemType(item.getInt("ItemType"));
-							c.setItemAddress(item.getString("ItemAddress"));
-							_list.add(c);
-						}
+					// 如果有重复的去掉重复的，然后在加上最新的信息
+					mCouponList.clear();
+					mCouponList.addAll(0, _list);
 
-						// 如果有重复的去掉重复的，然后在加上最新的信息
-						mCouponList.clear();
-
-						mCouponList.addAll(0, _list);
-
-					}
-				} catch (JSONException e) {
+				} catch (AradException e) {
+					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
 					listener.onSuccess(t);
@@ -264,6 +227,7 @@ public class CouponListDao {
 
 			@Override
 			public void onFailure(Throwable t, String strMsg) {
+				listener.onFailure("", t, strMsg);
 			}
 
 		});
