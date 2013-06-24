@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -50,7 +50,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	private CouponListAdapter mAdapter;
 
-	private LinearLayout layout;
+	private FrameLayout layout;
 	private Button btn_shoptype;
 	private Button btn_area;
 	private Button btn_sort;
@@ -77,7 +77,10 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.coupons_fragment, container, false);
-		layout=(LinearLayout)view.findViewById(R.id.coupons_linearLayout);
+		layout = (FrameLayout) view.findViewById(R.id.coupon_layout);
+		layout.setForeground(getResources().getDrawable(R.drawable.popup_window_dim));
+		layout.getForeground().setAlpha(0);
+
 		empty = (TextView) view.findViewById(R.id.empty);
 		progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.listView);
@@ -141,12 +144,15 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		switch (v.getId()) {
 		case R.id.selector_shoptype:
 			selectorShopTypeWindow.showPopupwindow(btn_shoptype);
+			showDim();
 			break;
 		case R.id.selector_area:
 			selectorAreaWindow.showPopupwindow(btn_area);
+			showDim();
 			break;
 		case R.id.selector_sort:
 			selectorSortWindow.showPopupwindow(btn_sort);
+			showDim();
 			break;
 		default:
 			break;
@@ -225,6 +231,11 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				btn_shoptype.setText(selectedName);
 				dao.onClickShop(parentId, selectedId, listener);
 			}
+
+			@Override
+			public void dismiss() {
+				hideDim();
+			}
 		});
 
 		selectorAreaWindow.setOnSelectedListener(new OnSelectedListener() {
@@ -233,6 +244,11 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_area.setText(selectedName);
 				dao.onClickArea(parentId, selectedId, listener);
+			}
+
+			@Override
+			public void dismiss() {
+				hideDim();
 			}
 		});
 
@@ -243,6 +259,26 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				btn_sort.setText(selectedName);
 				dao.onClickSort(parentId, listener);
 			}
+
+			@Override
+			public void dismiss() {
+				hideDim();
+			}
 		});
+	}
+
+	/**
+	 * 显示阴影
+	 */
+	private void showDim() {
+		if (layout != null) {
+			layout.getForeground().setAlpha(160);
+		}
+	}
+
+	private void hideDim() {
+		if (layout != null) {
+			layout.getForeground().setAlpha(0);
+		}
 	}
 }

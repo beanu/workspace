@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 
 import com.beanu.arad.Arad;
 import com.xiaojiujiu.AppHolder;
@@ -50,6 +51,8 @@ public class SelectorShopTypeWindow {
 	 */
 	public interface OnSelectedListener {
 		public void onSelected(String parentId, String selectedId, String selectedName);
+
+		public void dismiss();
 	}
 
 	public SelectorShopTypeWindow(Context ctx) {
@@ -87,6 +90,14 @@ public class SelectorShopTypeWindow {
 		popupWindow.setFocusable(true);
 		popupWindow.setTouchable(true);
 		popupWindow.setOutsideTouchable(true);
+		popupWindow.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				dismissPopupwindow();
+
+			}
+		});
 	}
 
 	private void initView() {
@@ -192,7 +203,6 @@ public class SelectorShopTypeWindow {
 			else {
 				popupWindow.showAsDropDown(view);
 			}
-
 		}
 	}
 
@@ -200,7 +210,9 @@ public class SelectorShopTypeWindow {
 		if (popupWindow != null) {
 			popupWindow.dismiss();
 		}
-
+		if (listener != null) {
+			listener.dismiss();
+		}
 	}
 
 	public void setOnSelectedListener(OnSelectedListener listener) {

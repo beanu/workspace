@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="@dimen/popupWindow_width"
-              android:layout_height="@dimen/popupWindow_height"
-              android:orientation="horizontal">
-
+    android:layout_width="@dimen/popupWindow_width"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
 
     <com.xiaojiujiu.ui.widget.Pull_ListView
         android:id="@+id/listLeft"
         android:layout_width="0dp"
         android:layout_height="@dimen/popupWindow_height"
         android:layout_weight="1"
+        android:background="#f2f2f2"
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice"
-        android:background="#f2f2f2"
         android:divider="@null"
-        android:scrollbars="none">
+        android:scrollbars="none" >
     </com.xiaojiujiu.ui.widget.Pull_ListView>
 
     <com.xiaojiujiu.ui.widget.Pull_ListView
@@ -26,7 +25,7 @@
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:scrollbars="none">
+        android:scrollbars="none" >
     </com.xiaojiujiu.ui.widget.Pull_ListView>
 
 </LinearLayout>

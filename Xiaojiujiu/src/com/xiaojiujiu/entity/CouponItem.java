@@ -19,8 +19,6 @@ public class CouponItem {
 	private double distance;
 	private int itemType;
 
-	private String singleCouponTypeUrl;
-
 	public int getItemID() {
 		return itemID;
 	}
@@ -83,14 +81,6 @@ public class CouponItem {
 
 	public void setItemType(int itemType) {
 		this.itemType = itemType;
-	}
-
-	public String getSingleCouponTypeUrl() {
-		return singleCouponTypeUrl;
-	}
-
-	public void setSingleCouponTypeUrl(String singleCouponTypeUrl) {
-		this.singleCouponTypeUrl = singleCouponTypeUrl;
 	}
 
 }

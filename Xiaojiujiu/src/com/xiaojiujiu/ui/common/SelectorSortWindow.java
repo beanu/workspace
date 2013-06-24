@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
@@ -54,6 +55,14 @@ public class SelectorSortWindow {
 		popupWindow.setFocusable(true);
 		popupWindow.setTouchable(true);
 		popupWindow.setOutsideTouchable(true);
+		popupWindow.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				dismissPopupwindow();
+
+			}
+		});
 	}
 
 	private void initView() {
@@ -96,6 +105,9 @@ public class SelectorSortWindow {
 	public void dismissPopupwindow() {
 		if (popupWindow != null) {
 			popupWindow.dismiss();
+		}
+		if (listener != null) {
+			listener.dismiss();
 		}
 
 	}

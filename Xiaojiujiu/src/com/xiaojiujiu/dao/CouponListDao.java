@@ -85,14 +85,17 @@ public class CouponListDao {
 					e.printStackTrace();
 				} finally {
 					if (_list != null && _list.size() > 0) {
+						List<CouponItem> _temp = new ArrayList<CouponItem>(mCouponList);
 						for (CouponItem last : _list) {
-							List<CouponItem> _temp=new ArrayList<CouponItem>(mCouponList);
+							boolean _add = true;
 							for (CouponItem item : _temp) {
 								if (item.getItemID() == last.getItemID()) {
+									_add = false;
 									break;
 								}
-								mCouponList.add(last);
 							}
+							if (_add)
+								mCouponList.add(last);
 						}
 					}
 					listener.onSuccess(t);

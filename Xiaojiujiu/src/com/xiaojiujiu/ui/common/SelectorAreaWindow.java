@@ -3,12 +3,12 @@ package com.xiaojiujiu.ui.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 
 import com.beanu.arad.Arad;
 import com.xiaojiujiu.AppHolder;
@@ -79,6 +80,14 @@ public class SelectorAreaWindow {
 		popupWindow.setFocusable(true);
 		popupWindow.setTouchable(true);
 		popupWindow.setOutsideTouchable(true);
+		popupWindow.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				dismissPopupwindow();
+
+			}
+		});
 	}
 
 	private void initView() {
@@ -195,6 +204,9 @@ public class SelectorAreaWindow {
 	public void dismissPopupwindow() {
 		if (popupWindow != null) {
 			popupWindow.dismiss();
+		}
+		if (listener != null) {
+			listener.dismiss();
 		}
 
 	}
