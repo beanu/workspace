@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="@dimen/popupWindow_width"
               android:layout_height="@dimen/popupWindow_height"
-              android:orientation="horizontal"
-              android:layoutAnimation="@anim/selector_anim_layout">
+              android:orientation="horizontal">
 
 
     <com.xiaojiujiu.ui.widget.Pull_ListView
         android:id="@+id/listLeft"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/popupWindow_height"
         android:layout_weight="1"
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice"
@@ -21,7 +20,7 @@
     <com.xiaojiujiu.ui.widget.Pull_ListView
         android:id="@+id/listRight"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/popupWindow_height"
         android:layout_weight="1"
         android:background="@color/white"
         android:cacheColorHint="@android:color/transparent"

@@ -67,7 +67,7 @@ public class EntityCardListAdapter extends BaseAdapter {
 		// AppHolder.getInsatnce().imageLoader.DisplayImage(Constant.IMGPATH +
 		// "/" + topic.getImgPath(), holder.img,
 		// R.drawable.icon_default);
-		Arad.imageLoader.display(card.getImgPath(), holder.img, R.drawable.default_avatar);
+		Arad.imageLoader.display(card.getImgPath(), holder.img);
 		holder.title.setText(card.getName());
 		holder.content.setText(card.getValidPeriod());
 		return view;

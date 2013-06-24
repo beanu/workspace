@@ -15,7 +15,8 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_margin="@dimen/pitch4"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:src="@drawable/default_img" />
     </FrameLayout>
 
     <LinearLayout

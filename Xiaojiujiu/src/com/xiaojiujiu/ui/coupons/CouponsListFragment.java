@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	private CouponListAdapter mAdapter;
 
+	private LinearLayout layout;
 	private Button btn_shoptype;
 	private Button btn_area;
 	private Button btn_sort;
@@ -75,6 +77,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.coupons_fragment, container, false);
+		layout=(LinearLayout)view.findViewById(R.id.coupons_linearLayout);
 		empty = (TextView) view.findViewById(R.id.empty);
 		progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.listView);
@@ -100,15 +103,27 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		mAdapter = new CouponListAdapter(getSherlockActivity(), dao.getCouponList());
+		mAdapter = new CouponListAdapter(getSherlockActivity(), dao.getCouponList(), CouponListAdapter.CouponList);
 		getListView().setAdapter(mAdapter);
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), CouponsDetailActivity.class);
-				intent.putExtra("id", dao.getCouponList().get(position-1).getItemID());
-				startActivity(intent);
+				int itemType = dao.getCouponList().get(position - 1).getItemType();
+				if (itemType == 0) {
+					// 进入详情页
+					Intent intent = new Intent(getSherlockActivity().getApplicationContext(),
+							CouponsDetailActivity.class);
+					intent.putExtra("id", dao.getCouponList().get(position - 1).getItemID());
+					startActivity(intent);
+
+				} else {
+					// 进入列表页
+					Intent intent = new Intent(getSherlockActivity().getApplicationContext(),
+							CouponsListWithShopActivity.class);
+					intent.putExtra("id", dao.getCouponList().get(position - 1).getItemID());
+					startActivity(intent);
+				}
 				UIUtil.intentSlidIn(getSherlockActivity());
 			}
 		});

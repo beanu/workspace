@@ -22,8 +22,12 @@ import com.xiaojiujiu.entity.CouponItem;
  */
 public class CouponListAdapter extends BaseAdapter {
 
+	public static final String CouponList = "couponlist";
+	public static final String CouponListWithShop = "couponlistwithshop";
+
 	private List<CouponItem> list;
 	private LayoutInflater mlinflater;
+	private String type;
 
 	private class ViewHolder {
 		public ImageView img;
@@ -37,9 +41,10 @@ public class CouponListAdapter extends BaseAdapter {
 		public ImageView tag4;
 	}
 
-	public CouponListAdapter(Context context, List<CouponItem> data) {
+	public CouponListAdapter(Context context, List<CouponItem> data, String type) {
 		this.mlinflater = LayoutInflater.from(context);
 		this.list = data;
+		this.type = type;
 	}
 
 	@Override
@@ -76,19 +81,20 @@ public class CouponListAdapter extends BaseAdapter {
 		}
 
 		ViewHolder holder = (ViewHolder) view.getTag();
+		if (topic.getCouponTypeIconUrlList() != null) {
+			int size = topic.getCouponTypeIconUrlList().size() > 4 ? 4 : topic.getCouponTypeIconUrlList().size();
+			for (int i = 0; i < size; i++) {
+				String url = topic.getCouponTypeIconUrlList().get(i);
+				if (i == 0)
+					Arad.imageLoader.display(url, holder.tag1);
+				if (i == 1)
+					Arad.imageLoader.display(url, holder.tag2);
+				if (i == 2)
+					Arad.imageLoader.display(url, holder.tag3);
+				if (i == 3)
+					Arad.imageLoader.display(url, holder.tag4);
 
-		int size = topic.getCouponTypeIconUrlList().size() > 4 ? 4 : topic.getCouponTypeIconUrlList().size();
-		for (int i = 0; i < size; i++) {
-			String url = topic.getCouponTypeIconUrlList().get(i);
-			if (i == 0)
-				Arad.imageLoader.display(url, holder.tag1);
-			if (i == 1)
-				Arad.imageLoader.display(url, holder.tag2);
-			if (i == 2)
-				Arad.imageLoader.display(url, holder.tag3);
-			if (i == 3)
-				Arad.imageLoader.display(url, holder.tag4);
-
+			}
 		}
 
 		if (topic.getItemType() == 0) {
@@ -97,10 +103,15 @@ public class CouponListAdapter extends BaseAdapter {
 			// 多个组合优惠券
 		}
 
-		Arad.imageLoader.display(topic.getItemImageUrl(), holder.img, R.drawable.default_img);
+		Arad.imageLoader.display(topic.getItemImageUrl(), holder.img);
 		holder.title.setText(topic.getItemTitle());
 		holder.content.setText(topic.getItemDetail());
-		holder.address.setText("地址：" + topic.getItemAddress());
+		if (type.equals(CouponListWithShop)) {
+			holder.address.setVisibility(View.GONE);
+		} else {
+			holder.address.setText("地址：" + topic.getItemAddress());
+		}
+
 		return view;
 	}
 }

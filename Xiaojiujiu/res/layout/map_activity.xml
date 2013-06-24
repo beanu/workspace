@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/coupons_linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foreground="@drawable/popup_window_dim"
     android:orientation="vertical" >
 
-    <include layout="@layout/selector_header" />
-
-    <include layout="@layout/pull_to_refresh_listview_layout" >
-    </include>
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapsView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true" >
+    </com.baidu.mapapi.map.MapView>
 
 </LinearLayout>

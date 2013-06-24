@@ -12,12 +12,14 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.beanu.arad.utils.AndroidUtil;
+import com.beanu.arad.utils.MessageUtil;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.dao.CouponDetailDao;
 import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.entity.Coupon;
 import com.xiaojiujiu.ui.UIUtil;
+import com.xiaojiujiu.ui.common.MapActivity;
 import com.xiaojiujiu.ui.widget.LongButton;
 
 /**
@@ -37,8 +39,8 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 	@ViewInject(id = R.id.ecard_shop_name) TextView ecard_shop_name;
 	@ViewInject(id = R.id.offer_detail_content) TextView offer_detail_content;
 	@ViewInject(id = R.id.nearby_shop_name) TextView nearby_shop_name;
-	@ViewInject(id = R.id.nearby_shop_address) TextView nearby_shop_address;
-	@ViewInject(id = R.id.nearby_shop_distance) TextView nearby_shop_distance;
+	@ViewInject(id = R.id.nearby_shop_address, click = "onClick") TextView nearby_shop_address;
+	@ViewInject(id = R.id.nearby_shop_distance, click = "onClick") TextView nearby_shop_distance;
 	@ViewInject(id = R.id.nearby_shop_phone, click = "onClick") ImageView nearby_shop_phone;
 
 	@Override
@@ -98,6 +100,12 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 			if (nearby_shop_phone.getTag() != null && !nearby_shop_phone.getTag().equals(""))
 				AndroidUtil.dial(CouponsDetailActivity.this, (String) nearby_shop_phone.getTag());
 			break;
+		case R.id.nearby_shop_address:
+			gotoMap();
+			break;
+		case R.id.nearby_shop_distance:
+			gotoMap();
+			break;
 		}
 	}
 
@@ -139,6 +147,21 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 			nearby_shop_address.setText(coupon.getNearestShopAddress());
 			nearby_shop_distance.setText((int) coupon.getNearestShopDistance() + "米");
 			nearby_shop_phone.setTag(coupon.getNearestShopTel());
+		}
+	}
+
+	private void gotoMap() {
+		double lng = dao.getCoupon().getNearestShopLng();
+		double lat = dao.getCoupon().getNearestShopLat();
+		if (lng != 0 && lat != 0) {
+			Intent intent_map = new Intent(CouponsDetailActivity.this, MapActivity.class);
+			intent_map.putExtra("lng", lng);
+			intent_map.putExtra("lat", lat);
+			intent_map.putExtra("name", dao.getCoupon().getNearestShopName());
+			startActivity(intent_map);
+			UIUtil.intentSlidIn(this);
+		} else {
+			MessageUtil.showShortToast(this, "无商家位置信息");
 		}
 	}
 }

@@ -30,6 +30,12 @@ public class CouponDetailDao {
 		this.couponId = couponId;
 	}
 
+	public Coupon getCoupon() {
+		if (coupon == null)
+			return new Coupon();
+		return coupon;
+	}
+
 	public void getDetailInfo(final IDataListener<Coupon> listener) {
 		AjaxParams params = new AjaxParams();
 		params.put("op", "couponDetail");
