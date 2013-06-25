@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
-    <com.xiaojiujiu.ui.widget.Pull_ListView
+    <ListView
         android:id="@+id/listLeft"
         android:layout_width="0dp"
         android:layout_height="@dimen/popupWindow_height"
@@ -14,9 +14,9 @@
         android:choiceMode="singleChoice"
         android:divider="@null"
         android:scrollbars="none" >
-    </com.xiaojiujiu.ui.widget.Pull_ListView>
+    </ListView>
 
-    <com.xiaojiujiu.ui.widget.Pull_ListView
+    <ListView
         android:id="@+id/listRight"
         android:layout_width="0dp"
         android:layout_height="@dimen/popupWindow_height"
@@ -26,6 +26,6 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         android:scrollbars="none" >
-    </com.xiaojiujiu.ui.widget.Pull_ListView>
+    </ListView>
 
 </LinearLayout>

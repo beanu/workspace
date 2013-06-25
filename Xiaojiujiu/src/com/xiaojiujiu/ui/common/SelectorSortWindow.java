@@ -10,13 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
-import com.xiaojiujiu.ui.widget.Pull_ListView;
 
 /**
  * 排序
@@ -28,8 +28,8 @@ public class SelectorSortWindow {
 
 	private Context context;
 	private PopupWindow popupWindow;
-	private Pull_ListView listLeft;
-	private Pull_ListView listRight;
+	private ListView listLeft;
+	private ListView listRight;
 	private LinearLayout layout;
 
 	private SelectorLeftAdapter leftAdapter;
@@ -69,7 +69,7 @@ public class SelectorSortWindow {
 		layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.selector_list_activity, null);
 		layout.setLayoutParams(new LinearLayout.LayoutParams((int) (context.getResources().getDimension(
 				R.dimen.popupWindow_width) / 2), (int) context.getResources().getDimension(R.dimen.popupWindow_height)));
-		listLeft = (Pull_ListView) layout.findViewById(R.id.listLeft);
+		listLeft = (ListView) layout.findViewById(R.id.listLeft);
 		listLeft.setAdapter(leftAdapter);
 		listLeft.setOnItemClickListener(new OnItemClickListener() {
 
@@ -83,7 +83,7 @@ public class SelectorSortWindow {
 			}
 		});
 
-		listRight = (Pull_ListView) layout.findViewById(R.id.listRight);
+		listRight = (ListView) layout.findViewById(R.id.listRight);
 		listRight.setVisibility(View.GONE);
 
 	}

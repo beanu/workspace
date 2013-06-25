@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
@@ -27,14 +28,13 @@ import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.entity.Category;
 import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
 import com.xiaojiujiu.ui.adapter.SelectorRightAdapter;
-import com.xiaojiujiu.ui.widget.Pull_ListView;
 
 public class SelectorShopTypeWindow {
 
 	private Context context;
 	private PopupWindow popupWindow;
-	private Pull_ListView listRight;
-	private Pull_ListView listLeft;
+	private ListView listRight;
+	private ListView listLeft;
 	private LinearLayout layout;
 
 	private SelectorRightAdapter rightAdapter;
@@ -102,7 +102,7 @@ public class SelectorShopTypeWindow {
 
 	private void initView() {
 		layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.selector_list_activity, null);
-		listLeft = (Pull_ListView) layout.findViewById(R.id.listLeft);
+		listLeft = (ListView) layout.findViewById(R.id.listLeft);
 		listLeft.setAdapter(leftAdapter);
 		listLeft.setOnItemClickListener(new OnItemClickListener() {
 
@@ -116,7 +116,7 @@ public class SelectorShopTypeWindow {
 			}
 		});
 
-		listRight = (Pull_ListView) layout.findViewById(R.id.listRight);
+		listRight = (ListView) layout.findViewById(R.id.listRight);
 		listRight.setAdapter(rightAdapter);
 		listRight.setOnItemClickListener(new OnItemClickListener() {
 

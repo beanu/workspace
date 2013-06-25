@@ -1,10 +1,13 @@
 package com.xiaojiujiu.ui.widget;
 
+import com.beanu.arad.utils.Log;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ListView;
 
+//有bug 以后再做
 public class Pull_ListView extends ListView implements Runnable {
 	private float mLastDownY = 0f;
 	private int mDistance = 0;
@@ -40,6 +43,7 @@ public class Pull_ListView extends ListView implements Runnable {
 			if (mDistance != 0) {
 				mStep = 1;
 				mPositive = (mDistance >= 0);
+				Log.d("up:" + mDistance);
 				this.post(this);
 				return true;
 			}
@@ -54,6 +58,7 @@ public class Pull_ListView extends ListView implements Runnable {
 						|| (mDistance > 0 && getLastVisiblePosition() == getCount() - 1)) {
 					mDistance /= 2;
 					scrollTo(0, mDistance);
+					Log.d("move:" + mDistance);
 					return true;
 				}
 			}
@@ -66,7 +71,15 @@ public class Pull_ListView extends ListView implements Runnable {
 	public void run() {
 		mDistance += mDistance > 0 ? -mStep : mStep;
 		scrollTo(0, mDistance);
-		if ((mPositive && mDistance <= 0) || (!mPositive && mDistance >= 0)) {
+		Log.d("run:" + mDistance);
+		if(mPositive && mDistance <= 48){
+			scrollTo(0, 48);
+			mDistance = 0;
+			mLastDownY = 0f;
+			return;
+		}
+		
+		if (!mPositive && mDistance >= 0) {
 			scrollTo(0, 0);
 			mDistance = 0;
 			mLastDownY = 0f;
