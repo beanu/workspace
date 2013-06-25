@@ -4,6 +4,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.beanu.arad.AradApplication;
+import com.beanu.arad.AradApplicationConfig;
 import com.beanu.arad.utils.Log;
 
 public class XiaoApplication extends AradApplication {
@@ -27,9 +28,9 @@ public class XiaoApplication extends AradApplication {
 		public void onReceiveLocation(BDLocation location) {
 			if (location == null)
 				return;
-			AppHolder.getInstance().location=location;
+			AppHolder.getInstance().location = location;
 			mLocationClient.stop();
-			
+
 			StringBuffer sb = new StringBuffer(256);
 			sb.append("time : ");
 			sb.append(location.getTime());
@@ -91,5 +92,11 @@ public class XiaoApplication extends AradApplication {
 			}
 			Log.i(sb.toString());
 		}
+	}
+
+	@Override
+	protected AradApplicationConfig appConfig() {
+		AradApplicationConfig config = new AradApplicationConfig();
+		return config;
 	}
 }
