@@ -4,6 +4,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.beanu.arad.AradApplication;
+import com.beanu.arad.AradApplicationConfig;
 import com.beanu.arad.utils.Log;
 
 public class XiaoApplication extends AradApplication {
@@ -93,9 +94,9 @@ public class XiaoApplication extends AradApplication {
 		}
 	}
 
-//	@Override
-//	protected AradApplicationConfig appConfig() {
-//		AradApplicationConfig config = new AradApplicationConfig();
-//		return config;
-//	}
+	@Override
+	protected AradApplicationConfig appConfig() {
+		AradApplicationConfig config = new AradApplicationConfig();
+		return config;
+	}
 }
