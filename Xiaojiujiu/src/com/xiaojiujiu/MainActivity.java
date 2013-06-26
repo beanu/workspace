@@ -57,7 +57,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setIcon(R.drawable.nine);
+		getSupportActionBar().setIcon(R.drawable.head_nine);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 		// buildCustomActionBarTitle();
 

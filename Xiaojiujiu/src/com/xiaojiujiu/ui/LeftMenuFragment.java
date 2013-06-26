@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.xiaojiujiu.MainActivity;
@@ -27,11 +28,10 @@ public class LeftMenuFragment extends SherlockListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		String[] colors = getResources().getStringArray(R.array.color_names);
-		ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, android.R.id.text1, colors);
-		setListAdapter(colorAdapter);
-//		switchCategory(0);
+		String[] names = getResources().getStringArray(R.array.menu_names);
+		MenuAdapter adapter = new MenuAdapter(names);
+		setListAdapter(adapter);
+		// switchCategory(0);
 
 	}
 
@@ -60,4 +60,38 @@ public class LeftMenuFragment extends SherlockListFragment {
 		switchCategory(position);
 	}
 
+	class MenuAdapter extends BaseAdapter {
+
+		String[] names;
+		LayoutInflater mlinflater;
+
+		public MenuAdapter(String[] names) {
+			this.names = names;
+			this.mlinflater = LayoutInflater.from(getSherlockActivity());
+		}
+
+		@Override
+		public int getCount() {
+			return names.length;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return names[position];
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View view = mlinflater.inflate(R.layout.biz_navigation_item_layout, null);
+			TextView text = (TextView) view.findViewById(R.id.biz_navi_icon);
+			text.setText(names[position]);
+
+			return view;
+		}
+	}
 }

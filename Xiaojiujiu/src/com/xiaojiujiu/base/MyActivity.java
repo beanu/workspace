@@ -10,7 +10,7 @@ public class MyActivity extends BaseActivityWithGD {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getSupportActionBar().setIcon(R.drawable.nine);
+		getSupportActionBar().setIcon(R.drawable.head_nine);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 	}
 

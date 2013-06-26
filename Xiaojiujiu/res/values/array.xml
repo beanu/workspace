@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="color_names">
+    <string-array name="menu_names">
         <item>优惠信息</item>
         <item>电子会员卡</item>
         <item>实体卡</item>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/biz_navi_tab"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/biz_navigation_tab_bg"
+        android:minHeight="52dp"
+        android:paddingLeft="20dp" >
+
+        <TextView
+            android:id="@+id/biz_navi_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:drawablePadding="5.0dip"
+            android:gravity="center_vertical"
+            android:scaleType="center"
+            android:textColor="@color/biz_navigation_item_color"
+            android:textSize="18.0sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/biz_navi_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/biz_main_tab_divider" />
+
+</LinearLayout>
