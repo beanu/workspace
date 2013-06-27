@@ -29,7 +29,6 @@ import com.xiaojiujiu.entity.Category;
 import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
 import com.xiaojiujiu.ui.adapter.SelectorRightAdapter;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
-import com.xiaojiujiu.ui.widget.Pull_ListView;
 
 public class SelectorAreaWindow {
 

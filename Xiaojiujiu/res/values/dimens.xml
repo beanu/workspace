@@ -17,7 +17,7 @@
 <resources>
 
     <!-- slidmenu -->
-    <dimen name="slidingmenu_offset">180dp</dimen>
+    <dimen name="slidingmenu_offset">120dp</dimen>
     <dimen name="shadow_width">15dp</dimen>
 
     <integer name="num_cols">1</integer>

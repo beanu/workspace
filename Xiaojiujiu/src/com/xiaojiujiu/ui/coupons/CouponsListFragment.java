@@ -88,6 +88,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		footerView = inflater.inflate(R.layout.pull_to_refresh_listview_footer_layout, null);
 		getListView().addFooterView(footerView);
 		getListView().setHeaderDividersEnabled(false);
+		getListView().setSelector(R.drawable.base_list_selector);
 		dismissFooterView();
 
 		// 刷选

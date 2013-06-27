@@ -7,29 +7,35 @@
 
     <Button
         android:id="@+id/selector_shoptype"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:drawableRight="@drawable/selector_down_icon"
-        android:text="全部" />
+        android:drawableEnd="@drawable/selector_down_icon"
+        android:text="全部"
+        android:textSize="@dimen/textsize14"
+        android:paddingRight="8dp" />
 
     <Button
         android:id="@+id/selector_area"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:drawableRight="@drawable/selector_down_icon"
-        android:text="5千米" />
+        android:drawableEnd="@drawable/selector_down_icon"
+        android:text="5千米"
+        android:paddingRight="8dp"
+        android:textSize="@dimen/textsize14" />
 
     <Button
         android:id="@+id/selector_sort"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:drawableRight="@drawable/selector_down_icon"
-        android:text="最新发布" />
+        android:text="最新发布"
+        android:paddingRight="8dp"
+        android:textSize="@dimen/textsize14" />
 
 </LinearLayout>
