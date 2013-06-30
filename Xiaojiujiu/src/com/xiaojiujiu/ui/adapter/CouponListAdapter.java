@@ -114,4 +114,10 @@ public class CouponListAdapter extends BaseAdapter {
 
 		return view;
 	}
+
+	public void setData(List<CouponItem> list) {
+		this.list = list;
+	}
+	
+	
 }

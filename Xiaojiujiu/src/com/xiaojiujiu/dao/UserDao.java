@@ -39,6 +39,14 @@ public class UserDao {
 		this.userPassword = userPassword;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
 	public void login(final IDataListener<String> listener) {
 		AjaxParams params = new AjaxParams();
 		params.put("op", "login");
@@ -65,12 +73,14 @@ public class UserDao {
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (AradException e) {
+					listener.onFailure(t, e, e.getMessage());
 					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
 				}
 			}
 
 			@Override
 			public void onFailure(Throwable t, String strMsg) {
+				listener.onFailure("", t, strMsg);
 				MessageUtil.showShortToast(Arad.app.getApplicationContext(),
 						Arad.app.getResources().getString(R.string.network_error));
 			}

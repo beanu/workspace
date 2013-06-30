@@ -1,135 +1,90 @@
 package com.xiaojiujiu.ui;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.beanu.arad.Arad;
 import com.beanu.arad.base.BaseFragment;
+import com.beanu.arad.utils.MessageUtil;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.Click;
+import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.ViewById;
+import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.user.LoginActivity;
+import com.xiaojiujiu.ui.user.MyCollectActivity_;
 import com.xiaojiujiu.ui.user.SettingActivity;
 
 /**
  * 右边菜单栏
- *
+ * 
  * @author beanu
  */
-public class RightMenuFragment extends BaseFragment implements OnClickListener {
 
-    private RelativeLayout user_layout;
-    private TextView right_setting;
+@EFragment(R.layout.right)
+public class RightMenuFragment extends BaseFragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.right, null);
-        user_layout = (RelativeLayout) view.findViewById(R.id.user_layout);
-        user_layout.setOnClickListener(this);
+	@ViewById RelativeLayout user_layout;
+	@ViewById TextView right_setting;
+	@ViewById TextView user_name;
+	@ViewById ImageView user_avatar;
+	@ViewById TextView user_collect;
 
-        right_setting = (TextView) view.findViewById(R.id.right_setting);
-        right_setting.setOnClickListener(this);
-        return view;
-    }
+	private final int requestCode = 1;
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
+	@AfterViews
+	void init() {
+		if (AppHolder.getInstance().user.getUserName() != null) {
+			user_name.setText(AppHolder.getInstance().user.getUserName());
+			Arad.imageLoader.display(AppHolder.getInstance().user.getUserImageSmall(), user_avatar,
+					R.drawable.default_avatar);
+		}
+	}
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.user_layout:
-                Intent user_login = new Intent(getSherlockActivity(), LoginActivity.class);
-                startActivity(user_login);
-                UIUtil.intentSlidIn(getSherlockActivity());
-                break;
-            case R.id.right_setting:
-                Intent setting_intent = new Intent(getSherlockActivity(), SettingActivity.class);
-                startActivity(setting_intent);
-                UIUtil.intentSlidIn(getSherlockActivity());
-                break;
-        }
+	@Click
+	void user_nameClicked() {
+		if (AppHolder.getInstance().user.getUserName() != null) {
+			// TODO
+			MessageUtil.showShortToast(getSherlockActivity(), "已经登陆");
+		} else {
+			Intent user_login = new Intent(getSherlockActivity(), LoginActivity.class);
+			startActivityForResult(user_login, requestCode);
+			UIUtil.intentSlidIn(getSherlockActivity());
+		}
+	}
 
-    }
+	@Click
+	void right_setting() {
+		Intent setting_intent = new Intent(getSherlockActivity(), SettingActivity.class);
+		startActivity(setting_intent);
+		UIUtil.intentSlidIn(getSherlockActivity());
+	}
 
-    // public void switchCategory(int position) {
-    //
-    // switch (position) {
-    // case 0:
-    // showCouponsFragment();
-    // break;
-    // case 1:
-    // showECardFragment();
-    // break;
-    // case 2:
-    // showMyCardFragment();
-    // break;
-    // }
-    // // drawButtonsBackground(position);
-    //
-    // }
+	@Click({ R.id.user_collect })
+	void OnClick(View v) {
+		switch (v.getId()) {
+		case R.id.user_collect:
+			Intent setting_intent = new Intent(getSherlockActivity(), MyCollectActivity_.class);
+			startActivity(setting_intent);
+			UIUtil.intentSlidIn(getSherlockActivity());
+			break;
+		}
+	}
 
-    // private void showMyCardFragment() {
-    // FragmentTransaction ft = getFragmentManager().beginTransaction();
-    //
-    // ft.hide(rightFragments.get(_INDEX1));
-    // ft.hide(rightFragments.get(_INDEX2));
-    // ColorFragment fragment = (ColorFragment) rightFragments.get(_INDEX3);
-    // ft.show(fragment);
-    // ft.commit();
-    // ((MainActivity) getSherlockActivity()).getSlidingMenu().showContent();
-    // }
-    //
-    // private void showECardFragment() {
-    // FragmentTransaction ft = getFragmentManager().beginTransaction();
-    //
-    // ft.hide(rightFragments.get(_INDEX1));
-    // ft.hide(rightFragments.get(_INDEX3));
-    // ECardFListragment fragment = (ECardFListragment)
-    // rightFragments.get(_INDEX2);
-    // ft.show(fragment);
-    // ft.commit();
-    // ((MainActivity) getSherlockActivity()).getSlidingMenu().showContent();
-    // }
-    //
-    // private void showCouponsFragment() {
-    // FragmentTransaction ft = getFragmentManager().beginTransaction();
-    //
-    // ft.hide(rightFragments.get(_INDEX2));
-    // ft.hide(rightFragments.get(_INDEX3));
-    // CouponsListFragment fragment = (CouponsListFragment)
-    // rightFragments.get(_INDEX1);
-    // ft.show(fragment);
-    // ft.commit();
-    // ((MainActivity) getSherlockActivity()).getSlidingMenu().showContent();
-    //
-    // }
-    //
-    // @Override
-    // public void onListItemClick(ListView lv, View v, int position, long id) {
-    //
-    // switch (position) {
-    // case 0:
-    // showCouponsFragment();
-    // break;
-    // case 1:
-    // showECardFragment();
-    // break;
-    // case 2:
-    // showMyCardFragment();
-    // break;
-    // case 3:
-    // // newContent = new ColorFragment(android.R.color.white);
-    // break;
-    // case 4:
-    // // newContent = new ColorFragment(android.R.color.black);
-    // break;
-    // }
-    // }
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == FragmentActivity.RESULT_OK) {
+			if (requestCode == this.requestCode) {
+				user_name.setText(AppHolder.getInstance().user.getUserName());
+				Arad.imageLoader.display(AppHolder.getInstance().user.getUserImageSmall(), user_avatar,
+						R.drawable.default_avatar);
+			}
+		}
+	}
 
 }

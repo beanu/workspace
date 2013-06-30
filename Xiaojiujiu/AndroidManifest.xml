@@ -50,7 +50,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.coupons.CouponsDetailActivity"
+            android:name=".ui.coupons.CouponsDetailActivity_"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -74,11 +74,15 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.user.RegisterActivity"
+            android:name=".ui.user.RegisterActivity_"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.user.SettingActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ui.user.MyCollectActivity_"
             android:screenOrientation="portrait" >
         </activity>
         <activity

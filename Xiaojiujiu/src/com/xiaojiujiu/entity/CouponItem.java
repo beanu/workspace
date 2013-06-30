@@ -1,6 +1,9 @@
 package com.xiaojiujiu.entity;
 
+import java.io.Serializable;
 import java.util.List;
+
+import net.tsz.afinal.annotation.sqlite.Id;
 
 /**
  * 优惠券列表Item信息
@@ -8,8 +11,11 @@ import java.util.List;
  * @author beanu
  * 
  */
-public class CouponItem {
+public class CouponItem implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
+	@Id 
 	private int itemID;// 唯一标示
 	private String itemTitle;
 	private String itemDetail;

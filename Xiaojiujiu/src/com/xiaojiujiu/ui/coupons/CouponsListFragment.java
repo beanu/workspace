@@ -117,8 +117,10 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				if (itemType == 0) {
 					// 进入详情页
 					Intent intent = new Intent(getSherlockActivity().getApplicationContext(),
-							CouponsDetailActivity.class);
-					intent.putExtra("id", dao.getCouponList().get(position - 1).getItemID());
+							CouponsDetailActivity_.class);
+					Bundle b=new Bundle();
+					b.putSerializable("item", dao.getCouponList().get(position - 1));
+					intent.putExtras(b);
 					startActivity(intent);
 
 				} else {

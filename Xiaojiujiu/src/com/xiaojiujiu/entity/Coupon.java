@@ -1,5 +1,7 @@
 package com.xiaojiujiu.entity;
 
+import net.tsz.afinal.annotation.sqlite.Id;
+
 /**
  * 优惠券实体类
  * 
@@ -8,6 +10,7 @@ package com.xiaojiujiu.entity;
  */
 public class Coupon {
 
+	@Id
 	private int couponID;// 唯一标示
 	private String couponTitle;
 	private String couponDesc;

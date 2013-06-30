@@ -59,8 +59,10 @@ public class CouponsListWithShopActivity extends MyActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-				Intent intent = new Intent(CouponsListWithShopActivity.this, CouponsDetailActivity.class);
-				intent.putExtra("id", dao.getCouponList().get(position).getItemID());
+				Intent intent = new Intent(CouponsListWithShopActivity.this, CouponsDetailActivity_.class);
+				Bundle b=new Bundle();
+				b.putSerializable("item", dao.getCouponList().get(position));
+				intent.putExtras(b);
 				startActivity(intent);
 				UIUtil.intentSlidIn(CouponsListWithShopActivity.this);
 			}

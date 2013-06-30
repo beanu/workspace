@@ -10,8 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.beanu.arad.Arad;
 import com.beanu.arad.utils.MessageUtil;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.dao.UserDao;
@@ -32,6 +34,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	@ViewInject(id = R.id.login_findPassword, click = "onClick") ImageView login_findPassword;
 
 	UserDao dao;
+	final int requestCode = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +64,8 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.login_register:
-			Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-			startActivity(intent);
+			Intent intent = new Intent(LoginActivity.this, RegisterActivity_.class);
+			startActivityForResult(intent, requestCode);
 			UIUtil.intentSlidIn(this);
 			break;
 		case R.id.login_submit:
@@ -71,18 +74,26 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 			if (name.equals("") || password.equals("")) {
 				MessageUtil.showShortToast(getApplicationContext(), "用户名,密码不能为空");
 			} else {
+				UIUtil.showWaitDialog(getSupportFragmentManager());
 				dao.setUserName(name);
 				dao.setUserPassword(password);
 				dao.login(new IDataListener<String>() {
 
 					@Override
 					public void onSuccess(String result) {
+						Arad.preferences.putString(Constant.P_username, dao.getUserName());
+						Arad.preferences.putString(Constant.P_password, dao.getUserPassword());		
+						Arad.preferences.flush();
+						
+						UIUtil.hideDialog(getSupportFragmentManager());
+						MessageUtil.showShortToast(getApplicationContext(), "登陆成功");
+						setResult(RESULT_OK);
 						LoginActivity.this.finish();
 					}
 
 					@Override
 					public void onFailure(String result, Throwable t, String strMsg) {
-
+						UIUtil.hideDialog(getSupportFragmentManager());
 					}
 				});
 			}
@@ -92,4 +103,15 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode==RESULT_OK){
+			if(requestCode==this.requestCode){
+			 String name=data.getStringExtra("name");
+			 login_username.setText(name);
+			}	
+		}
+		
+			
+	}
 }

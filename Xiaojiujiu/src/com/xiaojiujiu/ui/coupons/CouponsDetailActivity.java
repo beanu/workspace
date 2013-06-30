@@ -1,10 +1,9 @@
 package com.xiaojiujiu.ui.coupons;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,11 +12,17 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.beanu.arad.utils.AndroidUtil;
 import com.beanu.arad.utils.MessageUtil;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.Click;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.Extra;
+import com.googlecode.androidannotations.annotations.ViewById;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.dao.CouponDetailDao;
 import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.entity.Coupon;
+import com.xiaojiujiu.entity.CouponItem;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.common.MapActivity;
 import com.xiaojiujiu.ui.widget.LongButton;
@@ -28,28 +33,26 @@ import com.xiaojiujiu.ui.widget.LongButton;
  * @author beanu
  * 
  */
-public class CouponsDetailActivity extends MyActivity implements OnClickListener {
 
-	private int couponId;
+@EActivity(R.layout.coupon_detail_activity)
+public class CouponsDetailActivity extends MyActivity {
+
+	@Extra("item") CouponItem couponItem;
 	CouponDetailDao dao;
 
-	@ViewInject(id = R.id.coupon_detail_moreshops, click = "onClick") LongButton moreShop;
-	@ViewInject(id = R.id.offer_detail_button, click = "onClick") Button offer_detail_button;
-	@ViewInject(id = R.id.ecard_detail_title) TextView ecard_detail_title;
-	@ViewInject(id = R.id.ecard_shop_name) TextView ecard_shop_name;
-	@ViewInject(id = R.id.offer_detail_content) TextView offer_detail_content;
-	@ViewInject(id = R.id.nearby_shop_name) TextView nearby_shop_name;
-	@ViewInject(id = R.id.nearby_shop_address, click = "onClick") TextView nearby_shop_address;
-	@ViewInject(id = R.id.nearby_shop_distance, click = "onClick") TextView nearby_shop_distance;
-	@ViewInject(id = R.id.nearby_shop_phone, click = "onClick") ImageView nearby_shop_phone;
+	@ViewById(R.id.coupon_detail_moreshops) LongButton moreShop;
+	@ViewById(R.id.offer_detail_button) Button offer_detail_button;
+	@ViewById(R.id.ecard_detail_title) TextView ecard_detail_title;
+	@ViewById(R.id.ecard_shop_name) TextView ecard_shop_name;
+	@ViewById(R.id.offer_detail_content) TextView offer_detail_content;
+	@ViewById(R.id.nearby_shop_name) TextView nearby_shop_name;
+	@ViewById(R.id.nearby_shop_address) TextView nearby_shop_address;
+	@ViewById(R.id.nearby_shop_distance) TextView nearby_shop_distance;
+	@ViewById(R.id.nearby_shop_phone) ImageView nearby_shop_phone;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.coupon_detail_activity);
-
-		couponId = getIntent().getIntExtra("id", 0);
-		dao = new CouponDetailDao(couponId);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		enableSlideGestureDetector(true);
@@ -66,6 +69,11 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 			}
 		});
 
+	}
+
+	@AfterViews
+	void init() {
+		dao = new CouponDetailDao(couponItem);
 		dao.getDetailInfo(new IDataListener<Coupon>() {
 
 			@Override
@@ -82,7 +90,8 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 		});
 	}
 
-	@Override
+	@Click({ R.id.offer_detail_button, R.id.coupon_detail_moreshops, R.id.nearby_shop_phone, R.id.nearby_shop_address,
+			R.id.nearby_shop_distance })
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.offer_detail_button:
@@ -113,7 +122,10 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		MenuItem collectMenuItem = menu.add(Menu.NONE, R.id.menu_collect, Menu.NONE, "收藏");
-		collectMenuItem.setIcon(R.drawable.menu_unfav);
+		if (dao.getCoupon().getIsFavorite() == 0)
+			collectMenuItem.setIcon(R.drawable.menu_unfav);
+		else
+			collectMenuItem.setIcon(R.drawable.menu_fav);
 		collectMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		MenuItem shareMenuItem = menu.add(Menu.NONE, R.id.menu_share, Menu.NONE, "分享");
@@ -124,11 +136,40 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(final MenuItem item) {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.menu_collect:
+			if (dao.getCoupon().getIsFavorite() == 0)
+				dao.collect(true, new IDataListener<String>() {
 
+					@Override
+					public void onSuccess(String result) {
+						item.setIcon(R.drawable.menu_fav);
+						MessageUtil.showShortToast(getApplicationContext(), "收藏成功");
+					}
+
+					@Override
+					public void onFailure(String result, Throwable t, String strMsg) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+			else
+				dao.collect(false, new IDataListener<String>() {
+
+					@Override
+					public void onSuccess(String result) {
+						item.setIcon(R.drawable.menu_unfav);
+						MessageUtil.showShortToast(getApplicationContext(), "取消收藏");
+					}
+
+					@Override
+					public void onFailure(String result, Throwable t, String strMsg) {
+						// TODO Auto-generated method stub
+
+					}
+				});
 			break;
 		case R.id.menu_share:
 			break;
@@ -138,6 +179,7 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 		return false;
 	}
 
+	@SuppressLint("NewApi")
 	private void refreshPage(Coupon coupon) {
 		if (coupon != null) {
 			ecard_detail_title.setText(coupon.getCouponTitle());
@@ -147,6 +189,7 @@ public class CouponsDetailActivity extends MyActivity implements OnClickListener
 			nearby_shop_address.setText(coupon.getNearestShopAddress());
 			nearby_shop_distance.setText((int) coupon.getNearestShopDistance() + "米");
 			nearby_shop_phone.setTag(coupon.getNearestShopTel());
+			invalidateOptionsMenu();
 		}
 	}
 

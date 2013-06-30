@@ -13,6 +13,9 @@ import com.baidu.location.LocationClientOption;
 import com.beanu.arad.Arad;
 import com.beanu.arad.utils.Log;
 import com.beanu.arad.utils.MessageUtil;
+import com.xiaojiujiu.base.Constant;
+import com.xiaojiujiu.dao.IDataListener;
+import com.xiaojiujiu.dao.UserDao;
 
 public class StartActivity extends Activity {
 
@@ -52,7 +55,7 @@ public class StartActivity extends Activity {
 
 			@Override
 			public void onSuccess(String t) {
-				toMainActivity();
+				autoLogin();
 			}
 
 			@Override
@@ -66,9 +69,9 @@ public class StartActivity extends Activity {
 	}
 
 	private void toMainActivity() {
-		 Intent intent = new Intent(StartActivity.this, MainActivity.class);
-		 startActivity(intent);
-		 finish();
+		Intent intent = new Intent(StartActivity.this, MainActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
 	@Override
@@ -83,8 +86,30 @@ public class StartActivity extends Activity {
 
 	@Override
 	public void onDestroy() {
-//		mLocClient.stop();
+		// mLocClient.stop();
 		super.onDestroy();
 	}
 
+	private void autoLogin() {
+		String name = Arad.preferences.getString(Constant.P_username, "");
+		String password = Arad.preferences.getString(Constant.P_password, "");
+
+		if (!name.equals("") && !password.equals("")) {
+			UserDao dao = new UserDao(name, password);
+			dao.login(new IDataListener<String>() {
+
+				@Override
+				public void onSuccess(String result) {
+					toMainActivity();
+				}
+
+				@Override
+				public void onFailure(String result, Throwable t, String strMsg) {
+					toMainActivity();
+				}
+			});
+		}else{
+			toMainActivity();
+		}
+	}
 }

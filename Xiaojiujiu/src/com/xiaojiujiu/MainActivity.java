@@ -15,7 +15,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.xiaojiujiu.ui.LeftMenuFragment;
-import com.xiaojiujiu.ui.RightMenuFragment;
+import com.xiaojiujiu.ui.RightMenuFragment_;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.coupons.CouponsListFragment;
 import com.xiaojiujiu.ui.ecard.ECardFListragment;
@@ -82,7 +82,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
 			// set the right view
 			secondFragmentTransaction.replace(R.id.menu_right, getRightMenuFragment(),
-					RightMenuFragment.class.getName());
+					RightMenuFragment_.class.getName());
 			secondFragmentTransaction.commit();
 
 			// getSlidingMenu().showContent();
@@ -143,11 +143,11 @@ public class MainActivity extends SlidingFragmentActivity {
 		return fragment;
 	}
 
-	public RightMenuFragment getRightMenuFragment() {
-		RightMenuFragment fragment = ((RightMenuFragment) getSupportFragmentManager().findFragmentByTag(
-				RightMenuFragment.class.getName()));
+	public RightMenuFragment_ getRightMenuFragment() {
+		RightMenuFragment_ fragment = ((RightMenuFragment_) getSupportFragmentManager().findFragmentByTag(
+				RightMenuFragment_.class.getName()));
 		if (fragment == null) {
-			fragment = new RightMenuFragment();
+			fragment = new RightMenuFragment_();
 		}
 		return fragment;
 	}
