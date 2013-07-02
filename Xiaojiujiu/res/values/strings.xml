@@ -16,5 +16,6 @@
     <!-- ERROR -->
     <string name="network_error">网络异常</string>
     <string name="code001"></string>
+    <string name="code0">没有数据</string>
 
 </resources>

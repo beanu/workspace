@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.beanu.arad.Arad;
 import com.beanu.arad.utils.AndroidUtil;
 import com.beanu.arad.utils.MessageUtil;
 import com.googlecode.androidannotations.annotations.AfterViews;
@@ -74,20 +75,31 @@ public class CouponsDetailActivity extends MyActivity {
 	@AfterViews
 	void init() {
 		dao = new CouponDetailDao(couponItem);
-		dao.getDetailInfo(new IDataListener<Coupon>() {
+		
+		if(AndroidUtil.networkStatusOK(getApplicationContext())){
+			dao.getDetailInfo(new IDataListener<Coupon>() {
 
-			@Override
-			public void onSuccess(Coupon result) {
-				refreshPage(result);
+				@Override
+				public void onSuccess(Coupon result) {
+					refreshPage(result);
 
+				}
+
+				@Override
+				public void onFailure(Coupon result, Throwable t, String strMsg) {
+					// TODO ERROR
+
+				}
+			});
+		}else{
+			Coupon coupon=Arad.db.findById(Coupon.class, couponItem.getItemID());
+			if(coupon!=null){
+				dao.setCoupon(coupon);
+				refreshPage(coupon);
 			}
-
-			@Override
-			public void onFailure(Coupon result, Throwable t, String strMsg) {
-				// TODO ERROR
-
-			}
-		});
+		}
+		
+		
 	}
 
 	@Click({ R.id.offer_detail_button, R.id.coupon_detail_moreshops, R.id.nearby_shop_phone, R.id.nearby_shop_address,

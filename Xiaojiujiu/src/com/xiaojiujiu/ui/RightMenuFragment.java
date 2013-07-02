@@ -32,6 +32,7 @@ public class RightMenuFragment extends BaseFragment {
 	@ViewById RelativeLayout user_layout;
 	@ViewById TextView right_setting;
 	@ViewById TextView user_name;
+	@ViewById TextView user_level;
 	@ViewById ImageView user_avatar;
 	@ViewById TextView user_collect;
 
@@ -46,8 +47,8 @@ public class RightMenuFragment extends BaseFragment {
 		}
 	}
 
-	@Click
-	void user_nameClicked() {
+	@Click({R.id.user_name,R.id.user_level})
+	void loginClicked() {
 		if (AppHolder.getInstance().user.getUserName() != null) {
 			// TODO
 			MessageUtil.showShortToast(getSherlockActivity(), "已经登陆");

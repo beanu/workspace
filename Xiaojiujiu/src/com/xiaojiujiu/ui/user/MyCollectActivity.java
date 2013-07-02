@@ -5,15 +5,22 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.View;
+import android.view.View.OnCreateContextMenuListener;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.beanu.arad.Arad;
-import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.xiaojiujiu.base.MyListActivity;
+import com.xiaojiujiu.dao.CouponDetailDao;
+import com.xiaojiujiu.dao.IDataListener;
+import com.xiaojiujiu.entity.Coupon;
 import com.xiaojiujiu.entity.CouponItem;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
@@ -35,7 +42,7 @@ public class MyCollectActivity extends MyListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		enableSlideGestureDetector(true);
 		setSlidingEventListener(new SlidingEventListener() {
@@ -53,11 +60,17 @@ public class MyCollectActivity extends MyListActivity {
 
 		init();
 	}
-	
+
 	void init() {
-//		data = Arad.db.findAll(CouponItem.class);
+		// data = Arad.db.findAll(CouponItem.class);
 		adapter = new CouponListAdapter(getApplicationContext(), data, CouponListAdapter.CouponList);
 		setListAdapter(adapter);
+		getListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+
+			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+				menu.add(Menu.NONE, Menu.FIRST, 0, "删除");
+			}
+		});
 		readAllDataFromDB();
 	}
 
@@ -82,5 +95,35 @@ public class MyCollectActivity extends MyListActivity {
 		intent.putExtras(b);
 		startActivity(intent);
 	}
+
+	@Override
+	public boolean onContextItemSelected(android.view.MenuItem item) {
+
+		if (item.getItemId() == Menu.FIRST) {
+			AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+			final int position = menuInfo.position;
+			CouponDetailDao dao = new CouponDetailDao(data.get(position));
+			Coupon coupon = Arad.db.findById(Coupon.class, data.get(position).getItemID());
+			if (coupon != null) {
+				dao.setCoupon(coupon);
+				dao.collect(false, new IDataListener<String>() {
+
+					@Override
+					public void onSuccess(String result) {
+						data.remove(position);
+						adapter.notifyDataSetChanged();
+					}
+
+					@Override
+					public void onFailure(String result, Throwable t, String strMsg) {
+
+					}
+				});
+			}
+
+		}
+
+		return false;
+	};
 
 }

@@ -15,7 +15,9 @@ public class CouponItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id 
+	@Id
+	private int id;
+	
 	private int itemID;// 唯一标示
 	private String itemTitle;
 	private String itemDetail;
@@ -24,6 +26,14 @@ public class CouponItem implements Serializable {
 	private String itemImageUrl;
 	private double distance;
 	private int itemType;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getItemID() {
 		return itemID;

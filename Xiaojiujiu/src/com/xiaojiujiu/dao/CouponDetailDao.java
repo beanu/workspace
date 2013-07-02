@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.xiaojiujiu.AppHolder;
+import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.Constant;
 import com.xiaojiujiu.entity.Coupon;
 import com.xiaojiujiu.entity.CouponItem;
@@ -35,6 +36,10 @@ public class CouponDetailDao {
 		if (coupon == null)
 			return new Coupon();
 		return coupon;
+	}
+
+	public void setCoupon(Coupon coupon) {
+		this.coupon = coupon;
 	}
 
 	public void getDetailInfo(final IDataListener<Coupon> listener) {
@@ -111,6 +116,8 @@ public class CouponDetailDao {
 			@Override
 			public void onFailure(Throwable t, String strMsg) {
 				listener.onFailure("", t, strMsg);
+				MessageUtil.showShortToast(Arad.app.getApplicationContext(),
+						Arad.app.getResources().getString(R.string.network_error));
 			}
 
 		});

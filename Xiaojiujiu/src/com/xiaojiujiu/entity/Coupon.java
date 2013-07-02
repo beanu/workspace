@@ -11,6 +11,8 @@ import net.tsz.afinal.annotation.sqlite.Id;
 public class Coupon {
 
 	@Id
+	private int id;
+	
 	private int couponID;// 唯一标示
 	private String couponTitle;
 	private String couponDesc;
@@ -27,6 +29,14 @@ public class Coupon {
 	private double nearestShopLat;
 	private String nearestShopTel;
 	private int fitShopNum;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getCouponID() {
 		return couponID;

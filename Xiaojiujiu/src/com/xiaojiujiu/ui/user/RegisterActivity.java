@@ -84,6 +84,7 @@ public class RegisterActivity extends MyActivity {
 
 			@Override
 			public void onSuccess(String result) {
+				MessageUtil.showShortToast(getApplicationContext(), "  注册成功");
 				getIntent().putExtra("name", dao.getUserName());
 				setResult(RESULT_OK, getIntent());
 				finish();

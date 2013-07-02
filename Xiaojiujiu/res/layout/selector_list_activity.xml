@@ -7,7 +7,7 @@
     <ListView
         android:id="@+id/listLeft"
         android:layout_width="0dp"
-        android:layout_height="155dp"
+        android:layout_height="255dp"
         android:layout_weight="1"
         android:background="#f2f2f2"
         android:cacheColorHint="@android:color/transparent"
@@ -19,7 +19,7 @@
     <ListView
         android:id="@+id/listRight"
         android:layout_width="0dp"
-        android:layout_height="155dp"
+        android:layout_height="255dp"
         android:layout_weight="1"
         android:background="@color/white"
         android:cacheColorHint="@android:color/transparent"
