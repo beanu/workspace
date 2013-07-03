@@ -37,7 +37,7 @@ public class CouponListDao {
 	public CouponListDao() {
 
 		param = new HashMap<String, String>();
-		param.put("op", "searchByTypeAndDistance");
+		param.put("op", "searchByTypeAndDistrict");
 		param.put("cityID", "1");
 		param.put("radius", "5000");
 		param.put("shopFirstCateID", "");
@@ -168,6 +168,9 @@ public class CouponListDao {
 		} else if (!StringUtil.isNull(parentId) && StringUtil.isNull(shopId)) {
 			param.put("shopFirstCateID", parentId);
 			param.put("shopSecondCateID", "");
+		}else if(StringUtil.isNull(parentId) && StringUtil.isNull(shopId)){
+			param.put("shopFirstCateID", "");
+			param.put("shopSecondCateID", "");
 		}
 
 		updateData(listener);
@@ -179,6 +182,9 @@ public class CouponListDao {
 			param.put("businessDistrictID", areaId);
 		} else if (!StringUtil.isNull(parentId) && StringUtil.isNull(areaId)) {
 			param.put("districtID", parentId);
+			param.put("businessDistrictID", "");
+		}else if(StringUtil.isNull(parentId) && StringUtil.isNull(areaId)){
+			param.put("districtID", "");
 			param.put("businessDistrictID", "");
 		}
 

@@ -112,6 +112,13 @@ public class SelectorShopTypeWindow {
 				// leftAdapter.notifyDataSetInvalidated();
 				rightAdapter.setLeftPosition(position);
 				rightAdapter.notifyDataSetChanged();
+				
+				if (position == 0) {
+					dismissPopupwindow();
+//					String parentId = AppHolder.getInstance().area.get(0).getCategoryID() + "";
+					String parentName = AppHolder.getInstance().shopType.get(0).getCategoryName();
+					listener.onSelected(null, null, parentName);
+				}
 
 			}
 		});
@@ -152,6 +159,14 @@ public class SelectorShopTypeWindow {
 			JSONObject response = new JSONObject(json);
 			String resCode = response.getString("resCode");
 			if (resCode != null && resCode.equals("1")) {
+				
+				Category allCate = new Category();
+				allCate.setCategoryID(0);
+				allCate.setCategoryName("全部");
+				allCate.setLetter("q");
+				allCate.setChildCategoryList(new ArrayList<Category>());
+				AppHolder.getInstance().shopType.add(allCate);
+				
 				JSONArray jsonArray = response.getJSONArray("ShopTypeList");
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject item = jsonArray.getJSONObject(i);

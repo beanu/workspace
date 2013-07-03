@@ -1,7 +1,10 @@
 package com.xiaojiujiu.ui.common;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
@@ -98,10 +101,15 @@ public class SelectorAreaWindow {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-				// leftAdapter.notifyDataSetInvalidated();
 				rightAdapter.setLeftPosition(position);
 				rightAdapter.notifyDataSetChanged();
+				
+				if (position == 0) {
+					dismissPopupwindow();
+//					String parentId = AppHolder.getInstance().area.get(0).getCategoryID() + "";
+					String parentName = AppHolder.getInstance().area.get(0).getCategoryName();
+					listener.onSelected(null, null, parentName);
+				}
 
 			}
 		});
@@ -115,23 +123,20 @@ public class SelectorAreaWindow {
 				dismissPopupwindow();
 				if (listener != null) {
 
-					if (listener != null) {
-						String selectedId = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
-								.getChildCategoryList().get(position).getCategoryID()
-								+ "";
-						String parentId = AppHolder.getInstance().area.get(rightAdapter.leftPoition).getCategoryID()
-								+ "";
-						String selectedName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
-								.getChildCategoryList().get(position).getCategoryName();
-						String parentName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
-								.getCategoryName();
+					String selectedId = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
+							.getChildCategoryList().get(position).getCategoryID()
+							+ "";
+					String parentId = AppHolder.getInstance().area.get(rightAdapter.leftPoition).getCategoryID() + "";
+					String selectedName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
+							.getChildCategoryList().get(position).getCategoryName();
+					String parentName = AppHolder.getInstance().area.get(rightAdapter.leftPoition).getCategoryName();
 
-						if (position == 0) {
-							listener.onSelected(parentId, null, parentName);
-						} else {
-							listener.onSelected(parentId, selectedId, selectedName);
-						}
+					if (position == 0) {
+						listener.onSelected(parentId, null, parentName);
+					} else {
+						listener.onSelected(parentId, selectedId, selectedName);
 					}
+
 				}
 
 			}
@@ -146,6 +151,13 @@ public class SelectorAreaWindow {
 			String resCode = response.getString("resCode");
 			if (resCode != null && resCode.equals("1")) {
 				JSONArray jsonArray = response.getJSONArray("ShopTypeList");
+				Category allCate = new Category();
+				allCate.setCategoryID(0);
+				allCate.setCategoryName("全部");
+				allCate.setLetter("q");
+				allCate.setChildCategoryList(new ArrayList<Category>());
+				AppHolder.getInstance().area.add(allCate);
+
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject item = jsonArray.getJSONObject(i);
 					Category category = new Category();

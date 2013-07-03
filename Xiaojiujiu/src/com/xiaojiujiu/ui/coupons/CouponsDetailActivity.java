@@ -18,6 +18,7 @@ import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.dao.CouponDetailDao;
@@ -152,36 +153,41 @@ public class CouponsDetailActivity extends MyActivity {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.menu_collect:
-			if (dao.getCoupon().getIsFavorite() == 0)
-				dao.collect(true, new IDataListener<String>() {
+			if(AppHolder.getInstance().user.getMemberName()==null){
+				MessageUtil.showShortToast(getApplicationContext(), "请登录后在收藏");
+			}else{
+				if (dao.getCoupon().getIsFavorite() == 0)
+					dao.collect(true, new IDataListener<String>() {
 
-					@Override
-					public void onSuccess(String result) {
-						item.setIcon(R.drawable.menu_fav);
-						MessageUtil.showShortToast(getApplicationContext(), "收藏成功");
-					}
+						@Override
+						public void onSuccess(String result) {
+							item.setIcon(R.drawable.menu_fav);
+							MessageUtil.showShortToast(getApplicationContext(), "收藏成功");
+						}
 
-					@Override
-					public void onFailure(String result, Throwable t, String strMsg) {
-						// TODO Auto-generated method stub
+						@Override
+						public void onFailure(String result, Throwable t, String strMsg) {
+							// TODO Auto-generated method stub
 
-					}
-				});
-			else
-				dao.collect(false, new IDataListener<String>() {
+						}
+					});
+				else
+					dao.collect(false, new IDataListener<String>() {
 
-					@Override
-					public void onSuccess(String result) {
-						item.setIcon(R.drawable.menu_unfav);
-						MessageUtil.showShortToast(getApplicationContext(), "取消收藏");
-					}
+						@Override
+						public void onSuccess(String result) {
+							item.setIcon(R.drawable.menu_unfav);
+							MessageUtil.showShortToast(getApplicationContext(), "取消收藏");
+						}
 
-					@Override
-					public void onFailure(String result, Throwable t, String strMsg) {
-						// TODO Auto-generated method stub
+						@Override
+						public void onFailure(String result, Throwable t, String strMsg) {
+							// TODO Auto-generated method stub
 
-					}
-				});
+						}
+					});
+			}
+			
 			break;
 		case R.id.menu_share:
 			break;
