@@ -93,6 +93,8 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		if (getCurrentState(savedInstanceState) == FIRST_TIME_START) {
 			pullToRefreshListView.setRefreshing(false);
 			showListView(false);
+		}else{
+			showListView(true);
 		}
 	}
 

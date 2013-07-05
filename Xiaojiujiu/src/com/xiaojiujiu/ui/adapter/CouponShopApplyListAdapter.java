@@ -42,6 +42,8 @@ public class CouponShopApplyListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		if(list==null)
+			return 0;
 		return list.size();
 	}
 
@@ -61,10 +63,10 @@ public class CouponShopApplyListAdapter extends BaseAdapter {
 		if (view == null) {
 			view = mlinflater.inflate(R.layout.coupon_shop_apply_item, null);
 			ViewHolder vh = new ViewHolder();
-			vh.title = (TextView) view.findViewById(R.id.nearby_shop_name);
-			vh.address = (TextView) view.findViewById(R.id.nearby_shop_address);
-			vh.distance = (TextView) view.findViewById(R.id.nearby_shop_distance);
-			vh.phoneImage = (ImageView) view.findViewById(R.id.nearby_shop_phone);
+			vh.title = (TextView) view.findViewById(R.id.coupon_nearby_shop_name);
+			vh.address = (TextView) view.findViewById(R.id.coupon_nearby_shop_address);
+			vh.distance = (TextView) view.findViewById(R.id.coupon_nearby_shop_distance);
+			vh.phoneImage = (ImageView) view.findViewById(R.id.coupon_nearby_shop_phone);
 			view.setTag(vh);
 		}
 
