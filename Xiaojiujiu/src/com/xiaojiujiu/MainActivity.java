@@ -32,7 +32,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
 	private long waitTime = 2000;
 	private long touchTime = 0;
-	private boolean showEntityCardMenu;
+	private boolean showEntityCardMenu, showSearch;
 	private FragmentsManager fragmentManager;
 
 	private SlidingMenu sm;
@@ -99,6 +99,13 @@ public class MainActivity extends SlidingFragmentActivity {
 			ecMenuItem.setIcon(R.drawable.menu_add);
 			ecMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
+		if (showSearch) {
+
+			menu.add(Menu.NONE, R.id.menu_search, Menu.NONE, "Search").setIcon(R.drawable.ic_search)
+					.setActionView(R.layout.collapsible_edittext)
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+		}
+
 		return true;
 	}
 
@@ -112,6 +119,41 @@ public class MainActivity extends SlidingFragmentActivity {
 			Intent intent = new Intent(MainActivity.this, AddEntityCardActivity.class);
 			startActivity(intent);
 			UIUtil.intentSlidIn(MainActivity.this);
+			break;
+		case R.id.menu_search:
+//			final EditText editText = (EditText) item.getActionView();
+//			item.setOnActionExpandListener(new OnActionExpandListener() {
+//
+//				@Override
+//				public boolean onMenuItemActionExpand(MenuItem item) {
+//					editText.requestFocus();
+//					editText.postDelayed(new Runnable() {
+//						@Override
+//						public void run() {
+//							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//							imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+//						}
+//					}, 200);
+//					// editText.post(new Runnable() {
+//					// @Override
+//					// public void run() {
+//					// editText.requestFocus();
+//					// InputMethodManager imm = (InputMethodManager)
+//					// getSystemService(Context.INPUT_METHOD_SERVICE);
+//					// imm.showSoftInput(editText,
+//					// InputMethodManager.SHOW_IMPLICIT);
+//					// }
+//					// });
+//
+//					return true;
+//				}
+//
+//				@Override
+//				public boolean onMenuItemActionCollapse(MenuItem item) {
+//					// TODO Auto-generated method stub
+//					return false;
+//				}
+//			});
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -152,8 +194,9 @@ public class MainActivity extends SlidingFragmentActivity {
 		return fragment;
 	}
 
-	private void showEntityCardMenu(boolean enableShow) {
-		showEntityCardMenu = enableShow;
+	private void showMenu(boolean enableEntityCardMenu, boolean enableSearch) {
+		showEntityCardMenu = enableEntityCardMenu;
+		showSearch = enableSearch;
 		supportInvalidateOptionsMenu();
 	}
 
@@ -161,19 +204,19 @@ public class MainActivity extends SlidingFragmentActivity {
 		switch (fm) {
 		case coupons:
 			fragmentManager.changFragment(Fragments.coupons.name());
-			showEntityCardMenu(false);
+			showMenu(false, true);
 			break;
 		case ecard:
 			fragmentManager.changFragment(Fragments.ecard.name());
-			showEntityCardMenu(false);
+			showMenu(false, true);
 			break;
 		case mycard:
 			fragmentManager.changFragment(Fragments.mycard.name());
-			showEntityCardMenu(true);
+			showMenu(true, false);
 			break;
 		case freshNews:
 			fragmentManager.changFragment(Fragments.freshNews.name());
-			showEntityCardMenu(false);
+			showMenu(false, true);
 			break;
 		}
 		sm.showContent();

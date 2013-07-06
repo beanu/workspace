@@ -50,6 +50,26 @@ public class SelectorAreaWindow {
 	public SelectorAreaWindow(Context ctx) {
 		this.context = ctx;
 
+		leftAdapter = new SelectorLeftAdapter(context, leftData);
+		rightAdapter = new SelectorRightAdapter(context, AppHolder.getInstance().area, 0);
+		initView();
+		popupWindow = new PopupWindow(context);
+		popupWindow.setWidth((int) context.getResources().getDimension(R.dimen.popupWindow_width));
+		popupWindow.setHeight((int) context.getResources().getDimension(R.dimen.popupWindow_height));
+		popupWindow.setContentView(layout);
+		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+		popupWindow.setFocusable(true);
+		popupWindow.setTouchable(true);
+		popupWindow.setOutsideTouchable(true);
+		popupWindow.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				dismissPopupwindow();
+
+			}
+		});
+		
 		if (AppHolder.getInstance().area.size() == 0) {
 			AjaxParams params = new AjaxParams();
 			params.put("op", "district");
@@ -71,26 +91,6 @@ public class SelectorAreaWindow {
 		} else {
 			updateData();
 		}
-
-		leftAdapter = new SelectorLeftAdapter(context, leftData);
-		rightAdapter = new SelectorRightAdapter(context, AppHolder.getInstance().area, 0);
-		initView();
-		popupWindow = new PopupWindow(context);
-		popupWindow.setWidth((int) context.getResources().getDimension(R.dimen.popupWindow_width));
-		popupWindow.setHeight((int) context.getResources().getDimension(R.dimen.popupWindow_height));
-		popupWindow.setContentView(layout);
-		popupWindow.setBackgroundDrawable(new BitmapDrawable());
-		popupWindow.setFocusable(true);
-		popupWindow.setTouchable(true);
-		popupWindow.setOutsideTouchable(true);
-		popupWindow.setOnDismissListener(new OnDismissListener() {
-
-			@Override
-			public void onDismiss() {
-				dismissPopupwindow();
-
-			}
-		});
 	}
 
 	private void initView() {

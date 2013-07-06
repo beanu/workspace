@@ -58,6 +58,26 @@ public class SelectorShopTypeWindow {
 	public SelectorShopTypeWindow(Context ctx) {
 		this.context = ctx;
 
+		leftAdapter = new SelectorLeftAdapter(context, leftData);
+		rightAdapter = new SelectorRightAdapter(context, AppHolder.getInstance().shopType, 0);
+		initView();
+		popupWindow = new PopupWindow(context);
+		popupWindow.setWidth((int) context.getResources().getDimension(R.dimen.popupWindow_width));
+		popupWindow.setHeight((int) context.getResources().getDimension(R.dimen.popupWindow_height));
+		popupWindow.setContentView(layout);
+		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+		popupWindow.setFocusable(true);
+		popupWindow.setTouchable(true);
+		popupWindow.setOutsideTouchable(true);
+		popupWindow.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				dismissPopupwindow();
+
+			}
+		});
+
 		if (AppHolder.getInstance().shopType.size() == 0) {
 			AjaxParams params = new AjaxParams();
 			params.put("op", "shop");
@@ -78,26 +98,6 @@ public class SelectorShopTypeWindow {
 		} else {
 			updateData();
 		}
-
-		leftAdapter = new SelectorLeftAdapter(context, leftData);
-		rightAdapter = new SelectorRightAdapter(context, AppHolder.getInstance().shopType, 0);
-		initView();
-		popupWindow = new PopupWindow(context);
-		popupWindow.setWidth((int) context.getResources().getDimension(R.dimen.popupWindow_width));
-		popupWindow.setHeight((int) context.getResources().getDimension(R.dimen.popupWindow_height));
-		popupWindow.setContentView(layout);
-		popupWindow.setBackgroundDrawable(new BitmapDrawable());
-		popupWindow.setFocusable(true);
-		popupWindow.setTouchable(true);
-		popupWindow.setOutsideTouchable(true);
-		popupWindow.setOnDismissListener(new OnDismissListener() {
-
-			@Override
-			public void onDismiss() {
-				dismissPopupwindow();
-
-			}
-		});
 	}
 
 	private void initView() {
@@ -112,10 +112,11 @@ public class SelectorShopTypeWindow {
 				// leftAdapter.notifyDataSetInvalidated();
 				rightAdapter.setLeftPosition(position);
 				rightAdapter.notifyDataSetChanged();
-				
+
 				if (position == 0) {
 					dismissPopupwindow();
-//					String parentId = AppHolder.getInstance().area.get(0).getCategoryID() + "";
+					// String parentId =
+					// AppHolder.getInstance().area.get(0).getCategoryID() + "";
 					String parentName = AppHolder.getInstance().shopType.get(0).getCategoryName();
 					listener.onSelected(null, null, parentName);
 				}
@@ -159,14 +160,14 @@ public class SelectorShopTypeWindow {
 			JSONObject response = new JSONObject(json);
 			String resCode = response.getString("resCode");
 			if (resCode != null && resCode.equals("1")) {
-				
+
 				Category allCate = new Category();
 				allCate.setCategoryID(0);
 				allCate.setCategoryName("全部");
 				allCate.setLetter("q");
 				allCate.setChildCategoryList(new ArrayList<Category>());
 				AppHolder.getInstance().shopType.add(allCate);
-				
+
 				JSONArray jsonArray = response.getJSONArray("ShopTypeList");
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject item = jsonArray.getJSONObject(i);

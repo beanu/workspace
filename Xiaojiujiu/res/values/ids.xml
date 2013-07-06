@@ -9,7 +9,8 @@
     <item name="menu_share" type="id"/>
     <item name="menu_collect" type="id"/>
 
-    <!--Entity Card -->
+    <!-- Entity Card -->
     <item name="menu_add_entity_card" type="id"/>
+    <item name="menu_search" type="id"></item>
 
 </resources>

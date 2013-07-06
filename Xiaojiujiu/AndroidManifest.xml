@@ -47,65 +47,79 @@
         </activity>
         <activity
             android:name=".ui.ecard.ECardDetailActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.coupons.CouponsDetailActivity_"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.coupons.CouponsDescriptionActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.coupons.CouponsListWithShopActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.coupons.CouponsShopApplyActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.user.LoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.user.RegisterActivity_"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.user.SettingActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.user.MyCollectActivity_"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.entitycard.AddEntityCardActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.entitycard.EntityCardDetailActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.freshnews.FreshNewsDetailActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.common.MapActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- 依赖工程 -->
         <activity
             android:name="com.google.zxing.CaptureActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
 
