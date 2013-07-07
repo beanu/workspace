@@ -27,6 +27,10 @@ public class CouponShopApplyListAdapter extends BaseAdapter {
 	private LayoutInflater mlinflater;
 	private Context context;
 
+	public void setData(List<CouponShop> list) {
+		this.list = list;
+	}
+
 	private class ViewHolder {
 		public TextView title;
 		public TextView address;
@@ -42,7 +46,7 @@ public class CouponShopApplyListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		if(list==null)
+		if (list == null)
 			return 0;
 		return list.size();
 	}
@@ -71,9 +75,9 @@ public class CouponShopApplyListAdapter extends BaseAdapter {
 		}
 
 		ViewHolder holder = (ViewHolder) view.getTag();
-		holder.title.setText(shop.getShopTitle());
-		holder.address.setText(shop.getShopAdress());
-		holder.distance.setText(shop.getShopDistance());
+		holder.title.setText(shop.getShopName());
+		holder.address.setText(shop.getShopAddress());
+		holder.distance.setText(shop.getShopDistance() + "米");
 		holder.phoneImage.setOnClickListener(new OnClickListener() {
 
 			@Override

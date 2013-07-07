@@ -7,12 +7,14 @@ package com.xiaojiujiu.entity;
  * 
  */
 public class CouponShop {
-	
+
 	private int shopID;// 唯一标示
-	private String shopTitle;
-	private String shopAdress;
+	private String shopName;
+	private String shopAddress;
+	double shopLongitude;
+	double shopLatitude;
+	double shopDistance;
 	private String shopTel;
-	private String shopDistance;
 
 	public int getShopID() {
 		return shopID;
@@ -22,20 +24,44 @@ public class CouponShop {
 		this.shopID = shopID;
 	}
 
-	public String getShopTitle() {
-		return shopTitle;
+	public String getShopName() {
+		return shopName;
 	}
 
-	public void setShopTitle(String shopTitle) {
-		this.shopTitle = shopTitle;
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 
-	public String getShopAdress() {
-		return shopAdress;
+	public String getShopAddress() {
+		return shopAddress;
 	}
 
-	public void setShopAdress(String shopAdress) {
-		this.shopAdress = shopAdress;
+	public void setShopAddress(String shopAddress) {
+		this.shopAddress = shopAddress;
+	}
+
+	public double getShopLongitude() {
+		return shopLongitude;
+	}
+
+	public void setShopLongitude(double shopLongitude) {
+		this.shopLongitude = shopLongitude;
+	}
+
+	public double getShopLatitude() {
+		return shopLatitude;
+	}
+
+	public void setShopLatitude(double shopLatitude) {
+		this.shopLatitude = shopLatitude;
+	}
+
+	public double getShopDistance() {
+		return shopDistance;
+	}
+
+	public void setShopDistance(double shopDistance) {
+		this.shopDistance = shopDistance;
 	}
 
 	public String getShopTel() {
@@ -44,14 +70,6 @@ public class CouponShop {
 
 	public void setShopTel(String shopTel) {
 		this.shopTel = shopTel;
-	}
-
-	public String getShopDistance() {
-		return shopDistance;
-	}
-
-	public void setShopDistance(String shopDistance) {
-		this.shopDistance = shopDistance;
 	}
 
 }

@@ -207,6 +207,7 @@ public class SelectorShopTypeWindow {
 		}
 		leftAdapter.notifyDataSetChanged();
 		rightAdapter.notifyDataSetChanged();
+		listLeft.setItemChecked(0, true);
 	}
 
 	/**

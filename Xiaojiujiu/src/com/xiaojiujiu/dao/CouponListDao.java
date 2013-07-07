@@ -31,13 +31,18 @@ import com.xiaojiujiu.ui.HttpUtil;
 public class CouponListDao {
 
 	private Map<String, String> param;
+
 	private List<CouponItem> mCouponList;
 	private final int PageSize = 10;
+
+	boolean isDistance = true;
+	private static final String OP = "searchByTypeAndDistrict";
+	private static final String OP_DISTANCE = "searchByTypeAndDistance";
 
 	public CouponListDao() {
 
 		param = new HashMap<String, String>();
-		param.put("op", "searchByTypeAndDistrict");
+		param.put("op", OP_DISTANCE);
 		param.put("cityID", "1");
 		param.put("radius", "5000");
 		param.put("shopFirstCateID", "");
@@ -62,7 +67,7 @@ public class CouponListDao {
 	 * @param callBack
 	 */
 	public void nextPage(final IDataListener<String> listener) {
-
+		setParam();
 		param.put("pageIndex", (Integer.parseInt(param.get("pageIndex")) + 1) + "");
 		AjaxParams params = new AjaxParams(param);
 		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
@@ -112,6 +117,7 @@ public class CouponListDao {
 	}
 
 	public void pulltorefresh(final IDataListener<String> listener) {
+		setParam();
 		Map<String, String> _param = new HashMap<String, String>(param);
 		_param.put("pageIndex", "1");
 
@@ -165,29 +171,44 @@ public class CouponListDao {
 		if (!StringUtil.isNull(shopId) && !StringUtil.isNull(parentId)) {
 			param.put("shopFirstCateID", parentId);
 			param.put("shopSecondCateID", shopId);
+			param.put("pageIndex", "1");
 		} else if (!StringUtil.isNull(parentId) && StringUtil.isNull(shopId)) {
 			param.put("shopFirstCateID", parentId);
 			param.put("shopSecondCateID", "");
-		}else if(StringUtil.isNull(parentId) && StringUtil.isNull(shopId)){
+			param.put("pageIndex", "1");
+		} else if (StringUtil.isNull(parentId) && StringUtil.isNull(shopId)) {
 			param.put("shopFirstCateID", "");
 			param.put("shopSecondCateID", "");
+			param.put("pageIndex", "1");
 		}
 
 		updateData(listener);
 	}
 
 	public void onClickArea(String parentId, String areaId, IDataListener<String> listener) {
-		if (!StringUtil.isNull(areaId) && !StringUtil.isNull(parentId)) {
-			param.put("districtID", parentId);
-			param.put("businessDistrictID", areaId);
-		} else if (!StringUtil.isNull(parentId) && StringUtil.isNull(areaId)) {
-			param.put("districtID", parentId);
-			param.put("businessDistrictID", "");
-		}else if(StringUtil.isNull(parentId) && StringUtil.isNull(areaId)){
-			param.put("districtID", "");
-			param.put("businessDistrictID", "");
+		if (!StringUtil.isNull(parentId) && parentId.equals("DISTANCE")) {
+			isDistance = true;
+			param.put("radius", areaId);
+			param.put("pageIndex", "1");
+		} else {
+			if (!StringUtil.isNull(areaId) && !StringUtil.isNull(parentId)) {
+				param.put("districtID", parentId);
+				param.put("businessDistrictID", areaId);
+				param.put("pageIndex", "1");
+			} else if (!StringUtil.isNull(parentId) && StringUtil.isNull(areaId)) {
+				param.put("districtID", parentId);
+				param.put("businessDistrictID", "");
+				param.put("pageIndex", "1");
+			} else if (StringUtil.isNull(parentId) && StringUtil.isNull(areaId)) {
+				param.put("districtID", "");
+				param.put("businessDistrictID", "");
+				param.put("pageIndex", "1");
+			}
+			isDistance = false;
+
 		}
 
+		setParam();
 		updateData(listener);
 
 	}
@@ -195,8 +216,17 @@ public class CouponListDao {
 	public void onClickSort(String parentId, IDataListener<String> listener) {
 
 		param.put("orderType", parentId);
+		param.put("pageIndex", "1");
 		updateData(listener);
 
+	}
+
+	private void setParam() {
+		if (isDistance) {
+			param.put("op", OP_DISTANCE);
+		} else {
+			param.put("op", OP);
+		}
 	}
 
 	// 筛选数据
@@ -219,7 +249,6 @@ public class CouponListDao {
 							new TypeReference<ArrayList<CouponItem>>() {
 							});
 
-					// 如果有重复的去掉重复的，然后在加上最新的信息
 					mCouponList.clear();
 					mCouponList.addAll(0, _list);
 

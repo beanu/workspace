@@ -105,13 +105,13 @@ public class MyCollectActivity extends MyListActivity {
 			CouponDetailDao dao = new CouponDetailDao(data.get(position));
 			Coupon coupon = Arad.db.findById(Coupon.class, data.get(position).getItemID());
 			if (coupon != null) {
+				data.remove(position);
+				adapter.notifyDataSetChanged();
 				dao.setCoupon(coupon);
 				dao.collect(false, new IDataListener<String>() {
 
 					@Override
 					public void onSuccess(String result) {
-						data.remove(position);
-						adapter.notifyDataSetChanged();
 					}
 
 					@Override

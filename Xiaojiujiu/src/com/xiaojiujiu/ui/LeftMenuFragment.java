@@ -32,7 +32,7 @@ public class LeftMenuFragment extends SherlockListFragment {
 		MenuAdapter adapter = new MenuAdapter(names);
 		setListAdapter(adapter);
 		// switchCategory(0);
-
+		getListView().setItemChecked(0, true);
 	}
 
 	public void switchCategory(int position) {

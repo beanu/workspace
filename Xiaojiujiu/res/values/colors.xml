@@ -19,4 +19,7 @@
     <!-- 优惠券列表 -->
     <color name="coupon_item_content">#de0112</color>
 
+    <drawable name="pressed_color">#33B5E5</drawable>
+    <drawable name="normal_color">#00FFFFFF</drawable>
+
 </resources>

@@ -121,39 +121,40 @@ public class MainActivity extends SlidingFragmentActivity {
 			UIUtil.intentSlidIn(MainActivity.this);
 			break;
 		case R.id.menu_search:
-//			final EditText editText = (EditText) item.getActionView();
-//			item.setOnActionExpandListener(new OnActionExpandListener() {
-//
-//				@Override
-//				public boolean onMenuItemActionExpand(MenuItem item) {
-//					editText.requestFocus();
-//					editText.postDelayed(new Runnable() {
-//						@Override
-//						public void run() {
-//							InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//							imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-//						}
-//					}, 200);
-//					// editText.post(new Runnable() {
-//					// @Override
-//					// public void run() {
-//					// editText.requestFocus();
-//					// InputMethodManager imm = (InputMethodManager)
-//					// getSystemService(Context.INPUT_METHOD_SERVICE);
-//					// imm.showSoftInput(editText,
-//					// InputMethodManager.SHOW_IMPLICIT);
-//					// }
-//					// });
-//
-//					return true;
-//				}
-//
-//				@Override
-//				public boolean onMenuItemActionCollapse(MenuItem item) {
-//					// TODO Auto-generated method stub
-//					return false;
-//				}
-//			});
+			// final EditText editText = (EditText) item.getActionView();
+			// item.setOnActionExpandListener(new OnActionExpandListener() {
+			//
+			// @Override
+			// public boolean onMenuItemActionExpand(MenuItem item) {
+			// editText.requestFocus();
+			// editText.postDelayed(new Runnable() {
+			// @Override
+			// public void run() {
+			// InputMethodManager imm = (InputMethodManager)
+			// getSystemService(Context.INPUT_METHOD_SERVICE);
+			// imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+			// }
+			// }, 200);
+			// // editText.post(new Runnable() {
+			// // @Override
+			// // public void run() {
+			// // editText.requestFocus();
+			// // InputMethodManager imm = (InputMethodManager)
+			// // getSystemService(Context.INPUT_METHOD_SERVICE);
+			// // imm.showSoftInput(editText,
+			// // InputMethodManager.SHOW_IMPLICIT);
+			// // }
+			// // });
+			//
+			// return true;
+			// }
+			//
+			// @Override
+			// public boolean onMenuItemActionCollapse(MenuItem item) {
+			// // TODO Auto-generated method stub
+			// return false;
+			// }
+			// });
 			break;
 		}
 		return super.onOptionsItemSelected(item);

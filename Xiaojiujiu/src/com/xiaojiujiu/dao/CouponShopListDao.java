@@ -34,7 +34,8 @@ public class CouponShopListDao {
 
 	public void getListInfo(final IDataListener<String> listener) {
 		AjaxParams params = new AjaxParams();
-		params.put("op", "shopList");
+		params.put("op", "shopListByCouponID");
+		params.put("imei", Arad.app.deviceInfo.getDeviceID());
 		params.put("couponID", couponID);
 
 		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
@@ -44,9 +45,8 @@ public class CouponShopListDao {
 
 				try {
 					JsonNode node = HttpUtil.handleResult(t);
-					data = JsonUtil.node2pojo(node.findValue("CouponDetail"),
-							new TypeReference<ArrayList<CouponShop>>() {
-							});
+					data = JsonUtil.node2pojo(node.findValue("shopList"), new TypeReference<ArrayList<CouponShop>>() {
+					});
 					listener.onSuccess(t);
 				} catch (JsonParseException e) {
 					e.printStackTrace();
@@ -55,6 +55,7 @@ public class CouponShopListDao {
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (AradException e) {
+					listener.onFailure(t, e, e.getMessage());
 					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
 				}
 

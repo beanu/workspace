@@ -1,10 +1,7 @@
 package com.xiaojiujiu.ui.common;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.http.AjaxParams;
@@ -69,7 +66,7 @@ public class SelectorAreaWindow {
 
 			}
 		});
-		
+
 		if (AppHolder.getInstance().area.size() == 0) {
 			AjaxParams params = new AjaxParams();
 			params.put("op", "district");
@@ -103,10 +100,11 @@ public class SelectorAreaWindow {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				rightAdapter.setLeftPosition(position);
 				rightAdapter.notifyDataSetChanged();
-				
+
 				if (position == 0) {
 					dismissPopupwindow();
-//					String parentId = AppHolder.getInstance().area.get(0).getCategoryID() + "";
+					// String parentId =
+					// AppHolder.getInstance().area.get(0).getCategoryID() + "";
 					String parentName = AppHolder.getInstance().area.get(0).getCategoryName();
 					listener.onSelected(null, null, parentName);
 				}
@@ -126,15 +124,22 @@ public class SelectorAreaWindow {
 					String selectedId = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
 							.getChildCategoryList().get(position).getCategoryID()
 							+ "";
-					String parentId = AppHolder.getInstance().area.get(rightAdapter.leftPoition).getCategoryID() + "";
 					String selectedName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
 							.getChildCategoryList().get(position).getCategoryName();
-					String parentName = AppHolder.getInstance().area.get(rightAdapter.leftPoition).getCategoryName();
 
-					if (position == 0) {
-						listener.onSelected(parentId, null, parentName);
-					} else {
-						listener.onSelected(parentId, selectedId, selectedName);
+					if (rightAdapter.leftPoition == 1) {//距离
+						listener.onSelected("DISTANCE", selectedId, selectedName);
+					} else {//其他
+						String parentId = AppHolder.getInstance().area.get(rightAdapter.leftPoition).getCategoryID()
+								+ "";
+						String parentName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
+								.getCategoryName();
+
+						if (position == 0) {
+							listener.onSelected(parentId, null, parentName);
+						} else {
+							listener.onSelected(parentId, selectedId, selectedName);
+						}
 					}
 
 				}
@@ -157,6 +162,8 @@ public class SelectorAreaWindow {
 				allCate.setLetter("q");
 				allCate.setChildCategoryList(new ArrayList<Category>());
 				AppHolder.getInstance().area.add(allCate);
+
+				addDistanceCategory();
 
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject item = jsonArray.getJSONObject(i);
@@ -197,6 +204,8 @@ public class SelectorAreaWindow {
 		}
 		leftAdapter.notifyDataSetChanged();
 		rightAdapter.notifyDataSetChanged();
+		listLeft.setItemChecked(1, true);
+		listRight.setItemChecked(1, true);
 	}
 
 	/**
@@ -225,5 +234,35 @@ public class SelectorAreaWindow {
 
 	public void setOnSelectedListener(OnSelectedListener listener) {
 		this.listener = listener;
+	}
+
+	private void addDistanceCategory() {
+		// 加入距离记录
+		Category distanceCategory = new Category();
+		distanceCategory.setCategoryID(0);
+		distanceCategory.setCategoryName("距离");
+		distanceCategory.setLetter("q");
+		// 1000
+		ArrayList<Category> list = new ArrayList<Category>();
+		Category distance1K = new Category();
+		distance1K.setCategoryID(1000);
+		distance1K.setCategoryName("1千米");
+		distance1K.setLetter("1");
+
+		Category distance3K = new Category();
+		distance3K.setCategoryID(3000);
+		distance3K.setCategoryName("3千米");
+		distance3K.setLetter("3");
+
+		Category distance5K = new Category();
+		distance5K.setCategoryID(5000);
+		distance5K.setCategoryName("5千米");
+		distance5K.setLetter("5");
+
+		list.add(distance1K);
+		list.add(distance3K);
+		list.add(distance5K);
+		distanceCategory.setChildCategoryList(list);
+		AppHolder.getInstance().area.add(distanceCategory);
 	}
 }

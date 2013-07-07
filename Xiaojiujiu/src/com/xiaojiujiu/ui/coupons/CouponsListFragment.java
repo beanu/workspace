@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.beanu.arad.utils.AndroidUtil;
 import com.beanu.arad.utils.Log;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
@@ -54,6 +55,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	private Button btn_shoptype;
 	private Button btn_area;
 	private Button btn_sort;
+	private Button coupons_floating_btn;
 	private SelectorShopTypeWindow selectorShopTypeWindow;
 	private SelectorAreaWindow selectorAreaWindow;
 	private SelectorSortWindow selectorSortWindow;
@@ -95,10 +97,12 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		btn_shoptype = (Button) view.findViewById(R.id.selector_shoptype);
 		btn_area = (Button) view.findViewById(R.id.selector_area);
 		btn_sort = (Button) view.findViewById(R.id.selector_sort);
+		coupons_floating_btn = (Button) view.findViewById(R.id.coupons_floating_btn);
 
 		btn_shoptype.setOnClickListener(this);
 		btn_area.setOnClickListener(this);
 		btn_sort.setOnClickListener(this);
+		coupons_floating_btn.setOnClickListener(this);
 
 		return view;
 	}
@@ -118,7 +122,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 					// 进入详情页
 					Intent intent = new Intent(getSherlockActivity().getApplicationContext(),
 							CouponsDetailActivity_.class);
-					Bundle b=new Bundle();
+					Bundle b = new Bundle();
 					b.putSerializable("item", dao.getCouponList().get(position - 1));
 					intent.putExtras(b);
 					startActivity(intent);
@@ -139,7 +143,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		if (getCurrentState(savedInstanceState) == FIRST_TIME_START) {
 			pullToRefreshListView.setRefreshing(false);
 			showListView(false);
-		}else{
+		} else {
 			showListView(true);
 		}
 	}
@@ -158,6 +162,9 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		case R.id.selector_sort:
 			selectorSortWindow.showPopupwindow(btn_sort);
 			showDim();
+			break;
+		case R.id.coupons_floating_btn:
+			UIUtil.showMessageDialog(getFragmentManager(), "帅选");
 			break;
 		default:
 			break;

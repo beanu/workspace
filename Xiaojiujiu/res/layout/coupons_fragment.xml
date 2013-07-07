@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <include layout="@layout/selector_header" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-    <include 
-        android:id="@+id/coupon_layout"
-        layout="@layout/pull_to_refresh_listview_layout" >
-    </include>
+        <include layout="@layout/selector_header" />
 
-</LinearLayout>
+        <include
+            android:id="@+id/coupon_layout"
+            layout="@layout/pull_to_refresh_listview_layout" >
+        </include>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/coupons_floating_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/floating_button"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize22" />
+
+</FrameLayout>

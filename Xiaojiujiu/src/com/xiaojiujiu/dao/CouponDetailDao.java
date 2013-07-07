@@ -81,7 +81,22 @@ public class CouponDetailDao {
 	/**
 	 * 收藏 or 取消收藏 collect =true opType=1 collect =false opType=0
 	 * */
-	public void collect(final boolean collect, final IDataListener<String> listener) {
+	public void collect(boolean collect, final IDataListener<String> listener) {
+
+		try {
+			if (collect) {
+				coupon.setIsFavorite(1);
+				Arad.db.save(coupon);
+				Arad.db.save(item);
+			} else {
+				coupon.setIsFavorite(0);
+				Arad.db.delete(coupon);
+				Arad.db.delete(item);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		AjaxParams params = new AjaxParams();
 		params.put("op", "collectCoupon");
 		params.put("opType", collect ? "1" : "0");
@@ -95,16 +110,6 @@ public class CouponDetailDao {
 
 				try {
 					HttpUtil.handleResult(t);
-					if (collect) {
-						coupon.setIsFavorite(1);
-						Arad.db.save(coupon);
-						Arad.db.save(item);
-					} else {
-						coupon.setIsFavorite(0);
-						Arad.db.delete(coupon);
-						Arad.db.delete(item);
-					}
-
 					listener.onSuccess("");
 				} catch (AradException e) {
 					listener.onFailure("", e, e.getMessage());

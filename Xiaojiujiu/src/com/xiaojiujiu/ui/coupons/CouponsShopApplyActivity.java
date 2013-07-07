@@ -1,14 +1,12 @@
 package com.xiaojiujiu.ui.coupons;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
-import com.xiaojiujiu.entity.CouponShop;
+import com.xiaojiujiu.dao.CouponShopListDao;
+import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponShopApplyListAdapter;
 
@@ -22,38 +20,45 @@ public class CouponsShopApplyActivity extends MyActivity {
 
 	private ListView listView;
 	private CouponShopApplyListAdapter adapter;
+	CouponShopListDao dao;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.coupon_shop_apply_activity);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        enableSlideGestureDetector(true);
-        setSlidingEventListener(new SlidingEventListener() {
-            @Override
-            public void leftSlidingEvent() {
+		enableSlideGestureDetector(true);
+		setSlidingEventListener(new SlidingEventListener() {
+			@Override
+			public void leftSlidingEvent() {
 
-            }
+			}
 
-            @Override
-            public void rightSlidingEvent() {
-                finish();
-                UIUtil.intentSlidOut(CouponsShopApplyActivity.this);
-            }
-        });
+			@Override
+			public void rightSlidingEvent() {
+				finish();
+				UIUtil.intentSlidOut(CouponsShopApplyActivity.this);
+			}
+		});
 
-		List<CouponShop> data = new ArrayList<CouponShop>();
-		for (int i = 0; i < 4; i++) {
-			CouponShop shop = new CouponShop();
-			shop.setShopTitle("小肥羊" + i);
-			shop.setShopAdress("济南速度个发送的嘎");
-			shop.setShopDistance("100");
-			shop.setShopTel("18663737935");
-			data.add(shop);
-		}
-		adapter = new CouponShopApplyListAdapter(getApplicationContext(), data);
+		String id = String.valueOf(getIntent().getIntExtra("couponId", 0));
+		dao = new CouponShopListDao(id);
+		dao.getListInfo(new IDataListener<String>() {
 
+			@Override
+			public void onSuccess(String result) {
+				adapter.setData(dao.getData());
+				adapter.notifyDataSetChanged();
+			}
+
+			@Override
+			public void onFailure(String result, Throwable t, String strMsg) {
+
+			}
+		});
+
+		adapter = new CouponShopApplyListAdapter(getApplicationContext(), dao.getData());
 		listView = (ListView) findViewById(R.id.coupon_shop_apply_list);
 		listView.setAdapter(adapter);
 	}

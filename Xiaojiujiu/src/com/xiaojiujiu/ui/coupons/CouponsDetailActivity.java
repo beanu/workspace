@@ -115,6 +115,7 @@ public class CouponsDetailActivity extends MyActivity {
 			break;
 		case R.id.coupon_detail_moreshops:
 			Intent intentMoreShop = new Intent(CouponsDetailActivity.this, CouponsShopApplyActivity.class);
+			intentMoreShop.putExtra("couponId", couponItem.getItemID());
 			startActivity(intentMoreShop);
 			UIUtil.intentSlidIn(this);
 			break;
