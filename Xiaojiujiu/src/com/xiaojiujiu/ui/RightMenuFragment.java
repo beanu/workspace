@@ -47,7 +47,7 @@ public class RightMenuFragment extends BaseFragment {
 		}
 	}
 
-	@Click({R.id.user_name,R.id.user_level})
+	@Click({ R.id.user_name, R.id.user_level })
 	void loginClicked() {
 		if (AppHolder.getInstance().user.getUserName() != null) {
 			// TODO

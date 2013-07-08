@@ -253,7 +253,13 @@ public class CouponListDao {
 					mCouponList.addAll(0, _list);
 
 				} catch (AradException e) {
-					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
+					if (e.getError_code() != null && e.getError_code().equals("0")) {
+						mCouponList.clear();
+						listener.onSuccess(t);
+					} else {
+						MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
+					}
+
 				} catch (JsonProcessingException e) {
 					e.printStackTrace();
 				} catch (IOException e) {

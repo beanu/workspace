@@ -3,6 +3,13 @@ package com.xiaojiujiu.ui.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
@@ -14,7 +21,11 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
+import com.beanu.arad.Arad;
+import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.base.Constant;
+import com.xiaojiujiu.entity.Category;
 import com.xiaojiujiu.ui.adapter.SelectorLeftAdapter;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
 
@@ -40,10 +51,6 @@ public class SelectorSortWindow {
 	public SelectorSortWindow(Context ctx) {
 		this.context = ctx;
 
-		leftData.add("离我最近");
-		leftData.add("最新发布");
-		leftData.add("人气最高");
-
 		leftAdapter = new SelectorLeftAdapter(context, leftData);
 
 		initView();
@@ -63,6 +70,27 @@ public class SelectorSortWindow {
 
 			}
 		});
+
+		if (AppHolder.getInstance().sort.size() == 0) {
+			AjaxParams params = new AjaxParams();
+			params.put("op", "orderby");
+			Arad.http.get(Constant.URL_CATEGORY, params, new AjaxCallBack<String>() {
+
+				@Override
+				public void onSuccess(String t) {
+					praseJson(t);
+					updateData();
+				}
+
+				@Override
+				public void onFailure(Throwable t, String strMsg) {
+
+				}
+
+			});
+		} else {
+			updateData();
+		}
 	}
 
 	private void initView() {
@@ -77,7 +105,9 @@ public class SelectorSortWindow {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				dismissPopupwindow();
 				if (listener != null) {
-					listener.onSelected(position + "", null, leftData.get(position));
+					int parentId = AppHolder.getInstance().sort.get(position).getCategoryID();
+					String name = AppHolder.getInstance().sort.get(position).getCategoryName();
+					listener.onSelected(parentId + "", null, name);
 				}
 
 			}
@@ -86,6 +116,36 @@ public class SelectorSortWindow {
 		listRight = (ListView) layout.findViewById(R.id.listRight);
 		listRight.setVisibility(View.GONE);
 
+	}
+
+	private void praseJson(String json) {
+
+		try {
+			JSONObject response = new JSONObject(json);
+			String resCode = response.getString("resCode");
+			if (resCode != null && resCode.equals("1")) {
+				JSONArray jsonArray = response.getJSONArray("orderbyList");
+				for (int i = 0; i < jsonArray.length(); i++) {
+					JSONObject item = jsonArray.getJSONObject(i);
+					Category category = new Category();
+					category.setCategoryID(item.getInt("CategoryID"));
+					category.setCategoryName(item.getString("CategoryName"));
+					category.setLetter(item.getString("Letter"));
+					AppHolder.getInstance().sort.add(category);
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void updateData() {
+		for (Category c : AppHolder.getInstance().sort) {
+			leftData.add(c.getCategoryName());
+		}
+		leftAdapter.notifyDataSetChanged();
+		listLeft.setItemChecked(0, true);
 	}
 
 	/**

@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/pitch16"
             widget:drawableLeft="@drawable/ecard_detail_tag_stores"
-            widget:text="适用门店（5家）" />
+            widget:text="适用门店（%s家）" />
     </LinearLayout>
 
 </ScrollView>

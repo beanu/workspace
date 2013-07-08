@@ -1,6 +1,5 @@
 package com.xiaojiujiu.ui.coupons;
 
-import net.tsz.afinal.annotation.view.ViewInject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +8,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.ViewById;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.dao.CouponListWithShopDao;
@@ -22,10 +24,12 @@ import com.xiaojiujiu.ui.adapter.CouponListAdapter;
  * @author beanu
  * 
  */
+
+@EActivity(R.layout.coupons_list_withshop_activity)
 public class CouponsListWithShopActivity extends MyActivity {
 
-	@ViewInject(id = R.id.coupons_withshop_listview) ListView listview;
-	@ViewInject(id = R.id.coupons_withshop_progress) ProgressBar progressBar;
+	@ViewById(R.id.coupons_withshop_listview) ListView listview;
+	@ViewById(R.id.coupons_withshop_progress) ProgressBar progressBar;
 
 	CouponListWithShopDao dao;
 	CouponListAdapter adapter;
@@ -33,7 +37,7 @@ public class CouponsListWithShopActivity extends MyActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.coupons_list_withshop_activity);
+		// setContentView(R.layout.coupons_list_withshop_activity);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		enableSlideGestureDetector(true);
@@ -49,7 +53,10 @@ public class CouponsListWithShopActivity extends MyActivity {
 				UIUtil.intentSlidOut(CouponsListWithShopActivity.this);
 			}
 		});
+	}
 
+	@AfterViews
+	void init() {
 		int shopId = getIntent().getIntExtra("id", 0);
 		dao = new CouponListWithShopDao(String.valueOf(shopId));
 
@@ -60,7 +67,7 @@ public class CouponsListWithShopActivity extends MyActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				Intent intent = new Intent(CouponsListWithShopActivity.this, CouponsDetailActivity_.class);
-				Bundle b=new Bundle();
+				Bundle b = new Bundle();
 				b.putSerializable("item", dao.getCouponList().get(position));
 				intent.putExtras(b);
 				startActivity(intent);

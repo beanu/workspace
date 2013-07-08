@@ -21,6 +21,7 @@ public class AppHolder {
 		user = new User();
 		shopType = new ArrayList<Category>();
 		area = new ArrayList<Category>();
+		sort=new ArrayList<Category>();
 		location = new BDLocation();
 
 	}
@@ -41,4 +42,5 @@ public class AppHolder {
 	// 商户类型
 	public List<Category> shopType;
 	public List<Category> area;
+	public List<Category> sort;
 }

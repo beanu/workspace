@@ -208,6 +208,7 @@ public class CouponsDetailActivity extends MyActivity {
 			nearby_shop_address.setText(coupon.getNearestShopAddress());
 			nearby_shop_distance.setText((int) coupon.getNearestShopDistance() + "米");
 			nearby_shop_phone.setTag(coupon.getNearestShopTel());
+			moreShop.setText(String.format("适用门店 (%s家)", coupon.getFitShopNum()+""));
 			invalidateOptionsMenu();
 		}
 	}

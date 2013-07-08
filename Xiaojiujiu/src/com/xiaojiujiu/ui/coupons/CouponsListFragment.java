@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.beanu.arad.utils.AndroidUtil;
 import com.beanu.arad.utils.Log;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
@@ -130,7 +129,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				} else {
 					// 进入列表页
 					Intent intent = new Intent(getSherlockActivity().getApplicationContext(),
-							CouponsListWithShopActivity.class);
+							CouponsListWithShopActivity_.class);
 					intent.putExtra("id", dao.getCouponList().get(position - 1).getItemID());
 					startActivity(intent);
 				}

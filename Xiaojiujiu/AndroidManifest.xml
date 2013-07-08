@@ -60,7 +60,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.coupons.CouponsListWithShopActivity"
+            android:name=".ui.coupons.CouponsListWithShopActivity_"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
