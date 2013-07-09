@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.base.Constant;
+import com.xiaojiujiu.entity.Category;
 import com.xiaojiujiu.entity.CouponItem;
 import com.xiaojiujiu.ui.HttpUtil;
 
@@ -218,6 +219,47 @@ public class CouponListDao {
 		param.put("orderType", parentId);
 		param.put("pageIndex", "1");
 		updateData(listener);
+
+	}
+
+	public void requestCouponType(final IDataListener<String> listener) {
+
+		AjaxParams p = new AjaxParams();
+		p.put("op", "coupon");
+		Arad.http.get(Constant.URL_CATEGORY, p, new AjaxCallBack<String>() {
+
+			@Override
+			public void onSuccess(String t) {
+
+				ArrayList<Category> _list = null;
+
+				try {
+					JsonNode node = HttpUtil.handleResult(t);
+					_list = JsonUtil.node2pojo(node.findValue("CouponList"), new TypeReference<ArrayList<Category>>() {
+					});
+
+				} catch (AradException e) {
+					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					if (_list != null && _list.size() > 0) {
+						for (Category c : _list) {
+							AppHolder.getInstance().couponType.add(c);
+						}
+					}
+					listener.onSuccess(t);
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable t, String strMsg) {
+				listener.onFailure(null, t, strMsg);
+			}
+
+		});
 
 	}
 

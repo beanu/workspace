@@ -72,6 +72,20 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			setSelectedWindowListener();
 
 			dao = new CouponListDao();
+			dao.requestCouponType(new IDataListener<String>() {
+
+				@Override
+				public void onSuccess(String result) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void onFailure(String result, Throwable t, String strMsg) {
+					// TODO Auto-generated method stub
+
+				}
+			});
 		}
 	}
 
@@ -163,7 +177,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			showDim();
 			break;
 		case R.id.coupons_floating_btn:
-			UIUtil.showMessageDialog(getFragmentManager(), "帅选");
+			UIUtil.showCouponTypeDialog(getFragmentManager());
 			break;
 		default:
 			break;

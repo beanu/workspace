@@ -22,6 +22,7 @@ public class AppHolder {
 		shopType = new ArrayList<Category>();
 		area = new ArrayList<Category>();
 		sort=new ArrayList<Category>();
+		couponType=new ArrayList<Category>();
 		location = new BDLocation();
 
 	}
@@ -43,4 +44,5 @@ public class AppHolder {
 	public List<Category> shopType;
 	public List<Category> area;
 	public List<Category> sort;
+	public List<Category> couponType;
 }

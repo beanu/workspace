@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.widget.dialog.AlertDialogFragment;
+import com.xiaojiujiu.ui.widget.dialog.CouponTypeDialogFragment;
 import com.xiaojiujiu.ui.widget.dialog.MessageDialogFragment;
 
 public class UIUtil {
@@ -64,6 +65,19 @@ public class UIUtil {
 				negativeButtonText);
 		dialog.setNegativeListener(negativeListener);
 		dialog.setPositiveListener(positiveListener);
+		dialog.show(fm, "dialog");
+
+	}
+
+	public static void showCouponTypeDialog(FragmentManager fm) {
+		FragmentTransaction ft = fm.beginTransaction();
+		Fragment prev = fm.findFragmentByTag("dialog");
+		if (prev != null) {
+			ft.remove(prev);
+		}
+		ft.addToBackStack(null);
+		ft.commit();
+		CouponTypeDialogFragment dialog = CouponTypeDialogFragment.newInstance("");
 		dialog.show(fm, "dialog");
 
 	}
