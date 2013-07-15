@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.beanu.arad.Arad;
 import com.xiaojiujiu.R;
-import com.xiaojiujiu.entity.ECard;
+import com.xiaojiujiu.entity.ECardItem;
 
 /**
  * 电子会员卡信息列表Adapter
@@ -22,7 +22,7 @@ import com.xiaojiujiu.entity.ECard;
  */
 public class ECardListAdapter extends BaseAdapter {
 
-	private List<ECard> list;
+	private List<ECardItem> list;
 	private LayoutInflater mlinflater;
 
 	private class ViewHolder {
@@ -31,13 +31,15 @@ public class ECardListAdapter extends BaseAdapter {
 		public TextView content;
 	}
 
-	public ECardListAdapter(Context context, List<ECard> data) {
+	public ECardListAdapter(Context context, List<ECardItem> data) {
 		this.mlinflater = LayoutInflater.from(context);
 		this.list = data;
 	}
 
 	@Override
 	public int getCount() {
+		if (list == null)
+			return 0;
 		return list.size();
 	}
 
@@ -53,7 +55,7 @@ public class ECardListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View view, ViewGroup viewGroup) {
-		final ECard topic = list.get(position);
+		final ECardItem topic = list.get(position);
 		if (view == null) {
 			view = mlinflater.inflate(R.layout.ecard_list_item, null);
 			ViewHolder vh = new ViewHolder();
@@ -67,9 +69,9 @@ public class ECardListAdapter extends BaseAdapter {
 		// AppHolder.getInsatnce().imageLoader.DisplayImage(Constant.IMGPATH +
 		// "/" + topic.getImgPath(), holder.img,
 		// R.drawable.icon_default);
-		Arad.imageLoader.display(topic.getSmallImageUrl(), holder.img);
-		holder.title.setText(topic.geteCardTitle());
-		holder.content.setText(topic.geteCardDesc());
+		Arad.imageLoader.display(topic.getItemImageUrl(), holder.img);
+		holder.title.setText(topic.getItemTitle());
+		holder.content.setText(topic.getAwardInfo());
 		return view;
 	}
 }

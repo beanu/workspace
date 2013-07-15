@@ -15,8 +15,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,9 +32,16 @@ import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
 import com.xiaojiujiu.R;
+import com.xiaojiujiu.dao.CouponListDao;
+import com.xiaojiujiu.dao.ECardListDao;
+import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.entity.ECard;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.ECardListAdapter;
+import com.xiaojiujiu.ui.common.SelectorAreaWindow;
+import com.xiaojiujiu.ui.common.SelectorShopTypeWindow;
+import com.xiaojiujiu.ui.common.SelectorSortWindow;
+import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
 
 /**
  * 电子会员卡列表页面
@@ -40,7 +50,7 @@ import com.xiaojiujiu.ui.adapter.ECardListAdapter;
  * 
  */
 public class ECardFListragment extends PullToRefreshListFragment implements OnRefreshListener<ListView>,
-		OnLastItemVisibleListener {
+		OnLastItemVisibleListener, OnClickListener {
 
 	public static ECardFListragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
@@ -52,16 +62,39 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 	}
 
 	private ECardListAdapter mAdapter;
-	private List<ECard> mECardList = new ArrayList<ECard>();
+	// private List<ECard> mECardList = new ArrayList<ECard>();
+
+	private FrameLayout layout;
+	private Button btn_shoptype;
+	private Button btn_area;
+	private Button btn_sort;
+	private SelectorShopTypeWindow selectorShopTypeWindow;
+	private SelectorAreaWindow selectorAreaWindow;
+	private SelectorSortWindow selectorSortWindow;
+
+	ECardListDao dao;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (savedInstanceState == null) {
+			selectorShopTypeWindow = new SelectorShopTypeWindow(getSherlockActivity());
+			selectorAreaWindow = new SelectorAreaWindow(getSherlockActivity());
+			selectorSortWindow = new SelectorSortWindow(getSherlockActivity());
+			setSelectedWindowListener();
+
+			dao = new ECardListDao();
+		}
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.ecard_list_fragment, container, false);
+
+		layout = (FrameLayout) view.findViewById(R.id.ecard_layout);
+		layout.setForeground(getResources().getDrawable(R.drawable.popup_window_dim));
+		layout.getForeground().setAlpha(0);
+
 		empty = (TextView) view.findViewById(R.id.empty);
 		progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.listView);
@@ -70,13 +103,22 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		getListView().addFooterView(footerView);
 		getListView().setHeaderDividersEnabled(false);
 		dismissFooterView();
+
+		// 刷选
+		btn_shoptype = (Button) view.findViewById(R.id.selector_shoptype);
+		btn_area = (Button) view.findViewById(R.id.selector_area);
+		btn_sort = (Button) view.findViewById(R.id.selector_sort);
+
+		btn_shoptype.setOnClickListener(this);
+		btn_area.setOnClickListener(this);
+		btn_sort.setOnClickListener(this);
 		return view;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mAdapter = new ECardListAdapter(getSherlockActivity(), mECardList);
+		mAdapter = new ECardListAdapter(getSherlockActivity(), dao.getECardList());
 		getListView().setAdapter(mAdapter);
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 
@@ -93,7 +135,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		if (getCurrentState(savedInstanceState) == FIRST_TIME_START) {
 			pullToRefreshListView.setRefreshing(false);
 			showListView(false);
-		}else{
+		} else {
 			showListView(true);
 		}
 	}
@@ -101,87 +143,146 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 	@Override
 	public void onLastItemVisible() {
 
-	}
-
-	@Override
-	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-		Log.d("onRefresh");
-		AjaxParams params = new AjaxParams();
-		params.put("op", "searchByTypeAndDistance");
-		params.put("cityID", "1");
-		params.put("radius", "10000");
-		params.put("shopFirstCateID", "11");
-		params.put("shopSecondCateID", "12");
-		params.put("couponTypeID", "15");
-		params.put("imei", "863363014570588");
-		params.put("orderType", "2");
-		params.put("lng", "117.15863");
-		params.put("lat", "36.65231");
-		params.put("pageSize", "3");
-		params.put("pageIndex", "1");
-		Arad.http.get("http://www.x99local.com/ECardHandler.ashx", params, new AjaxCallBack<String>() {
+		showFooterView();
+		dao.nextPage(new IDataListener<String>() {
 
 			@Override
-			public void onStart() {
-
-			}
-
-			@Override
-			public void onSuccess(String t) {
-
-				try {
-					JSONObject response = new JSONObject(t);
-					String resCode = response.getString("resCode");
-					if (resCode != null && resCode.equals("1")) {
-						JSONArray jsonArray = response.getJSONArray("CouponList");
-						ArrayList<ECard> _list = new ArrayList<ECard>();
-						for (int i = 0; i < jsonArray.length(); i++) {
-							JSONObject item = jsonArray.getJSONObject(i);
-							// Coupon c =
-							// AppHolder.getInstance().objectMapper.readValue(item.toString(),
-							// Coupon.class);
-							ECard eCard = new ECard();
-							eCard.seteCardID(item.getInt("ECardID"));
-							eCard.seteCardTitle(item.getString("ECardTitle"));
-							eCard.seteCardDesc(item.getString("ECardDesc"));
-							eCard.setSmallImageUrl(item.getString("SmallImageUrl"));
-							_list.add(eCard);
-						}
-
-						// 如果有重复的去掉重复的，然后在加上最新的信息
-						for (ECard newest : _list) {
-							for (ECard older : mECardList) {
-								if (newest.geteCardID() == older.geteCardID()) {
-									mECardList.remove(older);
-									break;
-								}
-							}
-						}
-						mECardList.addAll(0, _list);
-						mAdapter.notifyDataSetChanged();
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				// catch (JsonParseException e) {
-				// e.printStackTrace();
-				// } catch (JsonMappingException e) {
-				// e.printStackTrace();
-				// } catch (IOException e) {
-				// e.printStackTrace();
-				// }
-				finally {
-					pullToRefreshListView.onRefreshComplete();
-					showListView(true);
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onSuccess(String result) {
+				mAdapter.notifyDataSetChanged();
+				dismissFooterView();
 				pullToRefreshListView.onRefreshComplete();
 				showListView(true);
 			}
 
+			@Override
+			public void onFailure(String result, Throwable t, String strMsg) {
+				// TODO error
+				dismissFooterView();
+				pullToRefreshListView.onRefreshComplete();
+				showListView(true);
+
+			}
 		});
+
+	
+	}
+
+	@Override
+	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+
+		Log.d("onRefresh");
+
+		dao.pulltorefresh(new IDataListener<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				mAdapter.notifyDataSetChanged();
+				pullToRefreshListView.onRefreshComplete();
+				showListView(true);
+			}
+
+			@Override
+			public void onFailure(String result, Throwable t, String strMsg) {
+				pullToRefreshListView.onRefreshComplete();
+				showListView(true);
+			}
+		});
+	}
+
+	IDataListener<String> listener = new IDataListener<String>() {
+
+		@Override
+		public void onSuccess(String result) {
+			mAdapter.notifyDataSetChanged();
+			pullToRefreshListView.onRefreshComplete();
+			showListView(true);
+		}
+
+		@Override
+		public void onFailure(String result, Throwable t, String strMsg) {
+			pullToRefreshListView.onRefreshComplete();
+			showListView(true);
+		}
+	};
+
+	// 初始化筛选框的事件
+	private void setSelectedWindowListener() {
+
+		selectorShopTypeWindow.setOnSelectedListener(new OnSelectedListener() {
+			@Override
+			public void onSelected(String parentId, String selectedId, String selectedName) {
+				btn_shoptype.setText(selectedName);
+				dao.onClickShop(parentId, selectedId, listener);
+			}
+
+			@Override
+			public void dismiss() {
+				hideDim();
+			}
+		});
+
+		selectorAreaWindow.setOnSelectedListener(new OnSelectedListener() {
+
+			@Override
+			public void onSelected(String parentId, String selectedId, String selectedName) {
+				btn_area.setText(selectedName);
+				dao.onClickArea(parentId, selectedId, listener);
+			}
+
+			@Override
+			public void dismiss() {
+				hideDim();
+			}
+		});
+
+		selectorSortWindow.setOnSelectedListener(new OnSelectedListener() {
+
+			@Override
+			public void onSelected(String parentId, String selectedId, String selectedName) {
+				btn_sort.setText(selectedName);
+				dao.onClickSort(parentId, listener);
+			}
+
+			@Override
+			public void dismiss() {
+				hideDim();
+			}
+		});
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.selector_shoptype:
+			selectorShopTypeWindow.showPopupwindow(btn_shoptype);
+			showDim();
+			break;
+		case R.id.selector_area:
+			selectorAreaWindow.showPopupwindow(btn_area);
+			showDim();
+			break;
+		case R.id.selector_sort:
+			selectorSortWindow.showPopupwindow(btn_sort);
+			showDim();
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	/**
+	 * 显示阴影
+	 */
+	private void showDim() {
+		if (layout != null) {
+			layout.getForeground().setAlpha(160);
+		}
+	}
+
+	private void hideDim() {
+		if (layout != null) {
+			layout.getForeground().setAlpha(0);
+		}
 	}
 }

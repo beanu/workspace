@@ -8,27 +8,35 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.beanu.arad.utils.MessageUtil;
+import com.beanu.arad.widget.pulltorefresh.internal.Utils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.xiaojiujiu.ui.LeftMenuFragment;
 import com.xiaojiujiu.ui.RightMenuFragment_;
 import com.xiaojiujiu.ui.UIUtil;
+import com.xiaojiujiu.ui.common.SearchActivity;
 import com.xiaojiujiu.ui.coupons.CouponsListFragment;
 import com.xiaojiujiu.ui.ecard.ECardFListragment;
 import com.xiaojiujiu.ui.entitycard.AddEntityCardActivity;
 import com.xiaojiujiu.ui.entitycard.EntityCardFragment;
 import com.xiaojiujiu.ui.freshnews.FreshNewsListFragment;
+import com.xiaojiujiu.ui.widget.dialog.CouponTypeDialogFragment.OnCouponTypeSelectedListener;
 
 /**
  * 主页
  * 
  * @author beanu
  */
-public class MainActivity extends SlidingFragmentActivity {
+public class MainActivity extends SlidingFragmentActivity implements OnCouponTypeSelectedListener {
 
 	private long waitTime = 2000;
 	private long touchTime = 0;
@@ -121,30 +129,45 @@ public class MainActivity extends SlidingFragmentActivity {
 			UIUtil.intentSlidIn(MainActivity.this);
 			break;
 		case R.id.menu_search:
-			// final EditText editText = (EditText) item.getActionView();
+			final EditText editText = (EditText) item.getActionView();
+			editText.setOnKeyListener(new OnKeyListener() {
+
+				@Override
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_ENTER) {// 修改回车键功能
+						// 先隐藏键盘
+						((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+								MainActivity.this.getCurrentFocus().getWindowToken(),
+								InputMethodManager.HIDE_NOT_ALWAYS);
+
+						// 跳转到搜索结果界面
+						String keyword = editText.getText().toString();
+						if (!keyword.equals("")) {
+							Bundle b = new Bundle();
+							b.putString("keyword", keyword);
+							Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+							intent.putExtras(b);
+							startActivity(intent);
+						}
+					}
+					return false;
+
+				}
+			});
 			// item.setOnActionExpandListener(new OnActionExpandListener() {
 			//
 			// @Override
 			// public boolean onMenuItemActionExpand(MenuItem item) {
 			// editText.requestFocus();
-			// editText.postDelayed(new Runnable() {
-			// @Override
-			// public void run() {
-			// InputMethodManager imm = (InputMethodManager)
-			// getSystemService(Context.INPUT_METHOD_SERVICE);
-			// imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-			// }
-			// }, 200);
-			// // editText.post(new Runnable() {
+			// // editText.postDelayed(new Runnable() {
 			// // @Override
 			// // public void run() {
-			// // editText.requestFocus();
 			// // InputMethodManager imm = (InputMethodManager)
 			// // getSystemService(Context.INPUT_METHOD_SERVICE);
 			// // imm.showSoftInput(editText,
 			// // InputMethodManager.SHOW_IMPLICIT);
 			// // }
-			// // });
+			// // }, 200);
 			//
 			// return true;
 			// }
@@ -306,4 +329,12 @@ public class MainActivity extends SlidingFragmentActivity {
 		}
 	}
 
+	@Override
+	public void onSelected(String id) {
+		CouponsListFragment fragment = (CouponsListFragment) getSupportFragmentManager().findFragmentByTag(
+				Fragments.coupons.name());
+		if (fragment != null)
+			fragment.onCouponTypeSelected(id);
+
+	}
 }

@@ -231,24 +231,24 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	}
 
+	IDataListener<String> listener = new IDataListener<String>() {
+
+		@Override
+		public void onSuccess(String result) {
+			mAdapter.notifyDataSetChanged();
+			pullToRefreshListView.onRefreshComplete();
+			showListView(true);
+		}
+
+		@Override
+		public void onFailure(String result, Throwable t, String strMsg) {
+			pullToRefreshListView.onRefreshComplete();
+			showListView(true);
+		}
+	};
+
 	// 初始化筛选框的事件
 	private void setSelectedWindowListener() {
-
-		final IDataListener<String> listener = new IDataListener<String>() {
-
-			@Override
-			public void onSuccess(String result) {
-				mAdapter.notifyDataSetChanged();
-				pullToRefreshListView.onRefreshComplete();
-				showListView(true);
-			}
-
-			@Override
-			public void onFailure(String result, Throwable t, String strMsg) {
-				pullToRefreshListView.onRefreshComplete();
-				showListView(true);
-			}
-		};
 
 		selectorShopTypeWindow.setOnSelectedListener(new OnSelectedListener() {
 			@Override
@@ -290,6 +290,10 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				hideDim();
 			}
 		});
+	}
+
+	public void onCouponTypeSelected(String id) {
+		dao.onClickCouponType(id, listener);
 	}
 
 	/**

@@ -19,28 +19,21 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.base.Constant;
-import com.xiaojiujiu.entity.Category;
-import com.xiaojiujiu.entity.CouponItem;
+import com.xiaojiujiu.entity.ECardItem;
 import com.xiaojiujiu.ui.HttpUtil;
 
-/**
- * 数据逻辑业务（优惠券列表）
- * 
- * @author beanu
- * 
- */
-public class CouponListDao {
+public class ECardListDao {
 
 	private Map<String, String> param;
 
-	private List<CouponItem> mCouponList;
+	private List<ECardItem> mCouponList;
 	private final int PageSize = 10;
 
 	boolean isDistance = true;
 	private static final String OP = "searchByTypeAndDistrict";
 	private static final String OP_DISTANCE = "searchByTypeAndDistance";
 
-	public CouponListDao() {
+	public ECardListDao() {
 
 		param = new HashMap<String, String>();
 		param.put("op", OP_DISTANCE);
@@ -59,7 +52,7 @@ public class CouponListDao {
 		param.put("pageSize", String.valueOf(PageSize));
 		param.put("pageIndex", "1");
 
-		mCouponList = new ArrayList<CouponItem>();
+		mCouponList = new ArrayList<ECardItem>();
 	}
 
 	/**
@@ -71,16 +64,16 @@ public class CouponListDao {
 		setParam();
 		param.put("pageIndex", (Integer.parseInt(param.get("pageIndex")) + 1) + "");
 		AjaxParams params = new AjaxParams(param);
-		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
+		Arad.http.get(Constant.URL_ECARD, params, new AjaxCallBack<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 
-				ArrayList<CouponItem> _list = null;
+				ArrayList<ECardItem> _list = null;
 
 				try {
 					JsonNode node = HttpUtil.handleResult(t);
-					_list = JsonUtil.node2pojo(node.findValue("ItemList"), new TypeReference<ArrayList<CouponItem>>() {
+					_list = JsonUtil.node2pojo(node.findValue("ItemList"), new TypeReference<ArrayList<ECardItem>>() {
 					});
 
 				} catch (AradException e) {
@@ -91,10 +84,10 @@ public class CouponListDao {
 					e.printStackTrace();
 				} finally {
 					if (_list != null && _list.size() > 0) {
-						List<CouponItem> _temp = new ArrayList<CouponItem>(mCouponList);
-						for (CouponItem last : _list) {
+						List<ECardItem> _temp = new ArrayList<ECardItem>(mCouponList);
+						for (ECardItem last : _list) {
 							boolean _add = true;
-							for (CouponItem item : _temp) {
+							for (ECardItem item : _temp) {
 								if (item.getItemID() == last.getItemID()) {
 									_add = false;
 									break;
@@ -123,20 +116,20 @@ public class CouponListDao {
 		_param.put("pageIndex", "1");
 
 		AjaxParams params = new AjaxParams(_param);
-		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
+		Arad.http.get(Constant.URL_ECARD, params, new AjaxCallBack<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 
 				try {
 					JsonNode node = HttpUtil.handleResult(t);
-					ArrayList<CouponItem> _list = JsonUtil.node2pojo(node.findValue("ItemList"),
-							new TypeReference<ArrayList<CouponItem>>() {
+					ArrayList<ECardItem> _list = JsonUtil.node2pojo(node.findValue("ItemList"),
+							new TypeReference<ArrayList<ECardItem>>() {
 							});
 
 					// 如果有重复的去掉重复的，然后在加上最新的信息
-					for (CouponItem newest : _list) {
-						for (CouponItem older : mCouponList) {
+					for (ECardItem newest : _list) {
+						for (ECardItem older : mCouponList) {
 							if (newest.getItemID() == older.getItemID()) {
 								mCouponList.remove(older);
 								break;
@@ -164,7 +157,7 @@ public class CouponListDao {
 		});
 	}
 
-	public List<CouponItem> getCouponList() {
+	public List<ECardItem> getECardList() {
 		return mCouponList;
 	}
 
@@ -228,46 +221,6 @@ public class CouponListDao {
 		updateData(listener);
 	}
 
-	public void requestCouponType(final IDataListener<String> listener) {
-
-		AjaxParams p = new AjaxParams();
-		p.put("op", "coupon");
-		Arad.http.get(Constant.URL_CATEGORY, p, new AjaxCallBack<String>() {
-
-			@Override
-			public void onSuccess(String t) {
-
-				ArrayList<Category> _list = null;
-
-				try {
-					JsonNode node = HttpUtil.handleResult(t);
-					_list = JsonUtil.node2pojo(node.findValue("couponTypeList"), new TypeReference<ArrayList<Category>>() {
-					});
-
-				} catch (AradException e) {
-					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
-				} catch (JsonProcessingException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} finally {
-					if (_list != null && _list.size() > 0) {
-						for (Category c : _list) {
-							AppHolder.getInstance().couponType.add(c);
-						}
-					}
-					listener.onSuccess(t);
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable t, String strMsg) {
-				listener.onFailure(null, t, strMsg);
-			}
-
-		});
-
-	}
 
 	private void setParam() {
 		if (isDistance) {
@@ -280,7 +233,7 @@ public class CouponListDao {
 	// 筛选数据
 	private void updateData(final IDataListener<String> listener) {
 		AjaxParams params = new AjaxParams(param);
-		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
+		Arad.http.get(Constant.URL_ECARD, params, new AjaxCallBack<String>() {
 
 			@Override
 			public void onStart() {
@@ -293,8 +246,8 @@ public class CouponListDao {
 				try {
 
 					JsonNode node = HttpUtil.handleResult(t);
-					ArrayList<CouponItem> _list = JsonUtil.node2pojo(node.findValue("ItemList"),
-							new TypeReference<ArrayList<CouponItem>>() {
+					ArrayList<ECardItem> _list = JsonUtil.node2pojo(node.findValue("ItemList"),
+							new TypeReference<ArrayList<ECardItem>>() {
 							});
 
 					mCouponList.clear();

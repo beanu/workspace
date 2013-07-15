@@ -4,12 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/ecard_list_screening"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </LinearLayout>
+    <include layout="@layout/selector_header" />
 
-    <include layout="@layout/pull_to_refresh_listview_layout" />
+    <include
+        android:id="@+id/ecard_layout"
+        layout="@layout/pull_to_refresh_listview_layout" />
 
 </LinearLayout>

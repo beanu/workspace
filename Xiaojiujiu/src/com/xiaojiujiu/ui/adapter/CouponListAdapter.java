@@ -49,6 +49,8 @@ public class CouponListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		if (list == null)
+			return 0;
 		return list.size();
 	}
 
@@ -86,13 +88,13 @@ public class CouponListAdapter extends BaseAdapter {
 			for (int i = 0; i < size; i++) {
 				String url = topic.getCouponTypeIconUrlList().get(i);
 				if (i == 0)
-					Arad.imageLoader.display(url, holder.tag1,R.drawable.transparent);
+					Arad.imageLoader.display(url, holder.tag1, R.drawable.transparent);
 				if (i == 1)
-					Arad.imageLoader.display(url, holder.tag2,R.drawable.transparent);
+					Arad.imageLoader.display(url, holder.tag2, R.drawable.transparent);
 				if (i == 2)
-					Arad.imageLoader.display(url, holder.tag3,R.drawable.transparent);
+					Arad.imageLoader.display(url, holder.tag3, R.drawable.transparent);
 				if (i == 3)
-					Arad.imageLoader.display(url, holder.tag4,R.drawable.transparent);
+					Arad.imageLoader.display(url, holder.tag4, R.drawable.transparent);
 
 			}
 		}
@@ -103,7 +105,7 @@ public class CouponListAdapter extends BaseAdapter {
 			// 多个组合优惠券
 		}
 
-		Arad.imageLoader.display(topic.getItemImageUrl(), holder.img,R.drawable.default_img);
+		Arad.imageLoader.display(topic.getItemImageUrl(), holder.img, R.drawable.default_img);
 		holder.title.setText(topic.getItemTitle());
 		holder.content.setText(topic.getItemDetail());
 		if (type.equals(CouponListWithShop)) {
@@ -118,6 +120,5 @@ public class CouponListAdapter extends BaseAdapter {
 	public void setData(List<CouponItem> list) {
 		this.list = list;
 	}
-	
-	
+
 }

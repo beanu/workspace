@@ -9,25 +9,25 @@ import java.util.List;
  */
 public class Category {
 
-	private int CategoryID;
-	private String CategoryName;
+	private int categoryID;
+	private String categoryName;
 	private String Letter;
 	private List<Category> ChildCategoryList;
 
 	public int getCategoryID() {
-		return CategoryID;
+		return categoryID;
 	}
 
 	public void setCategoryID(int categoryID) {
-		CategoryID = categoryID;
+		this.categoryID = categoryID;
 	}
 
 	public String getCategoryName() {
-		return CategoryName;
+		return categoryName;
 	}
 
 	public void setCategoryName(String categoryName) {
-		CategoryName = categoryName;
+		this.categoryName = categoryName;
 	}
 
 	public String getLetter() {
