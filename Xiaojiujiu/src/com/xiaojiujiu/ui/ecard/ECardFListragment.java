@@ -1,21 +1,11 @@
 package com.xiaojiujiu.ui.ecard;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -24,7 +14,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.beanu.arad.Arad;
 import com.beanu.arad.utils.Log;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
@@ -32,16 +21,14 @@ import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
 import com.xiaojiujiu.R;
-import com.xiaojiujiu.dao.CouponListDao;
 import com.xiaojiujiu.dao.ECardListDao;
 import com.xiaojiujiu.dao.IDataListener;
-import com.xiaojiujiu.entity.ECard;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.ECardListAdapter;
 import com.xiaojiujiu.ui.common.SelectorAreaWindow;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow;
-import com.xiaojiujiu.ui.common.SelectorSortWindow;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
+import com.xiaojiujiu.ui.common.SelectorSortWindow;
 
 /**
  * 电子会员卡列表页面
@@ -124,7 +111,10 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), ECardDetailActivity.class);
+				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), ECardDetailActivity_.class);
+				Bundle b = new Bundle();
+				b.putSerializable("item", dao.getECardList().get(position - 1));
+				intent.putExtras(b);
 				startActivity(intent);
 				UIUtil.intentSlidIn(getSherlockActivity());
 			}

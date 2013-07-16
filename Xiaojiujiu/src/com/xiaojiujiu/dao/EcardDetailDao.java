@@ -15,8 +15,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.Constant;
-import com.xiaojiujiu.entity.Coupon;
-import com.xiaojiujiu.entity.CouponItem;
 import com.xiaojiujiu.entity.ECard;
 import com.xiaojiujiu.entity.ECardItem;
 import com.xiaojiujiu.ui.HttpUtil;
@@ -34,7 +32,11 @@ public class EcardDetailDao {
 		this.item = item;
 	}
 
-	public void getDetailInfo(final IDataListener<ECard> listener) {
+	public ECard getEcard() {
+		return ecard;
+	}
+
+	public void getDetailInfo(final IDataListener<String> listener) {
 		AjaxParams params = new AjaxParams();
 		params.put("op", "eCardInfo");
 		params.put("eCardID", item.getItemID() + "");
@@ -49,7 +51,7 @@ public class EcardDetailDao {
 				try {
 					JsonNode node = HttpUtil.handleResult(t);
 					ecard = JsonUtil.node2pojo(node.findValue("eCardInfo"), ECard.class);
-					listener.onSuccess(ecard);
+					listener.onSuccess("");
 				} catch (JsonParseException e) {
 					e.printStackTrace();
 				} catch (JsonMappingException e) {
@@ -64,7 +66,7 @@ public class EcardDetailDao {
 
 			@Override
 			public void onFailure(Throwable t, String strMsg) {
-				listener.onFailure(ecard, t, strMsg);
+				listener.onFailure("", t, strMsg);
 			}
 
 		});
@@ -89,7 +91,7 @@ public class EcardDetailDao {
 			e.printStackTrace();
 		}
 
-		//TODO 这里还没有写到这个接口
+		// TODO 这里还没有写到这个接口
 		AjaxParams params = new AjaxParams();
 		params.put("op", "collectCoupon");
 		params.put("opType", collect ? "1" : "0");

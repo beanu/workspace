@@ -28,7 +28,10 @@ public class ECardListAdapter extends BaseAdapter {
 	private class ViewHolder {
 		public ImageView img;
 		public TextView title;
-		public TextView content;
+		public TextView address;
+		public TextView score;
+		public TextView useamount;
+		public TextView discount;
 	}
 
 	public ECardListAdapter(Context context, List<ECardItem> data) {
@@ -60,8 +63,11 @@ public class ECardListAdapter extends BaseAdapter {
 			view = mlinflater.inflate(R.layout.ecard_list_item, null);
 			ViewHolder vh = new ViewHolder();
 			vh.title = (TextView) view.findViewById(R.id.ecard_list_item_title);
-			vh.content = (TextView) view.findViewById(R.id.ecard_list_item_address);
+			vh.address = (TextView) view.findViewById(R.id.ecard_list_item_address);
 			vh.img = (ImageView) view.findViewById(R.id.ecard_list_item_img);
+			vh.score = (TextView) view.findViewById(R.id.ecard_list_item_score);
+			vh.useamount = (TextView) view.findViewById(R.id.ecard_list_item_useamount);
+			vh.discount = (TextView) view.findViewById(R.id.ecard_list_item_discount);
 			view.setTag(vh);
 		}
 
@@ -71,7 +77,10 @@ public class ECardListAdapter extends BaseAdapter {
 		// R.drawable.icon_default);
 		Arad.imageLoader.display(topic.getItemImageUrl(), holder.img);
 		holder.title.setText(topic.getItemTitle());
-		holder.content.setText(topic.getAwardInfo());
+		holder.address.setText(topic.getItemAddress());
+		// holder.score.setText(topic.get)
+		holder.useamount.setText(String.valueOf(topic.getUseCount()));
+		holder.discount.setText(topic.getAwardInfo());
 		return view;
 	}
 }

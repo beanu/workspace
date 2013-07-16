@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.ecard.ECardDetailActivity"
+            android:name=".ui.ecard.ECardDetailActivity_"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity

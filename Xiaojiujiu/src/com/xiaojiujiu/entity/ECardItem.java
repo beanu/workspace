@@ -1,10 +1,16 @@
 package com.xiaojiujiu.entity;
 
+import java.io.Serializable;
+
 import net.tsz.afinal.annotation.sqlite.Id;
 
 /** 电子会员卡list item */
-public class ECardItem {
+public class ECardItem implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id int itemID;
 	String itemTitle;
 	String itemAddress;
