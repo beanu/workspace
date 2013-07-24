@@ -14,10 +14,8 @@ import net.tsz.afinal.annotation.sqlite.Id;
 public class CouponItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	private int id;
-	
+
+	@Id private int id;
 	private int itemID;// 唯一标示
 	private String itemTitle;
 	private String itemDetail;

@@ -13,10 +13,9 @@ public class Constant {
 
 	/** 用户模块 */
 	public static String URL_MEMBER = "http://www.x99local.com/MemberHandler.ashx";
-	
-	
-	
-	
-	public static String P_username="53dgd";
-	public static String P_password="kejjh83";
+
+	public static String P_username = "53dgd";
+	public static String P_password = "kejjh83";
+	public static String P_log = "dasdg";
+	public static String P_lat = "ewet";
 }

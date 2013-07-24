@@ -51,6 +51,8 @@ public class CouponsDetailActivity extends MyActivity {
 	@ViewById(R.id.nearby_shop_address) TextView nearby_shop_address;
 	@ViewById(R.id.nearby_shop_distance) TextView nearby_shop_distance;
 	@ViewById(R.id.nearby_shop_phone) ImageView nearby_shop_phone;
+	@ViewById(R.id.ecard_detail_content) TextView ecard_detail_content;
+	@ViewById ImageView ecard_detail_big_image;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +78,8 @@ public class CouponsDetailActivity extends MyActivity {
 	@AfterViews
 	void init() {
 		dao = new CouponDetailDao(couponItem);
-		
-		if(AndroidUtil.networkStatusOK(getApplicationContext())){
+
+		if (AndroidUtil.networkStatusOK(getApplicationContext())) {
 			dao.getDetailInfo(new IDataListener<Coupon>() {
 
 				@Override
@@ -92,15 +94,14 @@ public class CouponsDetailActivity extends MyActivity {
 
 				}
 			});
-		}else{
-			Coupon coupon=Arad.db.findById(Coupon.class, couponItem.getItemID());
-			if(coupon!=null){
+		} else {
+			Coupon coupon = Arad.db.findById(Coupon.class, couponItem.getItemID());
+			if (coupon != null) {
 				dao.setCoupon(coupon);
 				refreshPage(coupon);
 			}
 		}
-		
-		
+
 	}
 
 	@Click({ R.id.offer_detail_button, R.id.coupon_detail_moreshops, R.id.nearby_shop_phone, R.id.nearby_shop_address,
@@ -109,7 +110,7 @@ public class CouponsDetailActivity extends MyActivity {
 		switch (v.getId()) {
 		case R.id.offer_detail_button:
 			Intent intent = new Intent(CouponsDetailActivity.this, CouponsDescriptionActivity.class);
-			intent.putExtra("url", "http://www.163.com");
+			intent.putExtra("url", dao.getCoupon().getCouponDetailDescUrl());
 			startActivity(intent);
 			UIUtil.intentSlidIn(this);
 			break;
@@ -154,9 +155,9 @@ public class CouponsDetailActivity extends MyActivity {
 		int id = item.getItemId();
 		switch (id) {
 		case R.id.menu_collect:
-			if(AppHolder.getInstance().user.getMemberName()==null){
+			if (AppHolder.getInstance().user.getMemberName() == null) {
 				MessageUtil.showShortToast(getApplicationContext(), "请登录后在收藏");
-			}else{
+			} else {
 				if (dao.getCoupon().getIsFavorite() == 0)
 					dao.collect(true, new IDataListener<String>() {
 
@@ -188,7 +189,7 @@ public class CouponsDetailActivity extends MyActivity {
 						}
 					});
 			}
-			
+
 			break;
 		case R.id.menu_share:
 			break;
@@ -201,6 +202,7 @@ public class CouponsDetailActivity extends MyActivity {
 	@SuppressLint("NewApi")
 	private void refreshPage(Coupon coupon) {
 		if (coupon != null) {
+			Arad.imageLoader.display(coupon.getBigCouponImageUrl(), ecard_detail_big_image);
 			ecard_detail_title.setText(coupon.getCouponTitle());
 			ecard_shop_name.setText(coupon.getParentShopName());
 			offer_detail_content.setText(coupon.getCouponDesc());
@@ -208,7 +210,8 @@ public class CouponsDetailActivity extends MyActivity {
 			nearby_shop_address.setText(coupon.getNearestShopAddress());
 			nearby_shop_distance.setText((int) coupon.getNearestShopDistance() + "米");
 			nearby_shop_phone.setTag(coupon.getNearestShopTel());
-			moreShop.setText(String.format("适用门店 (%s家)", coupon.getFitShopNum()+""));
+			ecard_detail_content.setText(coupon.getUseIntroduction());
+			moreShop.setText(String.format("适用门店 (%s家)", coupon.getFitShopNum() + ""));
 			invalidateOptionsMenu();
 		}
 	}

@@ -42,6 +42,7 @@ public class SelectorShopTypeWindow {
 
 	List<String> leftData = new ArrayList<String>();
 	private OnSelectedListener listener;
+	private String curentName;
 
 	/**
 	 * 选择事件
@@ -90,7 +91,7 @@ public class SelectorShopTypeWindow {
 				}
 
 				@Override
-				public void onFailure(Throwable t, String strMsg) {
+				public void onFailure(Throwable t,int errorNo , String strMsg) {
 
 				}
 
@@ -118,6 +119,7 @@ public class SelectorShopTypeWindow {
 					// String parentId =
 					// AppHolder.getInstance().area.get(0).getCategoryID() + "";
 					String parentName = AppHolder.getInstance().shopType.get(0).getCategoryName();
+					curentName = parentName;
 					listener.onSelected(null, null, parentName);
 				}
 
@@ -143,8 +145,10 @@ public class SelectorShopTypeWindow {
 							.getCategoryName();
 
 					if (position == 0) {
+						curentName = parentName;
 						listener.onSelected(parentId, null, parentName);
 					} else {
+						curentName = selectedName;
 						listener.onSelected(parentId, selectedId, selectedName);
 					}
 				}
@@ -199,6 +203,10 @@ public class SelectorShopTypeWindow {
 			e.printStackTrace();
 		}
 
+	}
+
+	public String getCurentName() {
+		return curentName;
 	}
 
 	private void updateData() {

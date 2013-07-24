@@ -139,7 +139,7 @@ public class FreshNewsListFragment extends PullToRefreshListFragment implements 
             }
 
             @Override
-            public void onFailure(Throwable t, String strMsg) {
+            public void onFailure(Throwable t, int errorNo ,String strMsg) {
                 pullToRefreshListView.onRefreshComplete();
                 showListView(true);
             }

@@ -17,7 +17,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.ui.user.LoginActivity;
-import com.xiaojiujiu.ui.user.MyCollectActivity_;
+import com.xiaojiujiu.ui.user.*;
 import com.xiaojiujiu.ui.user.SettingActivity;
 
 /**

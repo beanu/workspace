@@ -7,8 +7,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.view.Gravity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.LayoutParams;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
@@ -61,6 +63,13 @@ public class CouponTypeDialogFragment extends SherlockDialogFragment {
 			b.setText(list.get(i).getCategoryName());
 			b.setTextColor(getResources().getColor(R.color.black));
 			b.setTag(list.get(i).getCategoryID());
+			b.setButtonDrawable(R.drawable.btn_radio_holo_light);
+			b.setBackgroundResource(R.drawable.list_selector_holo_light);
+			
+			LayoutParams params=new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+			params.gravity=Gravity.CENTER;
+			b.setLayoutParams(params);
+			b.setPadding(8, 16, 8, 16);
 			group.addView(b);
 		}
 

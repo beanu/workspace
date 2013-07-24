@@ -14,12 +14,14 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch16" >
+            android:layout_marginBottom="@dimen/pitch16"
+            android:minHeight="120dp" >
 
             <ImageView
                 android:id="@+id/ecard_detail_big_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@drawable/temp" />
 
             <TextView
@@ -31,7 +33,6 @@
                 android:background="@drawable/coupon_text_bg"
                 android:gravity="center"
                 android:minHeight="36dp"
-                android:text="小肥羊火锅电子会员卡"
                 android:textSize="@dimen/textsize16" >
             </TextView>
         </FrameLayout>
@@ -41,15 +42,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/pitch8"
-            android:text="50元享原价80元套餐一份"
             android:textColor="@color/red" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/pitch8"
-            android:layout_marginTop="@dimen/pitch4"
-            android:text="离活动结束还有XX天" />
+            android:layout_marginTop="@dimen/pitch4" />
 
         <!-- 优惠说明 -->
 

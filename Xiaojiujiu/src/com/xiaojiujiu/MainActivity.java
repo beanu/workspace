@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.beanu.arad.utils.MessageUtil;
-import com.beanu.arad.widget.pulltorefresh.internal.Utils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.xiaojiujiu.ui.LeftMenuFragment;

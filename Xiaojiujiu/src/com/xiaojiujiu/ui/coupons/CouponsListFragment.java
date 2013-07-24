@@ -82,7 +82,6 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 				@Override
 				public void onFailure(String result, Throwable t, String strMsg) {
-					// TODO Auto-generated method stub
 
 				}
 			});
@@ -110,6 +109,17 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		btn_shoptype = (Button) view.findViewById(R.id.selector_shoptype);
 		btn_area = (Button) view.findViewById(R.id.selector_area);
 		btn_sort = (Button) view.findViewById(R.id.selector_sort);
+
+		if (selectorShopTypeWindow.getCurentName() != null) {
+			btn_shoptype.setText(selectorShopTypeWindow.getCurentName());
+		}
+		if (selectorAreaWindow.getCurentName() != null) {
+			btn_area.setText(selectorAreaWindow.getCurentName());
+		}
+		if (selectorSortWindow.getCurentName() != null) {
+			btn_sort.setText(selectorSortWindow.getCurentName());
+		}
+
 		coupons_floating_btn = (Button) view.findViewById(R.id.coupons_floating_btn);
 
 		btn_shoptype.setOnClickListener(this);

@@ -69,7 +69,7 @@ public class CouponListWithShopDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t, int errorNo ,String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 

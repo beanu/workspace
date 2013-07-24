@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="3"
-        android:text="使用说明那个，说明，说明，说明dddddasdgasdgadsgjn南大街那是假的噶少的呢个"
         android:textColor="@color/ecard_detail_discount"
         android:textSize="@dimen/textsize14" >
     </TextView>
@@ -22,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/pitch12"
-        android:text="有效期：2014年1月1号"
         android:textColor="@color/ecard_detail_discount"
         android:textSize="@dimen/textsize14" />
 

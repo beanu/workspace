@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/list_selector_holo_light_with_white"
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:padding="3dp" >

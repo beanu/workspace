@@ -32,6 +32,7 @@ public class ECardListDao {
 	boolean isDistance = true;
 	private static final String OP = "searchByTypeAndDistrict";
 	private static final String OP_DISTANCE = "searchByTypeAndDistance";
+	private boolean isNext = true;
 
 	public ECardListDao() {
 
@@ -61,6 +62,10 @@ public class ECardListDao {
 	 * @param callBack
 	 */
 	public void nextPage(final IDataListener<String> listener) {
+		if (!isNext) {
+			listener.onFailure("", null, "");
+			return;
+		}
 		setParam();
 		param.put("pageIndex", (Integer.parseInt(param.get("pageIndex")) + 1) + "");
 		AjaxParams params = new AjaxParams(param);
@@ -77,6 +82,7 @@ public class ECardListDao {
 					});
 
 				} catch (AradException e) {
+					isNext = false;
 					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
 				} catch (JsonProcessingException e) {
 					e.printStackTrace();
@@ -102,7 +108,7 @@ public class ECardListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t,int errorNo , String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -111,6 +117,7 @@ public class ECardListDao {
 	}
 
 	public void pulltorefresh(final IDataListener<String> listener) {
+		isNext = true;
 		setParam();
 		Map<String, String> _param = new HashMap<String, String>(param);
 		_param.put("pageIndex", "1");
@@ -150,7 +157,7 @@ public class ECardListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t,int errorNo , String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -162,6 +169,7 @@ public class ECardListDao {
 	}
 
 	public void onClickShop(String parentId, String shopId, IDataListener<String> listener) {
+		isNext = true;
 		if (!StringUtil.isNull(shopId) && !StringUtil.isNull(parentId)) {
 			param.put("shopFirstCateID", parentId);
 			param.put("shopSecondCateID", shopId);
@@ -180,6 +188,7 @@ public class ECardListDao {
 	}
 
 	public void onClickArea(String parentId, String areaId, IDataListener<String> listener) {
+		isNext = true;
 		if (!StringUtil.isNull(parentId) && parentId.equals("DISTANCE")) {
 			isDistance = true;
 			param.put("radius", areaId);
@@ -208,7 +217,7 @@ public class ECardListDao {
 	}
 
 	public void onClickSort(String parentId, IDataListener<String> listener) {
-
+		isNext = true;
 		param.put("orderType", parentId);
 		param.put("pageIndex", "1");
 		updateData(listener);
@@ -216,11 +225,11 @@ public class ECardListDao {
 	}
 
 	public void onClickCouponType(String id, IDataListener<String> listener) {
+		isNext = true;
 		param.put("couponTypeID", "");
 		param.put("pageIndex", "1");
 		updateData(listener);
 	}
-
 
 	private void setParam() {
 		if (isDistance) {
@@ -271,7 +280,7 @@ public class ECardListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t, int errorNo ,String strMsg) {
 				listener.onFailure("", t, strMsg);
 			}
 

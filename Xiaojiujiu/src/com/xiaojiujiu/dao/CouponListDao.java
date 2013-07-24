@@ -35,21 +35,23 @@ public class CouponListDao {
 
 	private List<CouponItem> mCouponList;
 	private final int PageSize = 10;
+	private final String radius = "5000";
 
 	boolean isDistance = true;
 	private static final String OP = "searchByTypeAndDistrict";
 	private static final String OP_DISTANCE = "searchByTypeAndDistance";
+	private boolean isNext = true;
 
 	public CouponListDao() {
 
 		param = new HashMap<String, String>();
 		param.put("op", OP_DISTANCE);
 		param.put("cityID", "1");
-		param.put("radius", "5000");
+		param.put("radius", radius);
 		param.put("shopFirstCateID", "");
 		param.put("shopSecondCateID", "");
 		param.put("couponTypeID", "");// 优惠券类型
-		param.put("orderType", "2");
+		param.put("orderType", "169");
 		param.put("districtID", "");
 		param.put("businessDistrictID", "");
 
@@ -68,6 +70,11 @@ public class CouponListDao {
 	 * @param callBack
 	 */
 	public void nextPage(final IDataListener<String> listener) {
+		if (!isNext) {
+			listener.onFailure("", null, "");
+			return;
+		}
+
 		setParam();
 		param.put("pageIndex", (Integer.parseInt(param.get("pageIndex")) + 1) + "");
 		AjaxParams params = new AjaxParams(param);
@@ -84,6 +91,7 @@ public class CouponListDao {
 					});
 
 				} catch (AradException e) {
+					isNext = false;
 					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
 				} catch (JsonProcessingException e) {
 					e.printStackTrace();
@@ -109,7 +117,7 @@ public class CouponListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t, int errorNo ,String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -118,6 +126,7 @@ public class CouponListDao {
 	}
 
 	public void pulltorefresh(final IDataListener<String> listener) {
+		isNext=true;
 		setParam();
 		Map<String, String> _param = new HashMap<String, String>(param);
 		_param.put("pageIndex", "1");
@@ -157,7 +166,7 @@ public class CouponListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t, int errorNo ,String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -169,6 +178,7 @@ public class CouponListDao {
 	}
 
 	public void onClickShop(String parentId, String shopId, IDataListener<String> listener) {
+		isNext=true;
 		if (!StringUtil.isNull(shopId) && !StringUtil.isNull(parentId)) {
 			param.put("shopFirstCateID", parentId);
 			param.put("shopSecondCateID", shopId);
@@ -187,9 +197,10 @@ public class CouponListDao {
 	}
 
 	public void onClickArea(String parentId, String areaId, IDataListener<String> listener) {
+		isNext=true;
 		if (!StringUtil.isNull(parentId) && parentId.equals("DISTANCE")) {
 			isDistance = true;
-			param.put("radius", areaId);
+			param.put("radius", radius);
 			param.put("pageIndex", "1");
 		} else {
 			if (!StringUtil.isNull(areaId) && !StringUtil.isNull(parentId)) {
@@ -215,7 +226,7 @@ public class CouponListDao {
 	}
 
 	public void onClickSort(String parentId, IDataListener<String> listener) {
-
+		isNext=true;
 		param.put("orderType", parentId);
 		param.put("pageIndex", "1");
 		updateData(listener);
@@ -223,6 +234,7 @@ public class CouponListDao {
 	}
 
 	public void onClickCouponType(String id, IDataListener<String> listener) {
+		isNext=true;
 		param.put("couponTypeID", "");
 		param.put("pageIndex", "1");
 		updateData(listener);
@@ -241,8 +253,9 @@ public class CouponListDao {
 
 				try {
 					JsonNode node = HttpUtil.handleResult(t);
-					_list = JsonUtil.node2pojo(node.findValue("couponTypeList"), new TypeReference<ArrayList<Category>>() {
-					});
+					_list = JsonUtil.node2pojo(node.findValue("couponTypeList"),
+							new TypeReference<ArrayList<Category>>() {
+							});
 
 				} catch (AradException e) {
 					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
@@ -261,7 +274,7 @@ public class CouponListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t, int errorNo ,String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -318,7 +331,7 @@ public class CouponListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t, int errorNo ,String strMsg) {
 				listener.onFailure("", t, strMsg);
 			}
 

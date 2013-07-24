@@ -23,7 +23,7 @@
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:drawableEnd="@drawable/selector_down_icon"
-        android:text="5千米"
+        android:text="附近"
         android:paddingRight="8dp"
         android:textSize="@dimen/textsize14" />
 

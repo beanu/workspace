@@ -10,14 +10,14 @@ import net.tsz.afinal.annotation.sqlite.Id;
  */
 public class Coupon {
 
-	@Id
-	private int id;
-	
+	@Id private int id;
+
 	private int couponID;// 唯一标示
 	private String couponTitle;
 	private String couponDesc;
 	private String parentShopName;
 	private int remainingDays;
+	private String couponDetailDescUrl;
 
 	private String useIntroduction;
 	private String nearestShopName;
@@ -29,13 +29,22 @@ public class Coupon {
 	private double nearestShopLat;
 	private String nearestShopTel;
 	private int fitShopNum;
-	
+	private String bigCouponImageUrl;
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getCouponDetailDescUrl() {
+		return couponDetailDescUrl;
+	}
+
+	public void setCouponDetailDescUrl(String couponDetailDescUrl) {
+		this.couponDetailDescUrl = couponDetailDescUrl;
 	}
 
 	public int getCouponID() {
@@ -156,6 +165,14 @@ public class Coupon {
 
 	public void setFitShopNum(int fitShopNum) {
 		this.fitShopNum = fitShopNum;
+	}
+
+	public String getBigCouponImageUrl() {
+		return bigCouponImageUrl;
+	}
+
+	public void setBigCouponImageUrl(String bigCouponImageUrl) {
+		this.bigCouponImageUrl = bigCouponImageUrl;
 	}
 
 }

@@ -43,6 +43,7 @@ public class SelectorAreaWindow {
 
 	List<String> leftData = new ArrayList<String>();
 	private OnSelectedListener listener;
+	private String curentName;
 
 	public SelectorAreaWindow(Context ctx) {
 		this.context = ctx;
@@ -80,7 +81,7 @@ public class SelectorAreaWindow {
 				}
 
 				@Override
-				public void onFailure(Throwable t, String strMsg) {
+				public void onFailure(Throwable t,int errorNo , String strMsg) {
 
 				}
 
@@ -106,7 +107,14 @@ public class SelectorAreaWindow {
 					// String parentId =
 					// AppHolder.getInstance().area.get(0).getCategoryID() + "";
 					String parentName = AppHolder.getInstance().area.get(0).getCategoryName();
+					curentName = parentName;
 					listener.onSelected(null, null, parentName);
+				} else if (position == 1) {
+					dismissPopupwindow();
+					String selectedId = AppHolder.getInstance().area.get(1).getCategoryID() + "";
+					String selectedName = AppHolder.getInstance().area.get(1).getCategoryName();
+					curentName = selectedName;
+					listener.onSelected("DISTANCE", selectedId, selectedName);
 				}
 
 			}
@@ -126,16 +134,17 @@ public class SelectorAreaWindow {
 							+ "";
 					String selectedName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
 							.getChildCategoryList().get(position).getCategoryName();
-
-					if (rightAdapter.leftPoition == 1) {//距离
+					curentName=selectedName;
+					if (rightAdapter.leftPoition == 1) {// 距离
 						listener.onSelected("DISTANCE", selectedId, selectedName);
-					} else {//其他
+					} else {// 其他
 						String parentId = AppHolder.getInstance().area.get(rightAdapter.leftPoition).getCategoryID()
 								+ "";
 						String parentName = AppHolder.getInstance().area.get(rightAdapter.leftPoition)
 								.getCategoryName();
 
 						if (position == 0) {
+							curentName=parentName;
 							listener.onSelected(parentId, null, parentName);
 						} else {
 							listener.onSelected(parentId, selectedId, selectedName);
@@ -236,32 +245,36 @@ public class SelectorAreaWindow {
 		this.listener = listener;
 	}
 
+	public String getCurentName() {
+		return curentName;
+	}
+
 	private void addDistanceCategory() {
 		// 加入距离记录
 		Category distanceCategory = new Category();
 		distanceCategory.setCategoryID(0);
-		distanceCategory.setCategoryName("距离");
+		distanceCategory.setCategoryName("附近");
 		distanceCategory.setLetter("q");
-		// 1000
+		// // 1000
 		ArrayList<Category> list = new ArrayList<Category>();
-		Category distance1K = new Category();
-		distance1K.setCategoryID(1000);
-		distance1K.setCategoryName("1千米");
-		distance1K.setLetter("1");
-
-		Category distance3K = new Category();
-		distance3K.setCategoryID(3000);
-		distance3K.setCategoryName("3千米");
-		distance3K.setLetter("3");
-
-		Category distance5K = new Category();
-		distance5K.setCategoryID(5000);
-		distance5K.setCategoryName("5千米");
-		distance5K.setLetter("5");
-
-		list.add(distance1K);
-		list.add(distance3K);
-		list.add(distance5K);
+		// Category distance1K = new Category();
+		// distance1K.setCategoryID(1000);
+		// distance1K.setCategoryName("1千米");
+		// distance1K.setLetter("1");
+		//
+		// Category distance3K = new Category();
+		// distance3K.setCategoryID(3000);
+		// distance3K.setCategoryName("3千米");
+		// distance3K.setLetter("3");
+		//
+		// Category distance5K = new Category();
+		// distance5K.setCategoryID(5000);
+		// distance5K.setCategoryName("5千米");
+		// distance5K.setLetter("5");
+		//
+		// list.add(distance1K);
+		// list.add(distance3K);
+		// list.add(distance5K);
 		distanceCategory.setChildCategoryList(list);
 		AppHolder.getInstance().area.add(distanceCategory);
 	}

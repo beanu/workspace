@@ -72,7 +72,7 @@ public class SearchDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, String strMsg) {
+			public void onFailure(Throwable t,int errorNo , String strMsg) {
 				listener.onFailure("", t, strMsg);
 				MessageUtil.showShortToast(Arad.app.getApplicationContext(),
 						Arad.app.getResources().getString(R.string.network_error));

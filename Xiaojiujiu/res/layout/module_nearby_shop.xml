@@ -14,7 +14,6 @@
         android:ellipsize="end"
         android:padding="@dimen/pitch8"
         android:singleLine="true"
-        android:text="小肥羊"
         android:textColor="@color/ecard_detail_title"
         android:textSize="@dimen/textsize17" />
 
@@ -46,7 +45,6 @@
                 android:focusableInTouchMode="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
-                android:text="地址:济南条取闹的洪家楼"
                 android:textColor="@color/ecard_detail_discount"
                 android:textSize="@dimen/textsize14" />
 

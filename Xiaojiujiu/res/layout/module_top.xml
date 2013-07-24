@@ -19,7 +19,7 @@
         android:layout_alignBottom="@id/ecard_detail_big_image"
         android:layout_alignLeft="@id/ecard_detail_title"
         android:layout_marginBottom="4dp"
-        android:text="@string/app_name"
+        android:minEms="5"
         android:textColor="@color/ecard_detail_score"
         android:textSize="@dimen/textsize16" />
 
@@ -34,7 +34,6 @@
         android:layout_toRightOf="@id/ecard_detail_big_image"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="biaotiititit跳的阿斯顿噶的个"
         android:textColor="@color/ecard_detail_title"
         android:textSize="@dimen/textsize16" />
 
@@ -45,7 +44,6 @@
         android:layout_alignBottom="@id/ecard_detail_score"
         android:layout_marginLeft="2.0dip"
         android:layout_toRightOf="@id/ecard_detail_score"
-        android:text="@string/app_name"
         android:textColor="@color/ecard_detail_level"
         android:textSize="13sp" />
 
@@ -56,7 +54,6 @@
         android:layout_alignBottom="@id/ecard_detail_level"
         android:layout_alignParentRight="true"
         android:layout_marginRight="2dp"
-        android:text="@string/app_name"
         android:textColor="@color/ecard_detail_discount"
         android:textSize="13sp" />
 

@@ -47,6 +47,7 @@ public class SelectorSortWindow {
 
 	List<String> leftData = new ArrayList<String>();
 	private OnSelectedListener listener;
+	private String curentName;
 
 	public SelectorSortWindow(Context ctx) {
 		this.context = ctx;
@@ -83,7 +84,7 @@ public class SelectorSortWindow {
 				}
 
 				@Override
-				public void onFailure(Throwable t, String strMsg) {
+				public void onFailure(Throwable t,int errorNo , String strMsg) {
 
 				}
 
@@ -108,6 +109,7 @@ public class SelectorSortWindow {
 					int parentId = AppHolder.getInstance().sort.get(position).getCategoryID();
 					String name = AppHolder.getInstance().sort.get(position).getCategoryName();
 					listener.onSelected(parentId + "", null, name);
+					curentName=name;
 				}
 
 			}
@@ -118,6 +120,10 @@ public class SelectorSortWindow {
 
 	}
 
+	public String getCurentName() {
+		return curentName;
+	}
+	
 	private void praseJson(String json) {
 
 		try {
