@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.beanu.arad.base.BaseActivityWithGD;
+import com.beanu.arad.utils.AnimUtil;
 import com.xiaojiujiu.R;
 
 public class MyActivity extends BaseActivityWithGD {
@@ -23,6 +24,7 @@ public class MyActivity extends BaseActivityWithGD {
 //			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //			startActivity(intent);
 			this.finish();
+			AnimUtil.intentSlidOut(this);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

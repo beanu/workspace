@@ -2,6 +2,9 @@ package com.xiaojiujiu.ui.coupons;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +32,7 @@ import com.xiaojiujiu.ui.common.SelectorAreaWindow;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
 import com.xiaojiujiu.ui.common.SelectorSortWindow;
+import com.xiaojiujiu.ui.widget.dialog.CouponTypeDialogFragment;
 
 /**
  * 优惠券列表页面
@@ -103,6 +107,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		getListView().addFooterView(footerView);
 		getListView().setHeaderDividersEnabled(false);
 		getListView().setSelector(R.drawable.base_list_selector);
+		getListView().setBackgroundColor(getResources().getColor(R.color.white));
 		dismissFooterView();
 
 		// 刷选
@@ -187,7 +192,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			showDim();
 			break;
 		case R.id.coupons_floating_btn:
-			UIUtil.showCouponTypeDialog(getFragmentManager());
+			showCouponTypeDialog(getFragmentManager());
 			break;
 		default:
 			break;
@@ -247,11 +252,14 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		public void onSuccess(String result) {
 			mAdapter.notifyDataSetChanged();
 			pullToRefreshListView.onRefreshComplete();
+			getListView().setSelection(0);
 			showListView(true);
 		}
 
 		@Override
 		public void onFailure(String result, Throwable t, String strMsg) {
+			dao.getCouponList().clear();
+			mAdapter.notifyDataSetChanged();
 			pullToRefreshListView.onRefreshComplete();
 			showListView(true);
 		}
@@ -264,6 +272,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_shoptype.setText(selectedName);
+				showListView(false);
 				dao.onClickShop(parentId, selectedId, listener);
 			}
 
@@ -278,6 +287,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_area.setText(selectedName);
+				showListView(false);
 				dao.onClickArea(parentId, selectedId, listener);
 			}
 
@@ -292,6 +302,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_sort.setText(selectedName);
+				showListView(false);
 				dao.onClickSort(parentId, listener);
 			}
 
@@ -303,6 +314,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	}
 
 	public void onCouponTypeSelected(String id) {
+		showListView(false);
 		dao.onClickCouponType(id, listener);
 	}
 
@@ -319,5 +331,17 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		if (layout != null) {
 			layout.getForeground().setAlpha(0);
 		}
+	}
+
+	private void showCouponTypeDialog(FragmentManager fm) {
+		FragmentTransaction ft = fm.beginTransaction();
+		Fragment prev = fm.findFragmentByTag("dialog");
+		if (prev != null) {
+			ft.remove(prev);
+		}
+		ft.addToBackStack(null);
+		ft.commit();
+		CouponTypeDialogFragment dialog = CouponTypeDialogFragment.newInstance("");
+		dialog.show(fm, "dialog");
 	}
 }

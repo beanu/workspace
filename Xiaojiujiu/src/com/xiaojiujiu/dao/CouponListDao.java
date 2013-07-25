@@ -117,7 +117,7 @@ public class CouponListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, int errorNo ,String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -126,7 +126,7 @@ public class CouponListDao {
 	}
 
 	public void pulltorefresh(final IDataListener<String> listener) {
-		isNext=true;
+		isNext = true;
 		setParam();
 		Map<String, String> _param = new HashMap<String, String>(param);
 		_param.put("pageIndex", "1");
@@ -166,7 +166,7 @@ public class CouponListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, int errorNo ,String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -178,7 +178,7 @@ public class CouponListDao {
 	}
 
 	public void onClickShop(String parentId, String shopId, IDataListener<String> listener) {
-		isNext=true;
+		isNext = true;
 		if (!StringUtil.isNull(shopId) && !StringUtil.isNull(parentId)) {
 			param.put("shopFirstCateID", parentId);
 			param.put("shopSecondCateID", shopId);
@@ -197,7 +197,7 @@ public class CouponListDao {
 	}
 
 	public void onClickArea(String parentId, String areaId, IDataListener<String> listener) {
-		isNext=true;
+		isNext = true;
 		if (!StringUtil.isNull(parentId) && parentId.equals("DISTANCE")) {
 			isDistance = true;
 			param.put("radius", radius);
@@ -226,7 +226,7 @@ public class CouponListDao {
 	}
 
 	public void onClickSort(String parentId, IDataListener<String> listener) {
-		isNext=true;
+		isNext = true;
 		param.put("orderType", parentId);
 		param.put("pageIndex", "1");
 		updateData(listener);
@@ -234,8 +234,8 @@ public class CouponListDao {
 	}
 
 	public void onClickCouponType(String id, IDataListener<String> listener) {
-		isNext=true;
-		param.put("couponTypeID", "");
+		isNext = true;
+		param.put("couponTypeID", id);
 		param.put("pageIndex", "1");
 		updateData(listener);
 	}
@@ -274,7 +274,7 @@ public class CouponListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, int errorNo ,String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -331,7 +331,7 @@ public class CouponListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, int errorNo ,String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure("", t, strMsg);
 			}
 

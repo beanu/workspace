@@ -57,19 +57,12 @@ public class CouponTypeDialogFragment extends SherlockDialogFragment {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
 		RadioGroup group = new RadioGroup(getSherlockActivity());
 
+		group.addView(createRadioButton("全部", ""));
+
 		List<Category> list = AppHolder.getInstance().couponType;
 		for (int i = 0; i < list.size(); i++) {
-			RadioButton b = new RadioButton(getSherlockActivity());
-			b.setText(list.get(i).getCategoryName());
-			b.setTextColor(getResources().getColor(R.color.black));
-			b.setTag(list.get(i).getCategoryID());
-			b.setButtonDrawable(R.drawable.btn_radio_holo_light);
-			b.setBackgroundResource(R.drawable.list_selector_holo_light);
-			
-			LayoutParams params=new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-			params.gravity=Gravity.CENTER;
-			b.setLayoutParams(params);
-			b.setPadding(8, 16, 8, 16);
+			RadioButton b = createRadioButton(list.get(i).getCategoryName(),
+					String.valueOf(list.get(i).getCategoryID()));
 			group.addView(b);
 		}
 
@@ -78,8 +71,8 @@ public class CouponTypeDialogFragment extends SherlockDialogFragment {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				RadioButton button = (RadioButton) group.findViewById(checkedId);
-				int id = (Integer) button.getTag();
-				mListener.onSelected(String.valueOf(id));
+				String id = (String) button.getTag();
+				mListener.onSelected(id);
 				dismiss();
 			}
 		});
@@ -99,5 +92,20 @@ public class CouponTypeDialogFragment extends SherlockDialogFragment {
 		// });
 		// 创建AlertDialog对象并返回
 		return builder.create();
+	}
+
+	private RadioButton createRadioButton(String name, String id) {
+		RadioButton b = new RadioButton(getSherlockActivity());
+		b.setText(name);
+		b.setTextColor(getResources().getColor(R.color.black));
+		b.setTag(id);
+		b.setButtonDrawable(R.drawable.btn_radio_holo_light);
+		b.setBackgroundResource(R.drawable.list_selector_holo_light);
+
+		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		params.gravity = Gravity.CENTER;
+		b.setLayoutParams(params);
+		b.setPadding(8, 16, 8, 16);
+		return b;
 	}
 }

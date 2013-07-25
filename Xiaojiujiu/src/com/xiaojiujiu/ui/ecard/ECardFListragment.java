@@ -89,6 +89,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		footerView = inflater.inflate(R.layout.pull_to_refresh_listview_footer_layout, null);
 		getListView().addFooterView(footerView);
 		getListView().setHeaderDividersEnabled(false);
+		getListView().setBackgroundColor(getResources().getColor(R.color.white));
 		dismissFooterView();
 
 		// 刷选
@@ -185,11 +186,14 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		public void onSuccess(String result) {
 			mAdapter.notifyDataSetChanged();
 			pullToRefreshListView.onRefreshComplete();
+			getListView().setSelection(0);
 			showListView(true);
 		}
 
 		@Override
 		public void onFailure(String result, Throwable t, String strMsg) {
+			dao.getECardList().clear();
+			mAdapter.notifyDataSetChanged();
 			pullToRefreshListView.onRefreshComplete();
 			showListView(true);
 		}
@@ -202,6 +206,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_shoptype.setText(selectedName);
+				showListView(false);
 				dao.onClickShop(parentId, selectedId, listener);
 			}
 
@@ -216,6 +221,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_area.setText(selectedName);
+				showListView(false);
 				dao.onClickArea(parentId, selectedId, listener);
 			}
 
@@ -230,6 +236,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_sort.setText(selectedName);
+				showListView(false);
 				dao.onClickSort(parentId, listener);
 			}
 
