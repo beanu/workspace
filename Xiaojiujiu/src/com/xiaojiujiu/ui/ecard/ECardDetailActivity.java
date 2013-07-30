@@ -1,7 +1,10 @@
 package com.xiaojiujiu.ui.ecard;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.beanu.arad.Arad;
@@ -44,6 +47,9 @@ public class ECardDetailActivity extends MyActivity implements IDataListener<Str
 	@ViewById TextView nearby_shop_distance;
 	@ViewById ImageView nearby_shop_phone;
 	@ViewById LongButton ecard_detail_promotion;
+
+	@ViewById ProgressBar ecard_detail_progress;
+	@ViewById ScrollView ecard_detail_layout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,5 +114,11 @@ public class ECardDetailActivity extends MyActivity implements IDataListener<Str
 		nearby_shop_distance.setText(String.valueOf(ecard.getNearestShopDistance()));
 		// nearby_shop_phone;
 		// ecard_detail_promotion;
+		showContent();
+	}
+
+	private void showContent() {
+		ecard_detail_progress.setVisibility(View.GONE);
+		ecard_detail_layout.setVisibility(View.VISIBLE);
 	}
 }

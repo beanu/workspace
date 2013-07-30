@@ -1,14 +1,22 @@
 package com.xiaojiujiu.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.app.SherlockFragment;
+import com.google.zxing.CaptureActivity;
+import com.googlecode.androidannotations.annotations.Click;
+import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.ViewById;
 import com.xiaojiujiu.MainActivity;
 import com.xiaojiujiu.MainActivity.Fragments;
 import com.xiaojiujiu.R;
@@ -18,21 +26,28 @@ import com.xiaojiujiu.R;
  * 
  * @author beanu
  */
-public class LeftMenuFragment extends SherlockListFragment {
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.left, null);
-	}
+@EFragment(R.layout.left)
+public class LeftMenuFragment extends SherlockFragment implements OnItemClickListener {
+
+	@ViewById ListView left_list;
+	@ViewById ImageButton left_scan_button;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		String[] names = getResources().getStringArray(R.array.menu_names);
 		MenuAdapter adapter = new MenuAdapter(names);
-		setListAdapter(adapter);
+		left_list.setAdapter(adapter);
 		// switchCategory(0);
-		getListView().setItemChecked(0, true);
+		left_list.setOnItemClickListener(this);
+		left_list.setItemChecked(0, true);
+	}
+
+	@Click
+	void left_scan_button() {
+		Intent intent = new Intent(getSherlockActivity(), CaptureActivity.class);
+		startActivity(intent);
 	}
 
 	public void switchCategory(int position) {
@@ -53,11 +68,6 @@ public class LeftMenuFragment extends SherlockListFragment {
 		}
 		// drawButtonsBackground(position);
 
-	}
-
-	@Override
-	public void onListItemClick(ListView lv, View v, int position, long id) {
-		switchCategory(position);
 	}
 
 	class MenuAdapter extends BaseAdapter {
@@ -93,5 +103,10 @@ public class LeftMenuFragment extends SherlockListFragment {
 
 			return view;
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		switchCategory(position);
 	}
 }

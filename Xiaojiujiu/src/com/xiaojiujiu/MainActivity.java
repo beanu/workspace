@@ -18,7 +18,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.xiaojiujiu.ui.LeftMenuFragment;
+import com.xiaojiujiu.ui.LeftMenuFragment_;
 import com.xiaojiujiu.ui.RightMenuFragment_;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.common.SearchActivity;
@@ -84,7 +84,7 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 
 			// set the Left View
 			FragmentTransaction secondFragmentTransaction = getSupportFragmentManager().beginTransaction();
-			secondFragmentTransaction.replace(R.id.menu_left, getLeftMenuFragment(), LeftMenuFragment.class.getName());
+			secondFragmentTransaction.replace(R.id.menu_left, getLeftMenuFragment(), LeftMenuFragment_.class.getName());
 
 			// set the right view
 			secondFragmentTransaction.replace(R.id.menu_right, getRightMenuFragment(),
@@ -93,7 +93,22 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 
 			// getSlidingMenu().showContent();
 			showFragment(Fragments.coupons);
+
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		// Intent intent = new Intent(this, SensorService.class);
+		// startService(intent);
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		// Intent intent = new Intent(this, SensorService.class);
+		// stopService(intent);
+		super.onPause();
 	}
 
 	@Override
@@ -198,11 +213,11 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public LeftMenuFragment getLeftMenuFragment() {
-		LeftMenuFragment fragment = ((LeftMenuFragment) getSupportFragmentManager().findFragmentByTag(
-				LeftMenuFragment.class.getName()));
+	public LeftMenuFragment_ getLeftMenuFragment() {
+		LeftMenuFragment_ fragment = ((LeftMenuFragment_) getSupportFragmentManager().findFragmentByTag(
+				LeftMenuFragment_.class.getName()));
 		if (fragment == null) {
-			fragment = new LeftMenuFragment();
+			fragment = new LeftMenuFragment_();
 		}
 		return fragment;
 	}

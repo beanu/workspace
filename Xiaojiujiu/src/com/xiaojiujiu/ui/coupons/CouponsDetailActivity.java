@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
@@ -43,16 +46,19 @@ public class CouponsDetailActivity extends MyActivity {
 	CouponDetailDao dao;
 
 	@ViewById(R.id.coupon_detail_moreshops) LongButton moreShop;
-	@ViewById(R.id.offer_detail_button) Button offer_detail_button;
-	@ViewById(R.id.ecard_detail_title) TextView ecard_detail_title;
-	@ViewById(R.id.ecard_shop_name) TextView ecard_shop_name;
-	@ViewById(R.id.offer_detail_content) TextView offer_detail_content;
-	@ViewById(R.id.nearby_shop_name) TextView nearby_shop_name;
-	@ViewById(R.id.nearby_shop_address) TextView nearby_shop_address;
-	@ViewById(R.id.nearby_shop_distance) TextView nearby_shop_distance;
-	@ViewById(R.id.nearby_shop_phone) ImageView nearby_shop_phone;
-	@ViewById(R.id.ecard_detail_content) TextView ecard_detail_content;
+	@ViewById Button offer_detail_button;
+	@ViewById TextView ecard_detail_title;
+	@ViewById TextView ecard_shop_name;
+	@ViewById TextView offer_detail_content;
+	@ViewById TextView nearby_shop_name;
+	@ViewById TextView nearby_shop_address;
+	@ViewById TextView nearby_shop_distance;
+	@ViewById ImageView nearby_shop_phone;
+	@ViewById TextView ecard_detail_content;
 	@ViewById ImageView ecard_detail_big_image;
+	@ViewById ProgressBar coupon_detail_progress;
+	@ViewById ScrollView coupon_detail_layout;
+	@ViewById LinearLayout nearby_shop_map_layout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +91,6 @@ public class CouponsDetailActivity extends MyActivity {
 				@Override
 				public void onSuccess(Coupon result) {
 					refreshPage(result);
-
 				}
 
 				@Override
@@ -104,8 +109,8 @@ public class CouponsDetailActivity extends MyActivity {
 
 	}
 
-	@Click({ R.id.offer_detail_button, R.id.coupon_detail_moreshops, R.id.nearby_shop_phone, R.id.nearby_shop_address,
-			R.id.nearby_shop_distance })
+	@Click({ R.id.offer_detail_button, R.id.coupon_detail_moreshops, R.id.nearby_shop_phone,
+			R.id.nearby_shop_map_layout })
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.offer_detail_button:
@@ -124,10 +129,7 @@ public class CouponsDetailActivity extends MyActivity {
 			if (nearby_shop_phone.getTag() != null && !nearby_shop_phone.getTag().equals(""))
 				AndroidUtil.dial(CouponsDetailActivity.this, (String) nearby_shop_phone.getTag());
 			break;
-		case R.id.nearby_shop_address:
-			gotoMap();
-			break;
-		case R.id.nearby_shop_distance:
+		case R.id.nearby_shop_map_layout:
 			gotoMap();
 			break;
 		}
@@ -213,7 +215,13 @@ public class CouponsDetailActivity extends MyActivity {
 			ecard_detail_content.setText(coupon.getUseIntroduction());
 			moreShop.setText(String.format("适用门店 (%s家)", coupon.getFitShopNum() + ""));
 			invalidateOptionsMenu();
+			showContent();
 		}
+	}
+
+	private void showContent() {
+		coupon_detail_progress.setVisibility(View.GONE);
+		coupon_detail_layout.setVisibility(View.VISIBLE);
 	}
 
 	private void gotoMap() {

@@ -69,7 +69,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (savedInstanceState == null) {
+//		if (savedInstanceState == null) {
 			selectorShopTypeWindow = new SelectorShopTypeWindow(getSherlockActivity());
 			selectorAreaWindow = new SelectorAreaWindow(getSherlockActivity());
 			selectorSortWindow = new SelectorSortWindow(getSherlockActivity());
@@ -89,7 +89,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 				}
 			});
-		}
+//		}
 	}
 
 	@Override

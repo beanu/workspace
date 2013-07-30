@@ -24,6 +24,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- 震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -134,6 +136,7 @@
             android:enabled="true"
             android:process=":remote" >
         </service>
+        <service android:name=".support.shake.SensorService" />
     </application>
 
 </manifest>

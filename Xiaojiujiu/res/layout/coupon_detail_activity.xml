@@ -1,94 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:widget="http://schemas.android.com/apk/res/com.xiaojiujiu"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/coupon_detail_progress"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_gravity="center" />
 
-        <!-- 头部信息 -->
+    <ScrollView
+        android:id="@+id/coupon_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch16"
-            android:minHeight="120dp" >
+            android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/ecard_detail_big_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/temp" />
+            <!-- 头部信息 -->
 
-            <TextView
-                android:id="@+id/ecard_shop_name"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:alpha="0.5"
-                android:background="@drawable/coupon_text_bg"
-                android:gravity="center"
-                android:minHeight="36dp"
-                android:textSize="@dimen/textsize16" >
-            </TextView>
-        </FrameLayout>
+                android:layout_marginBottom="@dimen/pitch16"
+                android:minHeight="120dp" >
 
-        <TextView
-            android:id="@+id/ecard_detail_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/pitch8"
-            android:textColor="@color/red" />
+                <ImageView
+                    android:id="@+id/ecard_detail_big_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/temp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/pitch8"
-            android:layout_marginTop="@dimen/pitch4" />
+                <TextView
+                    android:id="@+id/ecard_shop_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:alpha="0.5"
+                    android:background="@drawable/coupon_text_bg"
+                    android:gravity="center"
+                    android:minHeight="36dp"
+                    android:textSize="@dimen/textsize16" >
+                </TextView>
+            </FrameLayout>
 
-        <!-- 优惠说明 -->
+            <TextView
+                android:id="@+id/ecard_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pitch8"
+                android:textColor="@color/red" />
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch8"
-            android:layout_marginLeft="@dimen/pitch8"
-            android:layout_marginRight="@dimen/pitch8"
-            layout="@layout/module_offer_details" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pitch8"
+                android:layout_marginTop="@dimen/pitch4" />
 
-        <!-- 使用说明 -->
+            <!-- 优惠说明 -->
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch8"
-            android:layout_marginLeft="@dimen/pitch8"
-            android:layout_marginRight="@dimen/pitch8"
-            layout="@layout/module_introductions" />
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pitch8"
+                android:layout_marginLeft="@dimen/pitch8"
+                android:layout_marginRight="@dimen/pitch8"
+                layout="@layout/module_offer_details" />
 
-        <!-- 最近门店位置电话信息 -->
+            <!-- 使用说明 -->
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch8"
-            android:layout_marginLeft="@dimen/pitch8"
-            android:layout_marginRight="@dimen/pitch8"
-            layout="@layout/module_nearby_shop" />
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pitch8"
+                android:layout_marginLeft="@dimen/pitch8"
+                android:layout_marginRight="@dimen/pitch8"
+                layout="@layout/module_introductions" />
 
-        <!-- 适用门店 -->
+            <!-- 最近门店位置电话信息 -->
 
-        <com.xiaojiujiu.ui.widget.LongButton
-            android:id="@+id/coupon_detail_moreshops"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch16"
-            widget:drawableLeft="@drawable/ecard_detail_tag_stores"
-            widget:text="适用门店（%s家）" />
-    </LinearLayout>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pitch8"
+                android:layout_marginLeft="@dimen/pitch8"
+                android:layout_marginRight="@dimen/pitch8"
+                layout="@layout/module_nearby_shop" />
 
-</ScrollView>
+            <!-- 适用门店 -->
+
+            <com.xiaojiujiu.ui.widget.LongButton
+                android:id="@+id/coupon_detail_moreshops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pitch16"
+                widget:drawableLeft="@drawable/ecard_detail_tag_stores"
+                widget:text="适用门店（%s家）" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

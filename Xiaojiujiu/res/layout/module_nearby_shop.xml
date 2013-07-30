@@ -28,11 +28,13 @@
         android:paddingLeft="@dimen/pitch16" >
 
         <LinearLayout
+            android:id="@+id/nearby_shop_map_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:orientation="vertical"
-            android:background="@drawable/text_press" >
+            android:layout_marginRight="62dp"
+            android:background="@drawable/text_press"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/nearby_shop_address"

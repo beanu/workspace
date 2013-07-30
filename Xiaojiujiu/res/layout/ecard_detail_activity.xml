@@ -1,64 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:widget="http://schemas.android.com/apk/res/com.xiaojiujiu"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:scrollbars="none" >
+    android:layout_height="match_parent" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/ecard_detail_progress"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_gravity="center" />
 
-        <!-- 头部信息 -->
+    <ScrollView
+        android:id="@+id/ecard_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
 
-        <include layout="@layout/module_top" />
-
-        <!-- 会员卡使用说明 -->
-
-        <include
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pitch8"
-            layout="@layout/module_introductions" />
+            android:orientation="vertical" >
 
-        <!-- 查看更多 -->
+            <!-- 头部信息 -->
 
-        <com.xiaojiujiu.ui.widget.LongButton
-            android:id="@+id/ecard_detail_seeMore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            widget:drawableLeft="@drawable/ecard_detail_tag_more"
-            widget:text="@string/ecard_detail_see_more" />
+            <include layout="@layout/module_top" />
 
-        <!-- 最近门店位置电话信息 -->
+            <!-- 会员卡使用说明 -->
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pitch8"
-            layout="@layout/module_nearby_shop" />
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/pitch8"
+                layout="@layout/module_introductions" />
 
-        <!-- 适用门店 -->
+            <!-- 查看更多 -->
 
-        <com.xiaojiujiu.ui.widget.LongButton
-            android:id="@+id/ecard_detail_shops"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch8"
-            widget:drawableLeft="@drawable/ecard_detail_tag_stores"
-            widget:text="适用门店（5家）" />
+            <com.xiaojiujiu.ui.widget.LongButton
+                android:id="@+id/ecard_detail_seeMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                widget:drawableLeft="@drawable/ecard_detail_tag_more"
+                widget:text="@string/ecard_detail_see_more" />
 
-        <!-- 优惠活动 -->
+            <!-- 最近门店位置电话信息 -->
 
-        <com.xiaojiujiu.ui.widget.LongButton
-            android:id="@+id/ecard_detail_promotion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/pitch8"
-            widget:drawableLeft="@drawable/ecard_detail_tag_promotion"
-            widget:text="优惠活动" />
-    </LinearLayout>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/pitch8"
+                layout="@layout/module_nearby_shop" />
 
-</ScrollView>
+            <!-- 适用门店 -->
+
+            <com.xiaojiujiu.ui.widget.LongButton
+                android:id="@+id/ecard_detail_shops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pitch8"
+                widget:drawableLeft="@drawable/ecard_detail_tag_stores"
+                widget:text="适用门店（5家）" />
+
+            <!-- 优惠活动 -->
+
+            <com.xiaojiujiu.ui.widget.LongButton
+                android:id="@+id/ecard_detail_promotion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pitch8"
+                widget:drawableLeft="@drawable/ecard_detail_tag_promotion"
+                widget:text="优惠活动" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
