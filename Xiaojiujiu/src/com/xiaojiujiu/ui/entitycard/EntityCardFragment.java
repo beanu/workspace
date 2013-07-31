@@ -46,15 +46,15 @@ public class EntityCardFragment extends BaseListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent=new Intent(getSherlockActivity(),EntityCardDetailActivity.class);
+        Intent intent=new Intent(getActivity(),EntityCardDetailActivity.class);
         startActivity(intent);
-        UIUtil.intentSlidIn(getSherlockActivity());
+        UIUtil.intentSlidIn(getActivity());
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        adapter=new EntityCardListAdapter(getSherlockActivity(),data);
+        adapter=new EntityCardListAdapter(getActivity(),data);
         setListAdapter(adapter);
     }
 }

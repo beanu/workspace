@@ -65,9 +65,9 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState == null) {
-			selectorShopTypeWindow = new SelectorShopTypeWindow(getSherlockActivity());
-			selectorAreaWindow = new SelectorAreaWindow(getSherlockActivity());
-			selectorSortWindow = new SelectorSortWindow(getSherlockActivity());
+			selectorShopTypeWindow = new SelectorShopTypeWindow(getActivity());
+			selectorAreaWindow = new SelectorAreaWindow(getActivity());
+			selectorSortWindow = new SelectorSortWindow(getActivity());
 			setSelectedWindowListener();
 
 			dao = new ECardListDao();
@@ -106,18 +106,18 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mAdapter = new ECardListAdapter(getSherlockActivity(), dao.getECardList());
+		mAdapter = new ECardListAdapter(getActivity(), dao.getECardList());
 		getListView().setAdapter(mAdapter);
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-				Intent intent = new Intent(getSherlockActivity().getApplicationContext(), ECardDetailActivity_.class);
+				Intent intent = new Intent(getActivity().getApplicationContext(), ECardDetailActivity_.class);
 				Bundle b = new Bundle();
 				b.putSerializable("item", dao.getECardList().get(position - 1));
 				intent.putExtras(b);
 				startActivity(intent);
-				UIUtil.intentSlidIn(getSherlockActivity());
+				UIUtil.intentSlidIn(getActivity());
 			}
 		});
 

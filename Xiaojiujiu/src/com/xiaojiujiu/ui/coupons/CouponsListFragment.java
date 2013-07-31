@@ -70,9 +70,9 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 //		if (savedInstanceState == null) {
-			selectorShopTypeWindow = new SelectorShopTypeWindow(getSherlockActivity());
-			selectorAreaWindow = new SelectorAreaWindow(getSherlockActivity());
-			selectorSortWindow = new SelectorSortWindow(getSherlockActivity());
+			selectorShopTypeWindow = new SelectorShopTypeWindow(getActivity());
+			selectorAreaWindow = new SelectorAreaWindow(getActivity());
+			selectorSortWindow = new SelectorSortWindow(getActivity());
 			setSelectedWindowListener();
 
 			dao = new CouponListDao();
@@ -139,7 +139,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		mAdapter = new CouponListAdapter(getSherlockActivity(), dao.getCouponList(), CouponListAdapter.CouponList);
+		mAdapter = new CouponListAdapter(getActivity(), dao.getCouponList(), CouponListAdapter.CouponList);
 		getListView().setAdapter(mAdapter);
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 
@@ -148,7 +148,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				int itemType = dao.getCouponList().get(position - 1).getItemType();
 				if (itemType == 0) {
 					// 进入详情页
-					Intent intent = new Intent(getSherlockActivity().getApplicationContext(),
+					Intent intent = new Intent(getActivity().getApplicationContext(),
 							CouponsDetailActivity_.class);
 					Bundle b = new Bundle();
 					b.putSerializable("item", dao.getCouponList().get(position - 1));
@@ -157,12 +157,12 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 				} else {
 					// 进入列表页
-					Intent intent = new Intent(getSherlockActivity().getApplicationContext(),
+					Intent intent = new Intent(getActivity().getApplicationContext(),
 							CouponsListWithShopActivity_.class);
 					intent.putExtra("id", dao.getCouponList().get(position - 1).getItemID());
 					startActivity(intent);
 				}
-				UIUtil.intentSlidIn(getSherlockActivity());
+				UIUtil.intentSlidIn(getActivity());
 			}
 		});
 

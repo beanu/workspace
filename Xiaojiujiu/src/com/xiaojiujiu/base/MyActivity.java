@@ -1,8 +1,8 @@
 package com.xiaojiujiu.base;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import com.actionbarsherlock.view.MenuItem;
 import com.beanu.arad.base.BaseActivityWithGD;
 import com.beanu.arad.utils.AnimUtil;
 import com.xiaojiujiu.R;

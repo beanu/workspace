@@ -51,28 +51,28 @@ public class RightMenuFragment extends BaseFragment {
 	void loginClicked() {
 		if (AppHolder.getInstance().user.getUserName() != null) {
 			// TODO
-			MessageUtil.showShortToast(getSherlockActivity(), "已经登陆");
+			MessageUtil.showShortToast(getActivity(), "已经登陆");
 		} else {
-			Intent user_login = new Intent(getSherlockActivity(), LoginActivity.class);
+			Intent user_login = new Intent(getActivity(), LoginActivity.class);
 			startActivityForResult(user_login, requestCode);
-			UIUtil.intentSlidIn(getSherlockActivity());
+			UIUtil.intentSlidIn(getActivity());
 		}
 	}
 
 	@Click
 	void right_setting() {
-		Intent setting_intent = new Intent(getSherlockActivity(), SettingActivity.class);
+		Intent setting_intent = new Intent(getActivity(), SettingActivity.class);
 		startActivity(setting_intent);
-		UIUtil.intentSlidIn(getSherlockActivity());
+		UIUtil.intentSlidIn(getActivity());
 	}
 
 	@Click({ R.id.user_collect })
 	void OnClick(View v) {
 		switch (v.getId()) {
 		case R.id.user_collect:
-			Intent setting_intent = new Intent(getSherlockActivity(), MyCollectActivity_.class);
+			Intent setting_intent = new Intent(getActivity(), MyCollectActivity_.class);
 			startActivity(setting_intent);
-			UIUtil.intentSlidIn(getSherlockActivity());
+			UIUtil.intentSlidIn(getActivity());
 			break;
 		}
 	}

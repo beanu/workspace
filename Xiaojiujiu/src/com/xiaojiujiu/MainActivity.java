@@ -8,14 +8,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.xiaojiujiu.ui.LeftMenuFragment_;
@@ -113,7 +113,7 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.main_activity, menu);
+		getMenuInflater().inflate(R.menu.main_activity, menu);
 
 		if (showEntityCardMenu) {
 			MenuItem ecMenuItem = menu.add(Menu.NONE, R.id.menu_add_entity_card, Menu.NONE, "addEntityCard");

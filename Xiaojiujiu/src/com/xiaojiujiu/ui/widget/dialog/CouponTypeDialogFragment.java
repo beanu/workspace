@@ -13,13 +13,12 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.LayoutParams;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.entity.Category;
 
 /** 优惠券类型 */
-public class CouponTypeDialogFragment extends SherlockDialogFragment {
+public class CouponTypeDialogFragment extends DialogFragment {
 
 	public interface OnCouponTypeSelectedListener {
 		public void onSelected(String id);
@@ -54,8 +53,8 @@ public class CouponTypeDialogFragment extends SherlockDialogFragment {
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// 使用Builder类更方便
-		AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
-		RadioGroup group = new RadioGroup(getSherlockActivity());
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		RadioGroup group = new RadioGroup(getActivity());
 
 		group.addView(createRadioButton("全部", ""));
 
@@ -95,7 +94,7 @@ public class CouponTypeDialogFragment extends SherlockDialogFragment {
 	}
 
 	private RadioButton createRadioButton(String name, String id) {
-		RadioButton b = new RadioButton(getSherlockActivity());
+		RadioButton b = new RadioButton(getActivity());
 		b.setText(name);
 		b.setTextColor(getResources().getColor(R.color.black));
 		b.setTag(id);

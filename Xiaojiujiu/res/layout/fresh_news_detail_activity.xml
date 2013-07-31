@@ -32,7 +32,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/pitch16"
         android:layout_marginBottom="@dimen/pitch16"
-        android:background="@drawable/abs__list_divider_holo_light"/>
+        android:background="@drawable/abc_list_divider_holo_light"/>
 
     <TextView
         android:layout_width="match_parent"

@@ -5,10 +5,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 /** 只显示信息的dialog */
-public class MessageDialogFragment extends SherlockDialogFragment {
+public class MessageDialogFragment extends DialogFragment {
 
 	public static MessageDialogFragment newInstance(String message) {
 		MessageDialogFragment f = new MessageDialogFragment();
@@ -27,7 +25,7 @@ public class MessageDialogFragment extends SherlockDialogFragment {
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// 使用Builder类更方便
-		AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setMessage(getArguments().getString("message"));
 
 		// .setPositiveButton(R.string.fire, new

@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import com.beanu.arad.base.BaseFragment;
 import com.google.zxing.CaptureActivity;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EFragment;
@@ -28,7 +28,7 @@ import com.xiaojiujiu.R;
  */
 
 @EFragment(R.layout.left)
-public class LeftMenuFragment extends SherlockFragment implements OnItemClickListener {
+public class LeftMenuFragment extends BaseFragment implements OnItemClickListener {
 
 	@ViewById ListView left_list;
 	@ViewById ImageButton left_scan_button;
@@ -46,7 +46,7 @@ public class LeftMenuFragment extends SherlockFragment implements OnItemClickLis
 
 	@Click
 	void left_scan_button() {
-		Intent intent = new Intent(getSherlockActivity(), CaptureActivity.class);
+		Intent intent = new Intent(getActivity(), CaptureActivity.class);
 		startActivity(intent);
 	}
 
@@ -54,16 +54,16 @@ public class LeftMenuFragment extends SherlockFragment implements OnItemClickLis
 
 		switch (position) {
 		case 0:
-			((MainActivity) getSherlockActivity()).showFragment(Fragments.coupons);
+			((MainActivity) getActivity()).showFragment(Fragments.coupons);
 			break;
 		case 1:
-			((MainActivity) getSherlockActivity()).showFragment(Fragments.ecard);
+			((MainActivity) getActivity()).showFragment(Fragments.ecard);
 			break;
 		case 2:
-			((MainActivity) getSherlockActivity()).showFragment(Fragments.mycard);
+			((MainActivity) getActivity()).showFragment(Fragments.mycard);
 			break;
 		case 3:
-			((MainActivity) getSherlockActivity()).showFragment(Fragments.freshNews);
+			((MainActivity) getActivity()).showFragment(Fragments.freshNews);
 			break;
 		}
 		// drawButtonsBackground(position);
@@ -77,7 +77,7 @@ public class LeftMenuFragment extends SherlockFragment implements OnItemClickLis
 
 		public MenuAdapter(String[] names) {
 			this.names = names;
-			this.mlinflater = LayoutInflater.from(getSherlockActivity());
+			this.mlinflater = LayoutInflater.from(getActivity());
 		}
 
 		@Override

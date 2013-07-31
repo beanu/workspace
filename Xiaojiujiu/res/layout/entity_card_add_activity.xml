@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/pitch8"
-            android:src="@drawable/abs__ic_go_search_api_holo_light"/>
+            android:src="@drawable/abc_ic_search"/>
 
     </LinearLayout>
 

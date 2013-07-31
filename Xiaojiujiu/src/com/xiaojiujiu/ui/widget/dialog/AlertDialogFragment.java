@@ -6,10 +6,8 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
-
 /** 提示dialog */
-public class AlertDialogFragment extends SherlockDialogFragment {
+public class AlertDialogFragment extends DialogFragment {
 
 	private OnClickListener positiveListener;
 	private OnClickListener negativeListener;
@@ -37,7 +35,7 @@ public class AlertDialogFragment extends SherlockDialogFragment {
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// 使用Builder类更方便
-		AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(getArguments().getString("title")).setMessage(getArguments().getString("message"))
 				.setPositiveButton(getArguments().getString("positiveButtonText"), positiveListener)
 				.setNegativeButton(getArguments().getString("negativeButtonText"), negativeListener);

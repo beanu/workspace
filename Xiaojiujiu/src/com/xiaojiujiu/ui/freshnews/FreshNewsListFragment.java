@@ -48,15 +48,15 @@ public class FreshNewsListFragment extends PullToRefreshListFragment implements 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mAdapter = new FreshNewsAdapter(getSherlockActivity(), mFreshNewsList);
+        mAdapter = new FreshNewsAdapter(getActivity(), mFreshNewsList);
         getListView().setAdapter(mAdapter);
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                Intent intent = new Intent(getSherlockActivity().getApplicationContext(), FreshNewsDetailActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), FreshNewsDetailActivity.class);
                 startActivity(intent);
-                UIUtil.intentSlidIn(getSherlockActivity());
+                UIUtil.intentSlidIn(getActivity());
             }
         });
 
