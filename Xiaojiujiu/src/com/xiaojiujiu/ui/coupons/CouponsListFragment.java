@@ -23,9 +23,11 @@ import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleLi
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
 import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
+import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.dao.CouponListDao;
 import com.xiaojiujiu.dao.IDataListener;
+import com.xiaojiujiu.entity.Category;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
 import com.xiaojiujiu.ui.common.SelectorAreaWindow;
@@ -69,27 +71,27 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		if (savedInstanceState == null) {
-			selectorShopTypeWindow = new SelectorShopTypeWindow(getActivity());
-			selectorAreaWindow = new SelectorAreaWindow(getActivity());
-			selectorSortWindow = new SelectorSortWindow(getActivity());
-			setSelectedWindowListener();
+		// if (savedInstanceState == null) {
+		selectorShopTypeWindow = new SelectorShopTypeWindow(getActivity());
+		selectorAreaWindow = new SelectorAreaWindow(getActivity());
+		selectorSortWindow = new SelectorSortWindow(getActivity());
+		setSelectedWindowListener();
 
-			dao = new CouponListDao();
-			dao.requestCouponType(new IDataListener<String>() {
+		dao = new CouponListDao();
+		dao.requestCouponType(new IDataListener<String>() {
 
-				@Override
-				public void onSuccess(String result) {
-					// TODO Auto-generated method stub
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
 
-				}
+			}
 
-				@Override
-				public void onFailure(String result, Throwable t, String strMsg) {
+			@Override
+			public void onFailure(String result, Throwable t, String strMsg) {
 
-				}
-			});
-//		}
+			}
+		});
+		// }
 	}
 
 	@Override
@@ -148,8 +150,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 				int itemType = dao.getCouponList().get(position - 1).getItemType();
 				if (itemType == 0) {
 					// 进入详情页
-					Intent intent = new Intent(getActivity().getApplicationContext(),
-							CouponsDetailActivity_.class);
+					Intent intent = new Intent(getActivity().getApplicationContext(), CouponsDetailActivity_.class);
 					Bundle b = new Bundle();
 					b.putSerializable("item", dao.getCouponList().get(position - 1));
 					intent.putExtras(b);
@@ -315,6 +316,19 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	public void onCouponTypeSelected(String id) {
 		showListView(false);
+
+		if (id != null && id.equals(""))
+			coupons_floating_btn.setBackgroundResource(R.drawable.floating_button);
+		else if (id != null && !id.equals("")) {
+			for (Category category : AppHolder.getInstance().couponType) {
+				if (category.getCategoryID() == Integer.valueOf(id)) {
+					coupons_floating_btn.setBackgroundResource(R.drawable.floating_empty_button);
+					coupons_floating_btn.setText(category.getLetter());
+					break;
+				}
+			}
+		}
+
 		dao.onClickCouponType(id, listener);
 	}
 
