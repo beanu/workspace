@@ -25,8 +25,7 @@ import com.xiaojiujiu.ui.common.SearchActivity;
 import com.xiaojiujiu.ui.coupons.CouponsListFragment;
 import com.xiaojiujiu.ui.ecard.ECardFListragment;
 import com.xiaojiujiu.ui.entitycard.AddEntityCardActivity;
-import com.xiaojiujiu.ui.entitycard.EntityCardFragment;
-import com.xiaojiujiu.ui.freshnews.FreshNewsListFragment;
+import com.xiaojiujiu.ui.share.ShareFragment_;
 import com.xiaojiujiu.ui.widget.dialog.CouponTypeDialogFragment.OnCouponTypeSelectedListener;
 
 /**
@@ -44,7 +43,8 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 	private SlidingMenu sm;
 
 	public enum Fragments {
-		coupons, ecard, mycard, freshNews
+		coupons, ecard, share
+		// mycard, freshNews
 	}
 
 	@Override
@@ -79,8 +79,10 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 			fragmentManager = new FragmentsManager(this, R.id.content_fragment);
 			fragmentManager.addFragment(Fragments.coupons.name(), CouponsListFragment.class, null);
 			fragmentManager.addFragment(Fragments.ecard.name(), ECardFListragment.class, null);
-			fragmentManager.addFragment(Fragments.mycard.name(), EntityCardFragment.class, null);
-			fragmentManager.addFragment(Fragments.freshNews.name(), FreshNewsListFragment.class, null);
+			fragmentManager.addFragment(Fragments.share.name(), ShareFragment_.class, null);
+			
+//			fragmentManager.addFragment(Fragments.mycard.name(), EntityCardFragment.class, null);
+//			fragmentManager.addFragment(Fragments.freshNews.name(), FreshNewsListFragment.class, null);
 
 			// set the Left View
 			FragmentTransaction secondFragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -247,14 +249,18 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 			fragmentManager.changFragment(Fragments.ecard.name());
 			showMenu(false, true);
 			break;
-		case mycard:
-			fragmentManager.changFragment(Fragments.mycard.name());
-			showMenu(true, false);
-			break;
-		case freshNews:
-			fragmentManager.changFragment(Fragments.freshNews.name());
+		case share:
+			fragmentManager.changFragment(Fragments.share.name());
 			showMenu(false, true);
 			break;
+//		case mycard:
+//			fragmentManager.changFragment(Fragments.mycard.name());
+//			showMenu(true, false);
+//			break;
+//		case freshNews:
+//			fragmentManager.changFragment(Fragments.freshNews.name());
+//			showMenu(false, true);
+//			break;
 		}
 		sm.showContent();
 	}

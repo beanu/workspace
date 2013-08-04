@@ -4,8 +4,11 @@
     <string-array name="menu_names">
         <item>优惠信息</item>
         <item>电子会员卡</item>
+        <item>分享</item>
+        <!--
         <item>实体卡</item>
         <item>商家新鲜事</item>
+        -->
     </string-array>
 
 </resources>

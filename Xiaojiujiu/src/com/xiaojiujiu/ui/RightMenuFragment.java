@@ -16,8 +16,8 @@ import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
-import com.xiaojiujiu.ui.user.LoginActivity;
-import com.xiaojiujiu.ui.user.*;
+import com.xiaojiujiu.ui.user.LoginActivity_;
+import com.xiaojiujiu.ui.user.MyCollectActivity_;
 import com.xiaojiujiu.ui.user.SettingActivity;
 
 /**
@@ -53,7 +53,7 @@ public class RightMenuFragment extends BaseFragment {
 			// TODO
 			MessageUtil.showShortToast(getActivity(), "已经登陆");
 		} else {
-			Intent user_login = new Intent(getActivity(), LoginActivity.class);
+			Intent user_login = new Intent(getActivity(), LoginActivity_.class);
 			startActivityForResult(user_login, requestCode);
 			UIUtil.intentSlidIn(getActivity());
 		}

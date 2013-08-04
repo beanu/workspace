@@ -37,7 +37,8 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		String[] names = getResources().getStringArray(R.array.menu_names);
-		MenuAdapter adapter = new MenuAdapter(names);
+		int[] drawables = { R.drawable.left_menu_coupon, R.drawable.left_menu_ecard, R.drawable.left_menu_qr };
+		MenuAdapter adapter = new MenuAdapter(names, drawables);
 		left_list.setAdapter(adapter);
 		// switchCategory(0);
 		left_list.setOnItemClickListener(this);
@@ -60,10 +61,11 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 			((MainActivity) getActivity()).showFragment(Fragments.ecard);
 			break;
 		case 2:
-			((MainActivity) getActivity()).showFragment(Fragments.mycard);
+			// ((MainActivity) getActivity()).showFragment(Fragments.mycard);
+			((MainActivity) getActivity()).showFragment(Fragments.share);
 			break;
 		case 3:
-			((MainActivity) getActivity()).showFragment(Fragments.freshNews);
+			// ((MainActivity) getActivity()).showFragment(Fragments.freshNews);
 			break;
 		}
 		// drawButtonsBackground(position);
@@ -73,11 +75,13 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 	class MenuAdapter extends BaseAdapter {
 
 		String[] names;
+		int[] drawables;
 		LayoutInflater mlinflater;
 
-		public MenuAdapter(String[] names) {
+		public MenuAdapter(String[] names, int[] drawables) {
 			this.names = names;
 			this.mlinflater = LayoutInflater.from(getActivity());
+			this.drawables = drawables;
 		}
 
 		@Override
@@ -100,7 +104,7 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 			View view = mlinflater.inflate(R.layout.biz_navigation_item_layout, null);
 			TextView text = (TextView) view.findViewById(R.id.biz_navi_icon);
 			text.setText(names[position]);
-
+			text.setCompoundDrawablesWithIntrinsicBounds(drawables[position], 0, 0, 0);
 			return view;
 		}
 	}

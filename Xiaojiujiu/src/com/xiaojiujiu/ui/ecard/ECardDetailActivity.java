@@ -1,6 +1,8 @@
 package com.xiaojiujiu.ui.ecard;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -95,6 +97,22 @@ public class ECardDetailActivity extends MyActivity implements IDataListener<Str
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		MenuItem collectMenuItem = menu.add(Menu.NONE, R.id.menu_collect, Menu.NONE, "收藏");
+//		if (dao.getEcard().getIsFavorite() == 0)
+//			collectMenuItem.setIcon(R.drawable.menu_unfav);
+//		else
+//			collectMenuItem.setIcon(R.drawable.menu_fav);
+		collectMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+		MenuItem shareMenuItem = menu.add(Menu.NONE, R.id.menu_share, Menu.NONE, "分享");
+		shareMenuItem.setIcon(R.drawable.menu_share);
+		shareMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+		return true;
+	}
 	private void refreshUI() {
 		ECard ecard = dao.getEcard();
 		Arad.imageLoader.display(ecard.getItemImageUrl(), ecard_detail_big_image);

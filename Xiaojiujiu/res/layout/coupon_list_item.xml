@@ -92,6 +92,8 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@id/coupon_list_item_content"
             android:layout_marginTop="@dimen/pitch4"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:text="地址：济南天桥区北园大街"
             android:textColor="@color/ecard_detail_discount"
             android:textSize="@dimen/textsize12" />

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import net.tsz.afinal.annotation.sqlite.Id;
+import net.tsz.afinal.annotation.sqlite.Transient;
 
 /**
  * 优惠券列表Item信息
@@ -13,10 +14,9 @@ import net.tsz.afinal.annotation.sqlite.Id;
  */
 public class CouponItem implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	@Transient private static final long serialVersionUID = 1L;
 
-	@Id private int id;
-	private int itemID;// 唯一标示
+	@Id private int itemID;// 唯一标示
 	private String itemTitle;
 	private String itemDetail;
 	private List<String> couponTypeIconUrlList;
@@ -24,14 +24,6 @@ public class CouponItem implements Serializable {
 	private String itemImageUrl;
 	private double distance;
 	private int itemType;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public int getItemID() {
 		return itemID;
