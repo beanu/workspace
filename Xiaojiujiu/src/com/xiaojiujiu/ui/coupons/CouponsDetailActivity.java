@@ -232,6 +232,7 @@ public class CouponsDetailActivity extends MyActivity {
 			intent_map.putExtra("lng", lng);
 			intent_map.putExtra("lat", lat);
 			intent_map.putExtra("name", dao.getCoupon().getNearestShopName());
+			intent_map.putExtra("address", dao.getCoupon().getNearestShopAddress());
 			startActivity(intent_map);
 			UIUtil.intentSlidIn(this);
 		} else {

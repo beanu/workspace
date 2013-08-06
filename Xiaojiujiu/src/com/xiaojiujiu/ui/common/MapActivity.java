@@ -1,19 +1,20 @@
 package com.xiaojiujiu.ui.common;
 
-import java.io.IOException;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.map.ItemizedOverlay;
 import com.baidu.mapapi.map.MapController;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MapView.LayoutParams;
 import com.baidu.mapapi.map.OverlayItem;
-import com.baidu.mapapi.map.PopupClickListener;
-import com.baidu.mapapi.map.PopupOverlay;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.beanu.arad.base.BaseActivity;
 import com.xiaojiujiu.R;
@@ -22,15 +23,20 @@ public class MapActivity extends BaseActivity {
 
 	BMapManager mBMapMan = null;
 	MapView mMapView = null;
+	double lng;
+	double lat;
+	String name;
+	String address;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 
-		double lng = getIntent().getDoubleExtra("lng", 0);
-		double lat = getIntent().getDoubleExtra("lat", 0);
-		String name = getIntent().getStringExtra("name");
+		lng = getIntent().getDoubleExtra("lng", 0);
+		lat = getIntent().getDoubleExtra("lat", 0);
+		name = getIntent().getStringExtra("name");
+		address = getIntent().getStringExtra("address");
 
 		GeoPoint point = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
 
@@ -62,16 +68,45 @@ public class MapActivity extends BaseActivity {
 		itemOverlay.addItem(item1);
 		mMapView.refresh();
 
-		PopupOverlay pop = new PopupOverlay(mMapView, new PopupClickListener() {
+		// PopupOverlay pop = new PopupOverlay(mMapView, new
+		// PopupClickListener() {
+		// @Override
+		// public void onClickedPopup(int index) {
+		// // 在此处理pop点击事件，index为点击区域索引,点击区域最多可有三个
+		//
+
+		//
+		// }
+		// });
+		// Bitmap bmps = BitmapFactory.decodeResource(getResources(),
+		// R.drawable.map_popup_store_address);
+		// // 弹出pop,隐藏pop
+		// pop.showPopup(bmps, point, 32);
+		View view = LayoutInflater.from(this).inflate(R.layout.map_pop_layout, null);
+		view.setOnClickListener(new OnClickListener() {
+
 			@Override
-			public void onClickedPopup(int index) {
-				// 在此处理pop点击事件，index为点击区域索引,点击区域最多可有三个
+			public void onClick(View v) {
+				Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri
+						.parse("http://ditu.google.cn/maps?hl=zh&mrt=loc&q=" + String.valueOf(lat) + ","
+								+ String.valueOf(lng) + "(" + name + ")"));
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK & Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+
+				intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+				startActivity(intent);
+
 			}
 		});
-		Bitmap bmps = BitmapFactory.decodeResource(getResources(), R.drawable.map_popup_store_address);
-		// 弹出pop,隐藏pop
-		pop.showPopup(bmps, point, 32);
 
+		TextView title = (TextView) view.findViewById(R.id.map_pop_title);
+		title.setText(name);
+
+		TextView addressTextView = (TextView) view.findViewById(R.id.map_pop_address);
+		addressTextView.setText(address);
+
+		LayoutParams layoutParam = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, point, 0,
+				-35, MapView.LayoutParams.BOTTOM_CENTER);
+		mMapView.addView(view, layoutParam);
 	}
 
 	@Override
