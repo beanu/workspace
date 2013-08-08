@@ -4,8 +4,7 @@ import net.tsz.afinal.annotation.sqlite.Id;
 
 public class ECard {
 
-	@Id
-	int itemID;
+	@Id String itemID;
 	String itemTitle;
 	int jiFen;
 	String cardGrade;
@@ -26,11 +25,11 @@ public class ECard {
 	int fitShopNum;
 	String eCardType;
 
-	public int getItemID() {
+	public String getItemID() {
 		return itemID;
 	}
 
-	public void setItemID(int itemID) {
+	public void setItemID(String itemID) {
 		this.itemID = itemID;
 	}
 

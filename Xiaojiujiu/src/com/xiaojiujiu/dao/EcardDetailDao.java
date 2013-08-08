@@ -39,7 +39,7 @@ public class EcardDetailDao {
 	public void getDetailInfo(final IDataListener<String> listener) {
 		AjaxParams params = new AjaxParams();
 		params.put("op", "eCardInfo");
-		params.put("eCardID", item.getItemID() + "");
+		params.put("eCardID", item.getItemID());
 		params.put("imei", Arad.app.deviceInfo.getDeviceID());
 		params.put("userID", AppHolder.getInstance().user.getMemberID() + "");
 
@@ -95,7 +95,7 @@ public class EcardDetailDao {
 		AjaxParams params = new AjaxParams();
 		params.put("op", "collectCoupon");
 		params.put("opType", collect ? "1" : "0");
-		params.put("couponID", item.getItemID() + "");
+		params.put("couponID", item.getItemID());
 		params.put("userID", AppHolder.getInstance().user.getMemberID() + "");
 
 		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {

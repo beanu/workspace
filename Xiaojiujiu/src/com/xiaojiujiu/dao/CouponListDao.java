@@ -103,7 +103,7 @@ public class CouponListDao {
 						for (CouponItem last : _list) {
 							boolean _add = true;
 							for (CouponItem item : _temp) {
-								if (item.getItemID() == last.getItemID()) {
+								if (item.getItemID().equals(last.getItemID())) {
 									_add = false;
 									break;
 								}
@@ -146,7 +146,7 @@ public class CouponListDao {
 					// 如果有重复的去掉重复的，然后在加上最新的信息
 					for (CouponItem newest : _list) {
 						for (CouponItem older : mCouponList) {
-							if (newest.getItemID() == older.getItemID()) {
+							if (newest.getItemID().equals(older.getItemID())) {
 								mCouponList.remove(older);
 								break;
 							}

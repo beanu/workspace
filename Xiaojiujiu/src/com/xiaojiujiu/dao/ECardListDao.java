@@ -94,7 +94,7 @@ public class ECardListDao {
 						for (ECardItem last : _list) {
 							boolean _add = true;
 							for (ECardItem item : _temp) {
-								if (item.getItemID() == last.getItemID()) {
+								if (item.getItemID().equals(last.getItemID())) {
 									_add = false;
 									break;
 								}
@@ -108,7 +108,7 @@ public class ECardListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t,int errorNo , String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -137,7 +137,7 @@ public class ECardListDao {
 					// 如果有重复的去掉重复的，然后在加上最新的信息
 					for (ECardItem newest : _list) {
 						for (ECardItem older : mCouponList) {
-							if (newest.getItemID() == older.getItemID()) {
+							if (newest.getItemID().equals(older.getItemID())) {
 								mCouponList.remove(older);
 								break;
 							}
@@ -157,7 +157,7 @@ public class ECardListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t,int errorNo , String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure(null, t, strMsg);
 			}
 
@@ -280,7 +280,7 @@ public class ECardListDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, int errorNo ,String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure("", t, strMsg);
 			}
 

@@ -3,17 +3,19 @@ package com.xiaojiujiu;
 import java.util.HashMap;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnCloseListener;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnKeyListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -80,9 +82,11 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 			fragmentManager.addFragment(Fragments.coupons.name(), CouponsListFragment.class, null);
 			fragmentManager.addFragment(Fragments.ecard.name(), ECardFListragment.class, null);
 			fragmentManager.addFragment(Fragments.share.name(), ShareFragment_.class, null);
-			
-//			fragmentManager.addFragment(Fragments.mycard.name(), EntityCardFragment.class, null);
-//			fragmentManager.addFragment(Fragments.freshNews.name(), FreshNewsListFragment.class, null);
+
+			// fragmentManager.addFragment(Fragments.mycard.name(),
+			// EntityCardFragment.class, null);
+			// fragmentManager.addFragment(Fragments.freshNews.name(),
+			// FreshNewsListFragment.class, null);
 
 			// set the Left View
 			FragmentTransaction secondFragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -122,12 +126,18 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 			ecMenuItem.setIcon(R.drawable.menu_add);
 			ecMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
-		if (showSearch) {
 
-			menu.add(Menu.NONE, R.id.menu_search, Menu.NONE, "Search").setIcon(R.drawable.ic_search)
-					.setActionView(R.layout.collapsible_edittext)
-					.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-		}
+		MenuItem searchItem = menu.findItem(R.id.action_search);
+		searchItem.setVisible(showSearch);
+
+		// if (showSearch) {
+		// searchItem.setVisible(true);
+		// menu.add(Menu.NONE, R.id.menu_search, Menu.NONE,
+		// "Search").setIcon(R.drawable.ic_search)
+		// .setActionView(R.layout.collapsible_edittext)
+		// .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS |
+		// MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+		// }
 
 		return true;
 	}
@@ -143,32 +153,60 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 			startActivity(intent);
 			UIUtil.intentSlidIn(MainActivity.this);
 			break;
-		case R.id.menu_search:
-			final EditText editText = (EditText) item.getActionView();
-			editText.setOnKeyListener(new OnKeyListener() {
+		case R.id.action_search:
+			SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+			searchView.setIconifiedByDefault(true);
+	        searchView.setIconified(false);
+	        if (Build.VERSION.SDK_INT >= 14) {
+	            // when edittest is empty, don't show cancal button
+	            searchView.onActionViewExpanded();
+	        }
+	        searchView.setOnCloseListener(new OnCloseListener() {
+
+	            @Override
+	            public boolean onClose() {
+	                // to avoid click x button and the edittext hidden
+	                return true;
+	            }
+	        });
+	        
+			searchView.setOnQueryTextListener(new OnQueryTextListener() {
 
 				@Override
-				public boolean onKey(View v, int keyCode, KeyEvent event) {
-					if (keyCode == KeyEvent.KEYCODE_ENTER) {// 修改回车键功能
-						// 先隐藏键盘
-						((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-								MainActivity.this.getCurrentFocus().getWindowToken(),
-								InputMethodManager.HIDE_NOT_ALWAYS);
+				public boolean onQueryTextSubmit(String keyword) {
+					// 先隐藏键盘
+					((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+							MainActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
-						// 跳转到搜索结果界面
-						String keyword = editText.getText().toString();
-						if (!keyword.equals("")) {
-							Bundle b = new Bundle();
-							b.putString("keyword", keyword);
-							Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-							intent.putExtras(b);
-							startActivity(intent);
-						}
+					// 跳转到搜索结果界面
+					if (!keyword.equals("")) {
+						Bundle b = new Bundle();
+						b.putString("keyword", keyword);
+						Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+						intent.putExtras(b);
+						startActivity(intent);
 					}
-					return false;
 
+					return true;
+				}
+
+				@Override
+				public boolean onQueryTextChange(String arg0) {
+					// TODO Auto-generated method stub
+					return false;
 				}
 			});
+			break;
+		case R.id.menu_search:
+			// final EditText editText = (EditText) item.getActionView();
+			// editText.setOnKeyListener(new OnKeyListener() {
+			//
+			// @Override
+			// public boolean onKey(View v, int keyCode, KeyEvent event) {
+			// return false;
+			//
+			// }
+			// });
 			// item.setOnActionExpandListener(new OnActionExpandListener() {
 			//
 			// @Override
@@ -253,14 +291,14 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 			fragmentManager.changFragment(Fragments.share.name());
 			showMenu(false, true);
 			break;
-//		case mycard:
-//			fragmentManager.changFragment(Fragments.mycard.name());
-//			showMenu(true, false);
-//			break;
-//		case freshNews:
-//			fragmentManager.changFragment(Fragments.freshNews.name());
-//			showMenu(false, true);
-//			break;
+		// case mycard:
+		// fragmentManager.changFragment(Fragments.mycard.name());
+		// showMenu(true, false);
+		// break;
+		// case freshNews:
+		// fragmentManager.changFragment(Fragments.freshNews.name());
+		// showMenu(false, true);
+		// break;
 		}
 		sm.showContent();
 	}

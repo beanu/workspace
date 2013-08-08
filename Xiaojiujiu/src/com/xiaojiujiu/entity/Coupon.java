@@ -10,7 +10,7 @@ import net.tsz.afinal.annotation.sqlite.Id;
  */
 public class Coupon {
 
-	@Id private int couponID;// 唯一标示
+	@Id private String couponID;// 唯一标示
 	private String couponTitle;
 	private String couponDesc;
 	private String parentShopName;
@@ -37,11 +37,11 @@ public class Coupon {
 		this.couponDetailDescUrl = couponDetailDescUrl;
 	}
 
-	public int getCouponID() {
+	public String getCouponID() {
 		return couponID;
 	}
 
-	public void setCouponID(int couponID) {
+	public void setCouponID(String couponID) {
 		this.couponID = couponID;
 	}
 

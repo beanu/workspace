@@ -12,7 +12,7 @@ public class ECardItem implements Serializable{
 	 * 
 	 */
 	@Transient private static final long serialVersionUID = 1L;
-	@Id int itemID;
+	@Id String itemID;
 	String itemTitle;
 	String itemAddress;
 	String itemImageUrl;
@@ -21,11 +21,11 @@ public class ECardItem implements Serializable{
 	String eCardType;
 	String awardInfo;
 
-	public int getItemID() {
+	public String getItemID() {
 		return itemID;
 	}
 
-	public void setItemID(int itemID) {
+	public void setItemID(String itemID) {
 		this.itemID = itemID;
 	}
 

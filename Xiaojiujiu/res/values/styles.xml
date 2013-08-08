@@ -21,7 +21,7 @@
         
     </style>
 
-    <style name="Widget.Styled.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
+    <style name="Widget.Styled.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="background">@drawable/top_bg</item>
         <item name="android:background">@drawable/top_bg</item>
         <item name="homeAsUpIndicator">@drawable/head_up</item>

@@ -16,7 +16,7 @@ public class CouponItem implements Serializable {
 
 	@Transient private static final long serialVersionUID = 1L;
 
-	@Id private int itemID;// 唯一标示
+	@Id private String itemID;// 唯一标示
 	private String itemTitle;
 	private String itemDetail;
 	private List<String> couponTypeIconUrlList;
@@ -25,11 +25,11 @@ public class CouponItem implements Serializable {
 	private double distance;
 	private int itemType;
 
-	public int getItemID() {
+	public String getItemID() {
 		return itemID;
 	}
 
-	public void setItemID(int itemID) {
+	public void setItemID(String itemID) {
 		this.itemID = itemID;
 	}
 

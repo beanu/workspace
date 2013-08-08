@@ -20,6 +20,8 @@ import com.xiaojiujiu.entity.Category;
 /** 优惠券类型 */
 public class CouponTypeDialogFragment extends DialogFragment {
 
+	private static final String Tag = "couponTypeId";
+
 	public interface OnCouponTypeSelectedListener {
 		public void onSelected(String id);
 	}
@@ -29,7 +31,7 @@ public class CouponTypeDialogFragment extends DialogFragment {
 	public static CouponTypeDialogFragment newInstance(String message) {
 		CouponTypeDialogFragment f = new CouponTypeDialogFragment();
 		Bundle args = new Bundle();
-		args.putString("message", message);
+		args.putString(Tag, message);
 		f.setArguments(args);
 		return f;
 	}
@@ -98,8 +100,13 @@ public class CouponTypeDialogFragment extends DialogFragment {
 		b.setText(name);
 		b.setTextColor(getResources().getColor(R.color.black));
 		b.setTag(id);
-		b.setButtonDrawable(R.drawable.btn_radio_holo_light);
+		b.setButtonDrawable(android.R.color.transparent);
+		b.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.btn_radio_holo_light, 0);
+		b.setCompoundDrawablePadding(40);
 		b.setBackgroundResource(R.drawable.list_selector_holo_light);
+
+		if (id.equals(getArguments().getString(Tag)))
+			b.setChecked(true);
 
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		params.gravity = Gravity.CENTER;

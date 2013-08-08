@@ -42,7 +42,7 @@ public class CouponsShopApplyActivity extends MyActivity {
 			}
 		});
 
-		String id = String.valueOf(getIntent().getIntExtra("couponId", 0));
+		String id = getIntent().getStringExtra("couponId");
 		dao = new CouponShopListDao(id);
 		dao.getListInfo(new IDataListener<String>() {
 

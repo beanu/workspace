@@ -87,13 +87,20 @@ public class MapActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri
-						.parse("http://ditu.google.cn/maps?hl=zh&mrt=loc&q=" + String.valueOf(lat) + ","
-								+ String.valueOf(lng) + "(" + name + ")"));
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK & Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 
-				intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-				startActivity(intent);
+				try {
+
+					Uri mUri = Uri.parse("geo:" + String.valueOf(lat) + "," + String.valueOf(lng) + "?q=" + name);
+					Intent mIntent = new Intent(Intent.ACTION_VIEW, mUri);
+					mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK & Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+					startActivity(mIntent);
+				} catch (Exception e) {
+					Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri
+							.parse("http://ditu.google.cn/maps?hl=zh&mrt=loc&q=" + String.valueOf(lat) + ","
+									+ String.valueOf(lng) + "(" + name + ")"));
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK & Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+					startActivity(intent);
+				}
 
 			}
 		});

@@ -57,8 +57,8 @@ public class CouponsListWithShopActivity extends MyActivity {
 
 	@AfterViews
 	void init() {
-		int shopId = getIntent().getIntExtra("id", 0);
-		dao = new CouponListWithShopDao(String.valueOf(shopId));
+		String shopId = getIntent().getStringExtra("id");
+		dao = new CouponListWithShopDao(shopId);
 
 		adapter = new CouponListAdapter(this, dao.getCouponList(), CouponListAdapter.CouponListWithShop);
 		listview.setAdapter(adapter);

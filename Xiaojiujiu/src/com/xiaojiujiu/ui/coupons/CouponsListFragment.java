@@ -65,6 +65,8 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 	private SelectorAreaWindow selectorAreaWindow;
 	private SelectorSortWindow selectorSortWindow;
 
+	private String couponTypeId = "";
+
 	// private Map<String, String> param;
 	CouponListDao dao;
 
@@ -316,7 +318,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 
 	public void onCouponTypeSelected(String id) {
 		showListView(false);
-
+		couponTypeId = id;
 		if (id != null && id.equals(""))
 			coupons_floating_btn.setBackgroundResource(R.drawable.floating_button);
 		else if (id != null && !id.equals("")) {
@@ -355,7 +357,7 @@ public class CouponsListFragment extends PullToRefreshListFragment implements On
 		}
 		ft.addToBackStack(null);
 		ft.commit();
-		CouponTypeDialogFragment dialog = CouponTypeDialogFragment.newInstance("");
+		CouponTypeDialogFragment dialog = CouponTypeDialogFragment.newInstance(couponTypeId);
 		dialog.show(fm, "dialog");
 	}
 }
