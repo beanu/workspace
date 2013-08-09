@@ -12,6 +12,7 @@
     <string name="user_login_registnow">立即注册></string>
     <string name="user_login_regist">注册</string>
     <string name="user_login_alreadyhave">已经有帐号了？</string>
+    <string name="menu_share">分享</string>
 
     <!-- ERROR -->
     <string name="network_error">网络异常</string>

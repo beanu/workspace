@@ -88,13 +88,13 @@ public class CouponListAdapter extends BaseAdapter {
 			for (int i = 0; i < size; i++) {
 				String url = topic.getCouponTypeIconUrlList().get(i);
 				if (i == 0)
-					Arad.imageLoader.display(url, holder.tag1, R.drawable.transparent);
+					Arad.imageLoader.display(url, holder.tag1);
 				if (i == 1)
-					Arad.imageLoader.display(url, holder.tag2, R.drawable.transparent);
+					Arad.imageLoader.display(url, holder.tag2);
 				if (i == 2)
-					Arad.imageLoader.display(url, holder.tag3, R.drawable.transparent);
+					Arad.imageLoader.display(url, holder.tag3);
 				if (i == 3)
-					Arad.imageLoader.display(url, holder.tag4, R.drawable.transparent);
+					Arad.imageLoader.display(url, holder.tag4);
 
 			}
 		}

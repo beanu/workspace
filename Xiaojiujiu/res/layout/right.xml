@@ -49,6 +49,7 @@
         android:src="@drawable/right_menu_hline" />
 
     <TextView
+        android:id="@+id/user_myecard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|left"
@@ -64,7 +65,7 @@
         android:layout_marginRight="@dimen/pitch16"
         android:scaleType="fitXY"
         android:src="@drawable/right_menu_hline" />
-
+    <!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,6 +82,7 @@
         android:layout_marginRight="@dimen/pitch16"
         android:scaleType="fitXY"
         android:src="@drawable/right_menu_hline" />
+    -->
 
     <TextView
         android:id="@+id/user_collect"
@@ -89,7 +91,7 @@
         android:gravity="center_vertical|left"
         android:minHeight="@dimen/height"
         android:paddingLeft="@dimen/pitch12"
-        android:text="我的收藏"
+        android:text="我的优惠券"
         android:textSize="@dimen/textsize16" />
 
     <ImageView

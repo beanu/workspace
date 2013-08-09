@@ -65,13 +65,20 @@ public class RightMenuFragment extends BaseFragment {
 		UIUtil.intentSlidIn(getActivity());
 	}
 
-	@Click({ R.id.user_collect })
+	@Click({ R.id.user_collect, R.id.user_myecard })
 	void OnClick(View v) {
 		switch (v.getId()) {
 		case R.id.user_collect:
 			Intent setting_intent = new Intent(getActivity(), MyCollectActivity_.class);
 			startActivity(setting_intent);
 			UIUtil.intentSlidIn(getActivity());
+			break;
+		case R.id.user_myecard:
+
+			Intent ecard_intent = new Intent(getActivity(), MyEcardActivity_.class);
+			startActivity(ecard_intent);
+			UIUtil.intentSlidIn(getActivity());
+
 			break;
 		}
 	}

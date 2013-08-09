@@ -158,7 +158,7 @@ public class CouponsDetailActivity extends MyActivity {
 		switch (id) {
 		case R.id.menu_collect:
 			if (AppHolder.getInstance().user.getMemberName() == null) {
-				MessageUtil.showShortToast(getApplicationContext(), "请登录后在收藏");
+				MessageUtil.showShortToast(getApplicationContext(), "请先登录");
 			} else {
 				if (dao.getCoupon().getIsFavorite() == 0)
 					dao.collect(true, new IDataListener<String>() {
@@ -194,6 +194,7 @@ public class CouponsDetailActivity extends MyActivity {
 
 			break;
 		case R.id.menu_share:
+			AndroidUtil.shareText(this, dao.getCoupon().getCouponTitle(), dao.getCoupon().getCouponDesc()+" #小九九");
 			break;
 
 		}

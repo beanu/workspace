@@ -33,7 +33,13 @@ public class EcardDetailDao {
 	}
 
 	public ECard getEcard() {
+		if (ecard == null)
+			return new ECard();
 		return ecard;
+	}
+
+	public void setEcard(ECard ecard) {
+		this.ecard = ecard;
 	}
 
 	public void getDetailInfo(final IDataListener<String> listener) {
@@ -65,7 +71,7 @@ public class EcardDetailDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t, int errorNo ,String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure("", t, strMsg);
 			}
 
@@ -93,12 +99,12 @@ public class EcardDetailDao {
 
 		// TODO 这里还没有写到这个接口
 		AjaxParams params = new AjaxParams();
-		params.put("op", "collectCoupon");
+		params.put("op", "collectECard");
 		params.put("opType", collect ? "1" : "0");
-		params.put("couponID", item.getItemID() + "");
+		params.put("eCardID", item.getItemID() + "");
 		params.put("userID", AppHolder.getInstance().user.getMemberID() + "");
 
-		Arad.http.get(Constant.URL_COUPON, params, new AjaxCallBack<String>() {
+		Arad.http.get(Constant.URL_ECARD, params, new AjaxCallBack<String>() {
 
 			@Override
 			public void onSuccess(String t) {
@@ -114,7 +120,7 @@ public class EcardDetailDao {
 			}
 
 			@Override
-			public void onFailure(Throwable t,int errorNo , String strMsg) {
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				listener.onFailure("", t, strMsg);
 				MessageUtil.showShortToast(Arad.app.getApplicationContext(),
 						Arad.app.getResources().getString(R.string.network_error));

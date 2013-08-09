@@ -6,7 +6,6 @@ import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.base.MyListActivity;
 import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.dao.SearchDao;
-import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
 
 public class SearchActivity extends MyListActivity implements IDataListener<String> {

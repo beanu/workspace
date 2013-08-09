@@ -39,6 +39,11 @@ public class ECardListAdapter extends BaseAdapter {
 		this.list = data;
 	}
 
+	public void setData(List<ECardItem> data) {
+		if (data != null)
+			this.list = data;
+	}
+
 	@Override
 	public int getCount() {
 		if (list == null)
