@@ -18,35 +18,34 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.xiaojiujiu.base.MyListActivity;
-import com.xiaojiujiu.dao.CouponDetailDao;
+import com.xiaojiujiu.dao.EcardDetailDao;
 import com.xiaojiujiu.dao.IDataListener;
-import com.xiaojiujiu.entity.Coupon;
-import com.xiaojiujiu.entity.CouponItem;
+import com.xiaojiujiu.entity.ECard;
+import com.xiaojiujiu.entity.ECardItem;
 import com.xiaojiujiu.ui.UIUtil;
-import com.xiaojiujiu.ui.adapter.CouponListAdapter;
-import com.xiaojiujiu.ui.coupons.CouponsDetailActivity_;
+import com.xiaojiujiu.ui.adapter.ECardListAdapter;
+import com.xiaojiujiu.ui.ecard.ECardDetailActivity_;
 
 /**
- * 我的收藏
+ * 我的会员卡列表
  * 
  * @author beanu
  * 
  */
 
 @EActivity
-public class MyCollectActivity extends MyListActivity {
+public class MyEcardActivity extends MyListActivity {
 
-	CouponListAdapter adapter;
-	List<CouponItem> data = new ArrayList<CouponItem>();
+	ECardListAdapter adapter;
+	List<ECardItem> data = new ArrayList<ECardItem>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle("我的优惠券");
+		getSupportActionBar().setTitle("我的会员卡");
 		getSupportActionBar().setDisplayShowTitleEnabled(true);
-
 		enableSlideGestureDetector(true);
 		setSlidingEventListener(new SlidingEventListener() {
 			@Override
@@ -57,7 +56,7 @@ public class MyCollectActivity extends MyListActivity {
 			@Override
 			public void rightSlidingEvent() {
 				finish();
-				UIUtil.intentSlidOut(MyCollectActivity.this);
+				UIUtil.intentSlidOut(MyEcardActivity.this);
 			}
 		});
 
@@ -66,7 +65,7 @@ public class MyCollectActivity extends MyListActivity {
 
 	void init() {
 		// data = Arad.db.findAll(CouponItem.class);
-		adapter = new CouponListAdapter(getApplicationContext(), data, CouponListAdapter.CouponList);
+		adapter = new ECardListAdapter(getApplicationContext(), data);
 		setListAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 
@@ -79,7 +78,7 @@ public class MyCollectActivity extends MyListActivity {
 
 	@Background
 	void readAllDataFromDB() {
-		data = Arad.db.findAll(CouponItem.class);
+		data = Arad.db.findAll(ECardItem.class);
 		updateUI();
 	}
 
@@ -92,7 +91,7 @@ public class MyCollectActivity extends MyListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// 进入详情页
-		Intent intent = new Intent(MyCollectActivity.this, CouponsDetailActivity_.class);
+		Intent intent = new Intent(MyEcardActivity.this, ECardDetailActivity_.class);
 		Bundle b = new Bundle();
 		b.putSerializable("item", data.get(position));
 		intent.putExtras(b);
@@ -106,12 +105,12 @@ public class MyCollectActivity extends MyListActivity {
 		if (item.getItemId() == Menu.FIRST) {
 			AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 			final int position = menuInfo.position;
-			CouponDetailDao dao = new CouponDetailDao(data.get(position));
-			Coupon coupon = Arad.db.findById(Coupon.class, data.get(position).getItemID());
-			if (coupon != null) {
+			EcardDetailDao dao = new EcardDetailDao(data.get(position));
+			ECard ecard = Arad.db.findById(ECard.class, data.get(position).getItemID());
+			if (ecard != null) {
 				data.remove(position);
 				adapter.notifyDataSetChanged();
-				dao.setCoupon(coupon);
+				dao.setEcard(ecard);
 				dao.collect(false, new IDataListener<String>() {
 
 					@Override

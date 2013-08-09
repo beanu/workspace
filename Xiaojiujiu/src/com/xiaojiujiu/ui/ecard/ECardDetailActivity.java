@@ -10,10 +10,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.beanu.arad.Arad;
+import com.beanu.arad.utils.AndroidUtil;
 import com.beanu.arad.utils.Log;
+import com.beanu.arad.utils.MessageUtil;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.dao.EcardDetailDao;
@@ -101,10 +104,10 @@ public class ECardDetailActivity extends MyActivity implements IDataListener<Str
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		MenuItem collectMenuItem = menu.add(Menu.NONE, R.id.menu_collect, Menu.NONE, "收藏");
-//		if (dao.getEcard().getIsFavorite() == 0)
-//			collectMenuItem.setIcon(R.drawable.menu_unfav);
-//		else
-//			collectMenuItem.setIcon(R.drawable.menu_fav);
+		if (dao.getEcard().getIsFavorite() == 0)
+			collectMenuItem.setIcon(R.drawable.menu_unfav);
+		else
+			collectMenuItem.setIcon(R.drawable.menu_fav);
 		collectMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		MenuItem shareMenuItem = menu.add(Menu.NONE, R.id.menu_share, Menu.NONE, "分享");
@@ -113,6 +116,57 @@ public class ECardDetailActivity extends MyActivity implements IDataListener<Str
 
 		return true;
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.menu_collect:
+			if (AppHolder.getInstance().user.getMemberName() == null) {
+				MessageUtil.showShortToast(getApplicationContext(), "请先登录");
+			} else {
+				if (dao.getEcard().getIsFavorite() == 0)
+					dao.collect(true, new IDataListener<String>() {
+
+						@Override
+						public void onSuccess(String result) {
+							item.setIcon(R.drawable.menu_fav);
+							MessageUtil.showShortToast(getApplicationContext(), "收藏成功");
+						}
+
+						@Override
+						public void onFailure(String result, Throwable t, String strMsg) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+				else
+					dao.collect(false, new IDataListener<String>() {
+
+						@Override
+						public void onSuccess(String result) {
+							item.setIcon(R.drawable.menu_unfav);
+							MessageUtil.showShortToast(getApplicationContext(), "取消收藏");
+						}
+
+						@Override
+						public void onFailure(String result, Throwable t, String strMsg) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+			}
+
+			break;
+		case R.id.menu_share:
+			AndroidUtil.shareText(this, dao.getEcard().getItemTitle(), dao.getEcard().geteCardDesc() + " #小九九");
+			break;
+
+		}
+		super.onOptionsItemSelected(item);
+		return false;
+	}
+
 	private void refreshUI() {
 		ECard ecard = dao.getEcard();
 		Arad.imageLoader.display(ecard.getItemImageUrl(), ecard_detail_big_image);
