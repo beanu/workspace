@@ -97,6 +97,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".ui.user.MyEcardActivity_"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".ui.entitycard.AddEntityCardActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >

@@ -1,10 +1,9 @@
 package com.xiaojiujiu.dao;
 
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import com.beanu.arad.Arad;
 import com.beanu.arad.error.AradException;
+import com.beanu.arad.http.AjaxCallBack;
+import com.beanu.arad.http.AjaxParams;
 import com.beanu.arad.utils.MessageUtil;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.base.Constant;

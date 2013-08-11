@@ -3,11 +3,10 @@ package com.xiaojiujiu.dao;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import com.beanu.arad.Arad;
 import com.beanu.arad.error.AradException;
+import com.beanu.arad.http.AjaxCallBack;
+import com.beanu.arad.http.AjaxParams;
 import com.beanu.arad.utils.JsonUtil;
 import com.beanu.arad.utils.MessageUtil;
 import com.fasterxml.jackson.core.JsonParseException;

@@ -194,7 +194,7 @@ public class CouponsDetailActivity extends MyActivity {
 
 			break;
 		case R.id.menu_share:
-			AndroidUtil.shareText(this, dao.getCoupon().getCouponTitle(), dao.getCoupon().getCouponDesc()+" #小九九");
+//			AndroidUtil.shareText(this, dao.getCoupon().getCouponTitle(), dao.getCoupon().getCouponDesc()+" #小九九");
 			break;
 
 		}

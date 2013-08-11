@@ -64,6 +64,7 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setIcon(R.drawable.head_nine);
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -156,20 +157,20 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 		case R.id.action_search:
 			SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
 			searchView.setIconifiedByDefault(true);
-	        searchView.setIconified(false);
-	        if (Build.VERSION.SDK_INT >= 14) {
-	            // when edittest is empty, don't show cancal button
-	            searchView.onActionViewExpanded();
-	        }
-	        searchView.setOnCloseListener(new OnCloseListener() {
+			searchView.setIconified(false);
+			if (Build.VERSION.SDK_INT >= 14) {
+				// when edittest is empty, don't show cancal button
+				searchView.onActionViewExpanded();
+			}
+			searchView.setOnCloseListener(new OnCloseListener() {
 
-	            @Override
-	            public boolean onClose() {
-	                // to avoid click x button and the edittext hidden
-	                return true;
-	            }
-	        });
-	        
+				@Override
+				public boolean onClose() {
+					// to avoid click x button and the edittext hidden
+					return true;
+				}
+			});
+
 			searchView.setOnQueryTextListener(new OnQueryTextListener() {
 
 				@Override

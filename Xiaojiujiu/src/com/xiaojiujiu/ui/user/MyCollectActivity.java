@@ -1,30 +1,20 @@
 package com.xiaojiujiu.ui.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.Tab;
 
-import com.beanu.arad.Arad;
-import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.UiThread;
-import com.xiaojiujiu.base.MyListActivity;
-import com.xiaojiujiu.dao.CouponDetailDao;
-import com.xiaojiujiu.dao.IDataListener;
-import com.xiaojiujiu.entity.Coupon;
-import com.xiaojiujiu.entity.CouponItem;
+import com.googlecode.androidannotations.annotations.ViewById;
+import com.xiaojiujiu.R;
+import com.xiaojiujiu.base.MyActivity;
 import com.xiaojiujiu.ui.UIUtil;
-import com.xiaojiujiu.ui.adapter.CouponListAdapter;
-import com.xiaojiujiu.ui.coupons.CouponsDetailActivity_;
 
 /**
  * 我的收藏
@@ -33,19 +23,20 @@ import com.xiaojiujiu.ui.coupons.CouponsDetailActivity_;
  * 
  */
 
-@EActivity
-public class MyCollectActivity extends MyListActivity {
+@EActivity(R.layout.my_collect_activity)
+public class MyCollectActivity extends MyActivity implements ActionBar.TabListener {
 
-	CouponListAdapter adapter;
-	List<CouponItem> data = new ArrayList<CouponItem>();
+	@ViewById(R.id.my_collect_viewpager) ViewPager viewpager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle("我的优惠券");
 		getSupportActionBar().setDisplayShowTitleEnabled(true);
+		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		enableSlideGestureDetector(true);
 		setSlidingEventListener(new SlidingEventListener() {
@@ -61,73 +52,78 @@ public class MyCollectActivity extends MyListActivity {
 			}
 		});
 
-		init();
 	}
 
+	@AfterViews
 	void init() {
-		// data = Arad.db.findAll(CouponItem.class);
-		adapter = new CouponListAdapter(getApplicationContext(), data, CouponListAdapter.CouponList);
-		setListAdapter(adapter);
-		getListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-
-			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-				menu.add(Menu.NONE, Menu.FIRST, 0, "删除");
+		CollectAdapter adapter = new CollectAdapter(getSupportFragmentManager());
+		viewpager.setAdapter(adapter);
+		viewpager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				super.onPageSelected(position);
+				final ActionBar actionBar = getSupportActionBar();
+				actionBar.setSelectedNavigationItem(position);
 			}
 		});
-		readAllDataFromDB();
-	}
-
-	@Background
-	void readAllDataFromDB() {
-		data = Arad.db.findAll(CouponItem.class);
-		updateUI();
-	}
-
-	@UiThread
-	void updateUI() {
-		adapter.setData(data);
-		adapter.notifyDataSetChanged();
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// 进入详情页
-		Intent intent = new Intent(MyCollectActivity.this, CouponsDetailActivity_.class);
-		Bundle b = new Bundle();
-		b.putSerializable("item", data.get(position));
-		intent.putExtras(b);
-		startActivity(intent);
-		UIUtil.intentSlidIn(this);
-	}
-
-	@Override
-	public boolean onContextItemSelected(android.view.MenuItem item) {
-
-		if (item.getItemId() == Menu.FIRST) {
-			AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-			final int position = menuInfo.position;
-			CouponDetailDao dao = new CouponDetailDao(data.get(position));
-			Coupon coupon = Arad.db.findById(Coupon.class, data.get(position).getItemID());
-			if (coupon != null) {
-				data.remove(position);
-				adapter.notifyDataSetChanged();
-				dao.setCoupon(coupon);
-				dao.collect(false, new IDataListener<String>() {
-
-					@Override
-					public void onSuccess(String result) {
-					}
-
-					@Override
-					public void onFailure(String result, Throwable t, String strMsg) {
-
-					}
-				});
-			}
-
+		for (int i = 0; i < adapter.getCount(); i++) {
+			getSupportActionBar().addTab(
+					getSupportActionBar().newTab().setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
 
-		return false;
-	};
+	}
 
+	private class CollectAdapter extends FragmentPagerAdapter {
+
+		public CollectAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			if (position == 0) {
+				return new MyCollectCoupons_();
+			} else if (position == 1) {
+				return new MyCollectEcards_();
+			}
+			return null;
+		}
+
+		@Override
+		public int getCount() {
+			return 2;
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			String tabLabel = null;
+			switch (position) {
+			case 0:
+				tabLabel = "优惠券";
+				break;
+			case 1:
+				tabLabel = "会员卡";
+				break;
+			}
+			return tabLabel;
+		}
+
+	}
+
+	@Override
+	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
+		viewpager.setCurrentItem(tab.getPosition());
+	}
+
+	@Override
+	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+
+	}
 }

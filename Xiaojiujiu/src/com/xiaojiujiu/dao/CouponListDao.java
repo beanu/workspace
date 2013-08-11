@@ -6,11 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import com.beanu.arad.Arad;
 import com.beanu.arad.error.AradException;
+import com.beanu.arad.http.AjaxCallBack;
+import com.beanu.arad.http.AjaxParams;
 import com.beanu.arad.utils.JsonUtil;
 import com.beanu.arad.utils.MessageUtil;
 import com.beanu.arad.utils.StringUtil;
@@ -92,6 +91,7 @@ public class CouponListDao {
 
 				} catch (AradException e) {
 					isNext = false;
+					listener.onFailure("", null, "");
 					MessageUtil.showShortToast(Arad.app.getApplicationContext(), e.getMessage());
 				} catch (JsonProcessingException e) {
 					e.printStackTrace();
@@ -111,8 +111,9 @@ public class CouponListDao {
 							if (_add)
 								mCouponList.add(last);
 						}
+
+						listener.onSuccess(t);
 					}
-					listener.onSuccess(t);
 				}
 			}
 

@@ -11,15 +11,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import com.beanu.arad.base.BaseFragment;
+import com.beanu.arad.pulltorefresh.DropDownListView;
+import com.beanu.arad.pulltorefresh.DropDownListView.OnDropDownListener;
 import com.beanu.arad.utils.Log;
-import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase;
-import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
-import com.beanu.arad.widget.pulltorefresh.PullToRefreshBase.OnRefreshListener;
-import com.beanu.arad.widget.pulltorefresh.PullToRefreshListFragment;
-import com.beanu.arad.widget.pulltorefresh.PullToRefreshListView;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.dao.ECardListDao;
 import com.xiaojiujiu.dao.IDataListener;
@@ -36,8 +32,7 @@ import com.xiaojiujiu.ui.common.SelectorSortWindow;
  * @author beanu
  * 
  */
-public class ECardFListragment extends PullToRefreshListFragment implements OnRefreshListener<ListView>,
-		OnLastItemVisibleListener, OnClickListener {
+public class ECardFListragment extends BaseFragment implements OnClickListener {
 
 	public static ECardFListragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
@@ -48,6 +43,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		return fragment;
 	}
 
+	private DropDownListView listView;
 	private ECardListAdapter mAdapter;
 	// private List<ECard> mECardList = new ArrayList<ECard>();
 
@@ -82,15 +78,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		layout.setForeground(getResources().getDrawable(R.drawable.popup_window_dim));
 		layout.getForeground().setAlpha(0);
 
-		empty = (TextView) view.findViewById(R.id.empty);
-		progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
-		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.listView);
-
-		footerView = inflater.inflate(R.layout.pull_to_refresh_listview_footer_layout, null);
-		getListView().addFooterView(footerView);
-		getListView().setHeaderDividersEnabled(false);
-		getListView().setBackgroundColor(getResources().getColor(R.color.white));
-		dismissFooterView();
+		listView = (DropDownListView) view.findViewById(R.id.ecard_listview);
 
 		// 刷选
 		btn_shoptype = (Button) view.findViewById(R.id.selector_shoptype);
@@ -107,8 +95,8 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mAdapter = new ECardListAdapter(getActivity(), dao.getECardList());
-		getListView().setAdapter(mAdapter);
-		getListView().setOnItemClickListener(new OnItemClickListener() {
+		listView.setAdapter(mAdapter);
+		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
@@ -121,63 +109,73 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 			}
 		});
 
-		pullToRefreshListView.setOnRefreshListener(this);
-		pullToRefreshListView.setOnLastItemVisibleListener(this);
+		listView.setOnDropDownListener(new OnDropDownListener() {
+
+			@Override
+			public void onDropDown() {
+				Log.d("onRefresh");
+
+				dao.pulltorefresh(new IDataListener<String>() {
+
+					@Override
+					public void onSuccess(String result) {
+						mAdapter.notifyDataSetChanged();
+						listView.onDropDownComplete();
+						// pullToRefreshListView.onRefreshComplete();
+						// showListView(true);
+					}
+
+					@Override
+					public void onFailure(String result, Throwable t, String strMsg) {
+						// pullToRefreshListView.onRefreshComplete();
+						// showListView(true);
+						listView.onDropDownComplete();
+					}
+				});
+
+			}
+		});
+
+		listView.setOnBottomListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// showFooterView();
+				dao.nextPage(new IDataListener<String>() {
+
+					@Override
+					public void onSuccess(String result) {
+						mAdapter.notifyDataSetChanged();
+						// dismissFooterView();
+						// pullToRefreshListView.onRefreshComplete();
+						// showListView(true);
+						listView.onBottomComplete();
+						listView.setHasMore(true);
+					}
+
+					@Override
+					public void onFailure(String result, Throwable t, String strMsg) {
+						// TODO error
+						// dismissFooterView();
+						// pullToRefreshListView.onRefreshComplete();
+						// showListView(true);
+
+						listView.setHasMore(false);
+						listView.onBottomComplete();
+					}
+				});
+
+			}
+		});
+		listView.onDropDown();
+		// pullToRefreshListView.setOnRefreshListener(this);
+		// pullToRefreshListView.setOnLastItemVisibleListener(this);
 		if (getCurrentState(savedInstanceState) == FIRST_TIME_START) {
-			pullToRefreshListView.setRefreshing(false);
-			showListView(false);
+			// pullToRefreshListView.setRefreshing(false);
+			// showListView(false);
 		} else {
-			showListView(true);
+			// showListView(true);
 		}
-	}
-
-	@Override
-	public void onLastItemVisible() {
-
-		showFooterView();
-		dao.nextPage(new IDataListener<String>() {
-
-			@Override
-			public void onSuccess(String result) {
-				mAdapter.notifyDataSetChanged();
-				dismissFooterView();
-				pullToRefreshListView.onRefreshComplete();
-				showListView(true);
-			}
-
-			@Override
-			public void onFailure(String result, Throwable t, String strMsg) {
-				// TODO error
-				dismissFooterView();
-				pullToRefreshListView.onRefreshComplete();
-				showListView(true);
-
-			}
-		});
-
-	
-	}
-
-	@Override
-	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-
-		Log.d("onRefresh");
-
-		dao.pulltorefresh(new IDataListener<String>() {
-
-			@Override
-			public void onSuccess(String result) {
-				mAdapter.notifyDataSetChanged();
-				pullToRefreshListView.onRefreshComplete();
-				showListView(true);
-			}
-
-			@Override
-			public void onFailure(String result, Throwable t, String strMsg) {
-				pullToRefreshListView.onRefreshComplete();
-				showListView(true);
-			}
-		});
 	}
 
 	IDataListener<String> listener = new IDataListener<String>() {
@@ -185,17 +183,19 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 		@Override
 		public void onSuccess(String result) {
 			mAdapter.notifyDataSetChanged();
-			pullToRefreshListView.onRefreshComplete();
-			getListView().setSelection(0);
-			showListView(true);
+			listView.onDropDownComplete();
+			// pullToRefreshListView.onRefreshComplete();
+			listView.setSelection(0);
+			// showListView(true);
 		}
 
 		@Override
 		public void onFailure(String result, Throwable t, String strMsg) {
 			dao.getECardList().clear();
 			mAdapter.notifyDataSetChanged();
-			pullToRefreshListView.onRefreshComplete();
-			showListView(true);
+			listView.onDropDownComplete();
+			// pullToRefreshListView.onRefreshComplete();
+			// showListView(true);
 		}
 	};
 
@@ -206,7 +206,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_shoptype.setText(selectedName);
-				showListView(false);
+				// showListView(false);
 				dao.onClickShop(parentId, selectedId, listener);
 			}
 
@@ -221,7 +221,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_area.setText(selectedName);
-				showListView(false);
+				// showListView(false);
 				dao.onClickArea(parentId, selectedId, listener);
 			}
 
@@ -236,7 +236,7 @@ public class ECardFListragment extends PullToRefreshListFragment implements OnRe
 			@Override
 			public void onSelected(String parentId, String selectedId, String selectedName) {
 				btn_sort.setText(selectedName);
-				showListView(false);
+				// showListView(false);
 				dao.onClickSort(parentId, listener);
 			}
 

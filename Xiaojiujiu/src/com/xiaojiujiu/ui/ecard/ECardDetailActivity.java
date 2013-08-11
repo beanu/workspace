@@ -159,7 +159,7 @@ public class ECardDetailActivity extends MyActivity implements IDataListener<Str
 
 			break;
 		case R.id.menu_share:
-			AndroidUtil.shareText(this, dao.getEcard().getItemTitle(), dao.getEcard().geteCardDesc() + " #小九九");
+//			AndroidUtil.shareText(this, dao.getEcard().getItemTitle(), dao.getEcard().geteCardDesc() + " #小九九");
 			break;
 
 		}

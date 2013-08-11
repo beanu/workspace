@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listViewAttr="http://schemas.android.com/apk/res/com.xiaojiujiu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <include layout="@layout/selector_header" />
 
-    <include
+    <FrameLayout
         android:id="@+id/ecard_layout"
-        layout="@layout/pull_to_refresh_listview_layout" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.beanu.arad.pulltorefresh.DropDownListView
+            android:id="@+id/ecard_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            listViewAttr:isAutoLoadOnBottom="true"
+            listViewAttr:isDropDownStyle="true"
+            listViewAttr:isOnBottomStyle="true" />
+    </FrameLayout>
 
 </LinearLayout>

@@ -1,7 +1,5 @@
 package com.xiaojiujiu;
 
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +11,8 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.beanu.arad.Arad;
+import com.beanu.arad.http.AjaxCallBack;
+import com.beanu.arad.http.AjaxParams;
 import com.beanu.arad.utils.Log;
 import com.beanu.arad.utils.MessageUtil;
 import com.xiaojiujiu.base.Constant;
