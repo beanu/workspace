@@ -36,7 +36,7 @@ public class MyCollectEcards extends BaseListFragment {
 	@AfterViews
 	void init() {
 		// data = Arad.db.findAll(CouponItem.class);
-		adapter = new ECardListAdapter(getActivity(), data);
+		adapter = new ECardListAdapter(getActivity(), data,null);
 		setListAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 

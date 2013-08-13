@@ -13,14 +13,17 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.beanu.arad.base.BaseFragment;
-import com.beanu.arad.pulltorefresh.DropDownListView;
-import com.beanu.arad.pulltorefresh.DropDownListView.OnDropDownListener;
+import com.beanu.arad.pulltorefresh.PullToRefreshBase;
+import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
+import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnRefreshListener;
+import com.beanu.arad.pulltorefresh.PullToRefreshListView;
 import com.beanu.arad.utils.Log;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.dao.ECardListDao;
 import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.ECardListAdapter;
+import com.xiaojiujiu.ui.adapter.IAdapter;
 import com.xiaojiujiu.ui.common.SelectorAreaWindow;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
@@ -32,7 +35,7 @@ import com.xiaojiujiu.ui.common.SelectorSortWindow;
  * @author beanu
  * 
  */
-public class ECardFListragment extends BaseFragment implements OnClickListener {
+public class ECardFListragment extends BaseFragment implements OnClickListener, IAdapter {
 
 	public static ECardFListragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
@@ -43,7 +46,7 @@ public class ECardFListragment extends BaseFragment implements OnClickListener {
 		return fragment;
 	}
 
-	private DropDownListView listView;
+	private PullToRefreshListView listView;
 	private ECardListAdapter mAdapter;
 	// private List<ECard> mECardList = new ArrayList<ECard>();
 
@@ -78,7 +81,7 @@ public class ECardFListragment extends BaseFragment implements OnClickListener {
 		layout.setForeground(getResources().getDrawable(R.drawable.popup_window_dim));
 		layout.getForeground().setAlpha(0);
 
-		listView = (DropDownListView) view.findViewById(R.id.ecard_listview);
+		listView = (PullToRefreshListView) view.findViewById(R.id.ecard_listview);
 
 		// 刷选
 		btn_shoptype = (Button) view.findViewById(R.id.selector_shoptype);
@@ -94,7 +97,7 @@ public class ECardFListragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mAdapter = new ECardListAdapter(getActivity(), dao.getECardList());
+		mAdapter = new ECardListAdapter(getActivity(), dao.getECardList(), this);
 		listView.setAdapter(mAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -109,10 +112,11 @@ public class ECardFListragment extends BaseFragment implements OnClickListener {
 			}
 		});
 
-		listView.setOnDropDownListener(new OnDropDownListener() {
+		listView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
-			public void onDropDown() {
+			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+
 				Log.d("onRefresh");
 
 				dao.pulltorefresh(new IDataListener<String>() {
@@ -120,54 +124,43 @@ public class ECardFListragment extends BaseFragment implements OnClickListener {
 					@Override
 					public void onSuccess(String result) {
 						mAdapter.notifyDataSetChanged();
-						listView.onDropDownComplete();
-						// pullToRefreshListView.onRefreshComplete();
+						listView.onRefreshComplete();
 						// showListView(true);
 					}
 
 					@Override
 					public void onFailure(String result, Throwable t, String strMsg) {
-						// pullToRefreshListView.onRefreshComplete();
+						listView.onRefreshComplete();
 						// showListView(true);
-						listView.onDropDownComplete();
 					}
 				});
 
 			}
 		});
 
-		listView.setOnBottomListener(new OnClickListener() {
+		listView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onLastItemVisible() {
+				Log.d("onLastItemVisible");
 				// showFooterView();
 				dao.nextPage(new IDataListener<String>() {
 
 					@Override
 					public void onSuccess(String result) {
 						mAdapter.notifyDataSetChanged();
-						// dismissFooterView();
-						// pullToRefreshListView.onRefreshComplete();
-						// showListView(true);
-						listView.onBottomComplete();
-						listView.setHasMore(true);
 					}
 
 					@Override
 					public void onFailure(String result, Throwable t, String strMsg) {
-						// TODO error
-						// dismissFooterView();
-						// pullToRefreshListView.onRefreshComplete();
-						// showListView(true);
-
-						listView.setHasMore(false);
-						listView.onBottomComplete();
+						mAdapter.notifyDataSetChanged();
 					}
 				});
 
 			}
 		});
-		listView.onDropDown();
+
+		listView.setRefreshing(false);
 		// pullToRefreshListView.setOnRefreshListener(this);
 		// pullToRefreshListView.setOnLastItemVisibleListener(this);
 		if (getCurrentState(savedInstanceState) == FIRST_TIME_START) {
@@ -183,9 +176,7 @@ public class ECardFListragment extends BaseFragment implements OnClickListener {
 		@Override
 		public void onSuccess(String result) {
 			mAdapter.notifyDataSetChanged();
-			listView.onDropDownComplete();
-			// pullToRefreshListView.onRefreshComplete();
-			listView.setSelection(0);
+			listView.onRefreshComplete();
 			// showListView(true);
 		}
 
@@ -193,8 +184,7 @@ public class ECardFListragment extends BaseFragment implements OnClickListener {
 		public void onFailure(String result, Throwable t, String strMsg) {
 			dao.getECardList().clear();
 			mAdapter.notifyDataSetChanged();
-			listView.onDropDownComplete();
-			// pullToRefreshListView.onRefreshComplete();
+			listView.onRefreshComplete();
 			// showListView(true);
 		}
 	};
@@ -281,5 +271,15 @@ public class ECardFListragment extends BaseFragment implements OnClickListener {
 		if (layout != null) {
 			layout.getForeground().setAlpha(0);
 		}
+	}
+
+	@Override
+	public boolean hasMoreResults() {
+		return dao.isNext();
+	}
+
+	@Override
+	public boolean hasError() {
+		return false;
 	}
 }

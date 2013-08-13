@@ -13,10 +13,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 
 import com.beanu.arad.base.BaseFragment;
-import com.beanu.arad.pulltorefresh.DropDownListView;
-import com.beanu.arad.pulltorefresh.DropDownListView.OnDropDownListener;
+import com.beanu.arad.pulltorefresh.PullToRefreshBase;
+import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnLastItemVisibleListener;
+import com.beanu.arad.pulltorefresh.PullToRefreshBase.OnRefreshListener;
+import com.beanu.arad.pulltorefresh.PullToRefreshListView;
 import com.xiaojiujiu.AppHolder;
 import com.xiaojiujiu.R;
 import com.xiaojiujiu.dao.CouponListDao;
@@ -47,7 +50,7 @@ public class CouponsListFragment extends BaseFragment implements OnClickListener
 		return fragment;
 	}
 
-	private DropDownListView listView;
+	private PullToRefreshListView listView;
 	private CouponListAdapter mAdapter;
 
 	private FrameLayout layout;
@@ -97,7 +100,7 @@ public class CouponsListFragment extends BaseFragment implements OnClickListener
 		layout.setForeground(getResources().getDrawable(R.drawable.popup_window_dim));
 		layout.getForeground().setAlpha(0);
 
-		listView = (DropDownListView) view.findViewById(R.id.coupon_listview);
+		listView = (PullToRefreshListView) view.findViewById(R.id.coupon_listview);
 
 		// 刷选
 		btn_shoptype = (Button) view.findViewById(R.id.selector_shoptype);
@@ -154,53 +157,51 @@ public class CouponsListFragment extends BaseFragment implements OnClickListener
 			}
 		});
 
-		listView.setOnDropDownListener(new OnDropDownListener() {
+		listView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
-			public void onDropDown() {
-
+			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
 				dao.pulltorefresh(new IDataListener<String>() {
 
 					@Override
 					public void onSuccess(String result) {
 						mAdapter.notifyDataSetChanged();
-						listView.onDropDownComplete();
-						listView.setSecondPositionVisible();
+						listView.onRefreshComplete();
 					}
 
 					@Override
 					public void onFailure(String result, Throwable t, String strMsg) {
-						listView.onDropDownComplete();
+						listView.onRefreshComplete();
 					}
 				});
-
 			}
 		});
 
-		listView.setOnBottomListener(new OnClickListener() {
+		listView.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
 
 			@Override
-			public void onClick(View v) {
-
+			public void onLastItemVisible() {
 				dao.nextPage(new IDataListener<String>() {
 
 					@Override
 					public void onSuccess(String result) {
 						mAdapter.notifyDataSetChanged();
-						listView.onBottomComplete();
-						listView.setHasMore(true);
+						// listView.onBottomComplete();
+						// listView.setHasMore(true);
 					}
 
 					@Override
 					public void onFailure(String result, Throwable t, String strMsg) {
-						listView.setHasMore(false);
-						listView.onBottomComplete();
+						// listView.setHasMore(false);
+						// listView.onBottomComplete();
 					}
 				});
 
 			}
 		});
-		listView.onDropDown();
+
+		// 开始手动loading
+		listView.setRefreshing(false);
 	}
 
 	@Override
@@ -231,20 +232,16 @@ public class CouponsListFragment extends BaseFragment implements OnClickListener
 		@Override
 		public void onSuccess(String result) {
 			mAdapter.notifyDataSetChanged();
-			listView.onDropDownComplete();
-			listView.setSecondPositionVisible();
-			// pullToRefreshListView.onRefreshComplete();
-			listView.setSelection(0);
-			// showListView(true);
+			listView.onRefreshComplete();
+
 		}
 
 		@Override
 		public void onFailure(String result, Throwable t, String strMsg) {
 			dao.getCouponList().clear();
 			mAdapter.notifyDataSetChanged();
-			listView.onDropDownComplete();
-			// pullToRefreshListView.onRefreshComplete();
-			// showListView(true);
+			listView.onRefreshComplete();
+//			showListView(true);
 		}
 	};
 

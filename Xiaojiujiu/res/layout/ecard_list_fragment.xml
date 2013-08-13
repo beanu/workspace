@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:listViewAttr="http://schemas.android.com/apk/res/com.xiaojiujiu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -10,16 +9,19 @@
     <FrameLayout
         android:id="@+id/ecard_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent" >
 
-        <com.beanu.arad.pulltorefresh.DropDownListView
+        <com.beanu.arad.pulltorefresh.PullToRefreshListView
             android:id="@+id/ecard_listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
             android:drawSelectorOnTop="false"
-            listViewAttr:isAutoLoadOnBottom="true"
-            listViewAttr:isDropDownStyle="true"
-            listViewAttr:isOnBottomStyle="true" />
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true" />
     </FrameLayout>
 
 </LinearLayout>
