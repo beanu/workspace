@@ -41,6 +41,10 @@ public class CouponListDao {
 	private static final String OP_DISTANCE = "searchByTypeAndDistance";
 	private boolean isNext = true;
 
+	public boolean isNext() {
+		return isNext;
+	}
+
 	public CouponListDao() {
 
 		param = new HashMap<String, String>();

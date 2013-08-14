@@ -25,7 +25,7 @@ import com.xiaojiujiu.ui.RightMenuFragment_;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.common.SearchActivity;
 import com.xiaojiujiu.ui.coupons.CouponsListFragment;
-import com.xiaojiujiu.ui.ecard.ECardFListragment;
+import com.xiaojiujiu.ui.ecard.ECardListFragment;
 import com.xiaojiujiu.ui.entitycard.AddEntityCardActivity;
 import com.xiaojiujiu.ui.share.ShareFragment_;
 import com.xiaojiujiu.ui.widget.dialog.CouponTypeDialogFragment.OnCouponTypeSelectedListener;
@@ -81,7 +81,7 @@ public class MainActivity extends SlidingFragmentActivity implements OnCouponTyp
 			// set the Content View
 			fragmentManager = new FragmentsManager(this, R.id.content_fragment);
 			fragmentManager.addFragment(Fragments.coupons.name(), CouponsListFragment.class, null);
-			fragmentManager.addFragment(Fragments.ecard.name(), ECardFListragment.class, null);
+			fragmentManager.addFragment(Fragments.ecard.name(), ECardListFragment.class, null);
 			fragmentManager.addFragment(Fragments.share.name(), ShareFragment_.class, null);
 
 			// fragmentManager.addFragment(Fragments.mycard.name(),

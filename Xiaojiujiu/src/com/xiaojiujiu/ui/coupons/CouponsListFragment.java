@@ -27,6 +27,7 @@ import com.xiaojiujiu.dao.IDataListener;
 import com.xiaojiujiu.entity.Category;
 import com.xiaojiujiu.ui.UIUtil;
 import com.xiaojiujiu.ui.adapter.CouponListAdapter;
+import com.xiaojiujiu.ui.adapter.IAdapter;
 import com.xiaojiujiu.ui.common.SelectorAreaWindow;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow;
 import com.xiaojiujiu.ui.common.SelectorShopTypeWindow.OnSelectedListener;
@@ -39,7 +40,7 @@ import com.xiaojiujiu.ui.widget.dialog.CouponTypeDialogFragment;
  * @author beanu
  * 
  */
-public class CouponsListFragment extends BaseFragment implements OnClickListener {
+public class CouponsListFragment extends BaseFragment implements OnClickListener, IAdapter {
 
 	public static CouponsListFragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
@@ -131,7 +132,7 @@ public class CouponsListFragment extends BaseFragment implements OnClickListener
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		mAdapter = new CouponListAdapter(getActivity(), dao.getCouponList(), CouponListAdapter.CouponList);
+		mAdapter = new CouponListAdapter(getActivity(), dao.getCouponList(), CouponListAdapter.CouponList, this);
 		listView.setAdapter(mAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -186,14 +187,11 @@ public class CouponsListFragment extends BaseFragment implements OnClickListener
 					@Override
 					public void onSuccess(String result) {
 						mAdapter.notifyDataSetChanged();
-						// listView.onBottomComplete();
-						// listView.setHasMore(true);
 					}
 
 					@Override
 					public void onFailure(String result, Throwable t, String strMsg) {
-						// listView.setHasMore(false);
-						// listView.onBottomComplete();
+						mAdapter.notifyDataSetChanged();
 					}
 				});
 
@@ -241,7 +239,7 @@ public class CouponsListFragment extends BaseFragment implements OnClickListener
 			dao.getCouponList().clear();
 			mAdapter.notifyDataSetChanged();
 			listView.onRefreshComplete();
-//			showListView(true);
+			// showListView(true);
 		}
 	};
 
@@ -336,5 +334,15 @@ public class CouponsListFragment extends BaseFragment implements OnClickListener
 		ft.commit();
 		CouponTypeDialogFragment dialog = CouponTypeDialogFragment.newInstance(couponTypeId);
 		dialog.show(fm, "dialog");
+	}
+
+	@Override
+	public boolean hasMoreResults() {
+		return dao.isNext();
+	}
+
+	@Override
+	public boolean hasError() {
+		return false;
 	}
 }

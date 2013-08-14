@@ -35,13 +35,13 @@ import com.xiaojiujiu.ui.common.SelectorSortWindow;
  * @author beanu
  * 
  */
-public class ECardFListragment extends BaseFragment implements OnClickListener, IAdapter {
+public class ECardListFragment extends BaseFragment implements OnClickListener, IAdapter {
 
-	public static ECardFListragment newInstance(String typeId, int position) {
+	public static ECardListFragment newInstance(String typeId, int position) {
 		// Bundle args = new Bundle();
 		// args.putString(TYPEID, typeId);
 		// args.putInt(POSITION, position);
-		ECardFListragment fragment = new ECardFListragment();
+		ECardListFragment fragment = new ECardListFragment();
 		// fragment.setArguments(args);
 		return fragment;
 	}

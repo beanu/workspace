@@ -60,7 +60,7 @@ public class CouponsListWithShopActivity extends MyActivity {
 		String shopId = getIntent().getStringExtra("id");
 		dao = new CouponListWithShopDao(shopId);
 
-		adapter = new CouponListAdapter(this, dao.getCouponList(), CouponListAdapter.CouponListWithShop);
+		adapter = new CouponListAdapter(this, dao.getCouponList(), CouponListAdapter.CouponListWithShop,null);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(new OnItemClickListener() {
 

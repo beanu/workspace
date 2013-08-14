@@ -35,7 +35,7 @@ public class MyCollectCoupons extends BaseListFragment {
 
 	@AfterViews
 	void init() {
-		adapter = new CouponListAdapter(getActivity(), data, CouponListAdapter.CouponList);
+		adapter = new CouponListAdapter(getActivity(), data, CouponListAdapter.CouponList,null);
 		setListAdapter(adapter);
 		getListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 

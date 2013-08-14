@@ -40,7 +40,7 @@ public class SearchActivity extends MyListActivity implements IDataListener<Stri
 		dao = new SearchDao();
 		dao.setKeyword(keyword);
 
-		adapter = new CouponListAdapter(this, dao.getData(), CouponListAdapter.CouponList);
+		adapter = new CouponListAdapter(this, dao.getData(), CouponListAdapter.CouponList,null);
 		setListAdapter(adapter);
 		if (dao.getData() == null)
 			dao.request(this);

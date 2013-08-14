@@ -26,7 +26,7 @@ public class ECardListDao {
 	private Map<String, String> param;
 
 	private List<ECardItem> mCouponList;
-	private final int PageSize = 5;
+	private final int PageSize = 10;
 
 	boolean isDistance = true;
 	private static final String OP = "searchByTypeAndDistrict";
